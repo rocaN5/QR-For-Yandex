@@ -82,3 +82,57 @@ function convertToImageAndPrint() {
             console.error('Произошла ошибка:', error);
         });
 }
+
+
+// !
+// !
+// !
+// Function to generate a random number between min and max
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+// Function to create a particle
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = random(2, 6);
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${random(0, window.innerWidth)}px`;
+    particle.style.top = '-10px';
+    particle.style.opacity = random(0.3, 1);
+    document.getElementById('particle-container').appendChild(particle);
+
+    // Animation to move the particle and change color
+    const animation = particle.animate([
+        { top: '-10px', backgroundColor: '#01c3fc' },
+        { top: '100vh', backgroundColor: '#9158ff' }
+    ], {
+        duration: random(4000, 12000),
+        easing: 'linear',
+        iterations: 1
+    });
+
+    // Remove the particle after animation ends or it goes out of screen
+    animation.onfinish = () => {
+        particle.remove();
+    };
+    animation.oncancel = () => {
+        particle.remove();
+    };
+}
+
+// Create particles periodically
+setInterval(createParticle, 100);
+
+// Remove particles that fall out of screen
+setInterval(() => {
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach(particle => {
+        const rect = particle.getBoundingClientRect();
+        if (rect.top > window.innerHeight) {
+            particle.remove();
+        }
+    });
+}, 500);
