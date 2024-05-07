@@ -1,1 +1,1 @@
-**Ссылка на сайт**  —  [GitHub Pages](https://pages.github.com/)
+**Ссылка на сайт**  —  [GitHub Pages](https://rocan5.github.io/QR-For-Yandex/)
