@@ -1,23 +1,172 @@
-* {
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .container {
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #000;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #000;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #000;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #000;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #000;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:    #000;
+}
+
+body>h1{
+    background: #fff;
+    width: fit-content;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    padding: 20px;
+    border-radius: 20px;
+    border: 6px double #000;
+    color: #000;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+}
+
+span.catImage{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-image: url("https://media.tenor.com/wGMzikyMbeEAAAAi/flower-for-you-cat.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid #000;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    margin-left: 20px;
+}
+
+body{
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: #2a2a2a;
+    margin: 0;
+    background-repeat: no-repeat;
+}
+
+div.container{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    align-items: center;
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%);
+    transition: 300ms;
+}
+input.order__input{
+    width: 200px;
+    height: 70px;
     text-align: center;
-    margin-top: 50px;
-  }
-  
-  #qrCode {
-    margin-top: 20px;
-  }
-  
-  input[type="text"], button {
-    margin-top: 10px;
-    padding: 5px;
-    font-size: 16px;
-  }
-  
-  button {
+    border-radius: 20px;
+    border: 3px solid;
+    font-weight: 800;
+    box-shadow: 0 10px 30px -10px #000, 0px 0px 5px 0px inset;
+    background: linear-gradient(0deg, #cbcbcb, #fff);
+}
+button.print__code, button.convert__to__image{
+    width: 200px;
+    height: 70px;
+    text-align: center;
+    border-radius: 20px;
+    border: 3px solid;
+    font-weight: 800;
+    box-shadow: 0px 0px 5px 0px inset;
+    background: linear-gradient(0deg, #01c3fc, #9158ff);
     cursor: pointer;
+    box-shadow: 0 10px 30px -10px #000, 0px 0px 5px 0px inset;
+}
+#qr-code {
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    min-height: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    background: #fff;
+}
+#qr-code p{
+    word-wrap: break-word;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+#image-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#image-container img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border: 3px double #000;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#qr-code #company-info{
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    padding: 0;
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+  #qr-code #company-info h1{
+      font-size: 1.5rem;
+      margin: 0;
   }
   
+  #qr-code #company-info span{
+      display: flex;
+      font-size: 1.5rem;
+      justify-content: center;
+      align-items: center;
+  }
+
+
+#image-container{
+    display: none;
+}
+  
+@media print {
+    body * {
+        display: none !important;
+    }
+    #image-container {
+        display: block !important;
+    }
+    img.test-img {
+        display: unset !important;
+        width: 90% !important;
+        height: 100% !important;
+        border: none !important;
+    }
+}
