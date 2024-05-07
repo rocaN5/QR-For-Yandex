@@ -1,0 +1,42 @@
+@media (max-width: 1500px) {
+  div.container {
+    width: 70dvw;
+  }
+}
+@media (max-width: 1240px) {
+  div.container {
+    width: 85dvw;
+  }
+}
+@media (max-width: 1000px) {
+  div.container {
+    width: 98dvw;
+  }
+}
+@media (max-width: 860px) {
+  div.container {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  #qr-code{
+    width: 100%;
+    order: 1;
+    margin-bottom: 25px;
+  }
+  input.order__input,
+  button.print__code{
+    order: 2;
+  }
+}
+@media (max-width: 590px) {
+  body>h1{
+    font-size: 5dvw;
+  }
+}
+
+@media (max-width: 470px) {
+  button.print__code{
+    display: none;
+  }
+}
