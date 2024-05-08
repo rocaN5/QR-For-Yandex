@@ -21,7 +21,7 @@
   div.container {
     width: 100%;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
   }
   #qr-code{
     width: 100%;
@@ -39,6 +39,12 @@
     background: linear-gradient(0deg, #a0fc01, #58ff9e) !important;
   }
 
+  button.clear__input:active,
+  button.print__code:active{
+    transform: scale(.8);
+    transition: transform 100ms ease-in-out;
+}
+
   button.print__code,
   button.clear__input{
     order: 2;
@@ -53,6 +59,9 @@
     margin: 0 20px;
   }
   
+  .gradientBg{
+    height: 110%;
+  }
 
   button.print__code>p{
     display: none;
@@ -62,10 +71,54 @@
   body>h1{
     font-size: 5dvw;
   }
+  
 }
+@media (max-width: 420px) {
+  input.order__input{
+    margin: unset;
+    width: 150px;
+  }
+  body>h1{
+    padding: 10px;
+  }
+  span.catImage{
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-width: 340px) {
 
-@media (max-width: 470px) {
-  button.print__code{
+  
+  body>h1{
+    font-size: 4dvw;
+  }
+
+  input.order__input{
+    width: 120px;
+    height: 52px;
+  }
+
+  button.print__code,
+  button.clear__input{
+    width: 50px;
+    height: 50px;
+  }
+  button.print__code>i,
+  button.clear__input>i{
+    font-size: 18px;
+  }
+}
+@media (max-width: 230px) {
+  button.print__code,
+  button.clear__input{
+    display: none;
+  }
+  div.container{
+    justify-content: center;
+    align-items: center;
+  }
+  
+  span.catImage{
     display: none;
   }
 }
