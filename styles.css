@@ -142,6 +142,7 @@ button.print__code, button.convert__to__image{
     margin-bottom: 20px;
     text-align: center;
     font-size: 1.5rem;
+    max-width: 16rem;
 }
 #image-container {
     margin-top: 20px;
