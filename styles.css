@@ -224,14 +224,38 @@ i.printIcon{
 @media print {
     body * {
         display: none !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: unset !important;
+        margin: unset !important;
     }
     #image-container {
         display: block !important;
+        margin: 0 !important;
+        padding: unset !important;
+        margin: unset !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
     img.test-img {
         display: unset !important;
-        width: 90% !important;
+        width: 100% !important;
         height: 100% !important;
         border: none !important;
+        padding: unset !important;
+        margin: unset !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .div.container{
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: unset !important;
+        margin: unset !important;
     }
 }
