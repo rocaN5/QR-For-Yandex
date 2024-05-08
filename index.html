@@ -29,14 +29,16 @@
         <span class="catImage"></span>
     </h1>
     <div class="container">
+        <button class="clear__input"><i class="fa-solid fa-trash"></i></button>
         <input class="order__input" id="qr-text" placeholder="Введите текст">
         <div id="qr-code">
             <p>Введите текст в поле ввода, чтобы сгенерировать QR-код.</p>
         </div>
-        <button class="print__code">Печать QR Code</button> <!-- Измененная кнопка -->
+        <button class="print__code"><p>Печать QR Code</p><i class="printIcon fa-solid fa-print"></i></button> <!-- Измененная кнопка -->
     </div>
     <div id="image-container"></div> <!-- Контейнер для отображения изображения -->
     <script src="app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://kit.fontawesome.com/ffceda30b6.js" crossorigin="anonymous"></script>
 </body>
 </html>

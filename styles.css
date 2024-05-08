@@ -110,7 +110,9 @@ input.order__input{
     box-shadow: 0 10px 30px -10px #000, 0px 0px 5px 0px inset;
     background: linear-gradient(0deg, #cbcbcb, #fff);
 }
-button.print__code, button.convert__to__image{
+button.print__code,
+button.convert__to__image,
+button.clear__input{
     width: 200px;
     height: 70px;
     text-align: center;
@@ -122,6 +124,35 @@ button.print__code, button.convert__to__image{
     cursor: pointer;
     box-shadow: 0 10px 30px -10px #000, 0px 0px 5px 0px inset;
 }
+
+button.clear__input{
+    display: none;
+    transition: transform 300ms ease-in-out;
+}
+
+.button.print__code{
+    transition: transform 100ms ease-in-out;
+}
+
+button.clear__input:hover,
+button.print__code:hover{
+    filter: brightness(1.2);
+    transform: scale(1.01);
+    transition: transform 300ms ease-in-out, filter 100ms ease-in-out;
+}
+
+button.clear__input:active,
+button.print__code:active{
+    transform: scale(.8);
+    transition: transform 100ms ease-in-out;
+}
+
+button.print__code>p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 #qr-code {
     margin-top: 20px;
     position: relative;
@@ -185,6 +216,10 @@ button.print__code, button.convert__to__image{
 #image-container{
     display: none;
 }
+
+i.printIcon{
+    display: none;
+  }
   
 @media print {
     body * {

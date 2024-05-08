@@ -18,6 +18,8 @@ function generateCodes() {
         return;
     }
 
+
+
     // Создание и добавление h1 "СЦ Воронеж" и span с датой и временем в один div
     var companyInfoDiv = document.createElement("div");
     companyInfoDiv.id = "company-info";
@@ -53,10 +55,6 @@ function getCurrentDateTime() {
            (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
-function printQRCode() {
-    window.print();
-}
-
 function convertToImageAndPrint() {
     var qrCodeDiv = document.getElementById("qr-code");
     var imageContainer = document.getElementById("image-container");
@@ -83,16 +81,13 @@ function convertToImageAndPrint() {
         });
 }
 
-
-// !
-// !
-// !
-// Function to generate a random number between min and max
+// ? Частицы
+// Функция создания случайного числа между min && max
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-// Function to create a particle
+// FСоздание частиц
 function createParticle() {
     const particle = document.createElement('div');
     particle.classList.add('particle');
@@ -104,7 +99,7 @@ function createParticle() {
     particle.style.opacity = random(0.3, 1);
     document.getElementById('particle-container').appendChild(particle);
 
-    // Animation to move the particle and change color
+    // Анимация движения и смены цвета
     const animation = particle.animate([
         { top: '-10px', backgroundColor: '#01c3fc' },
         { top: '100vh', backgroundColor: '#9158ff' }
@@ -114,7 +109,7 @@ function createParticle() {
         iterations: 1
     });
 
-    // Remove the particle after animation ends or it goes out of screen
+    // Убирает частицы после анимацмя или когда ушли за экран
     animation.onfinish = () => {
         particle.remove();
     };
@@ -123,10 +118,10 @@ function createParticle() {
     };
 }
 
-// Create particles periodically
+// Переодичность создания частиц
 setInterval(createParticle, 100);
 
-// Remove particles that fall out of screen
+// Убирает частицы за экраном
 setInterval(() => {
     const particles = document.querySelectorAll('.particle');
     particles.forEach(particle => {
@@ -136,3 +131,16 @@ setInterval(() => {
         }
     });
 }, 500);
+
+    // Кнопка очистки Input
+    const clearInputBtn = document.querySelector(".clear__input")
+    clearInputBtn.addEventListener("click", ()=>{
+        const qrInput = document.querySelector(".order__input")
+        var qrCodeDiv = document.getElementById("qr-code");
+        var messageElement = document.createElement("p");
+
+        qrCodeDiv.innerHTML = '';
+        qrInput.value = "";
+        messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+        qrCodeDiv.appendChild(messageElement);
+    });
