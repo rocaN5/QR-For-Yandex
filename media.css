@@ -43,6 +43,7 @@
   button.print__code:active{
     transform: scale(.8);
     transition: transform 100ms ease-in-out;
+    
 }
 
   button.print__code,
@@ -65,6 +66,13 @@
 
   button.print__code>p{
     display: none;
+  }
+
+  .inputUnderReset{
+    display: none;
+  }
+  .inputHolder{
+    order: 2;
   }
 }
 @media (max-width: 590px) {

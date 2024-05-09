@@ -132,15 +132,21 @@ setInterval(() => {
     });
 }, 500);
 
-    // Кнопка очистки Input
-    const clearInputBtn = document.querySelector(".clear__input")
-    clearInputBtn.addEventListener("click", ()=>{
-        const qrInput = document.querySelector(".order__input")
-        var qrCodeDiv = document.getElementById("qr-code");
-        var messageElement = document.createElement("p");
-
-        qrCodeDiv.innerHTML = '';
-        qrInput.value = "";
-        messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
-        qrCodeDiv.appendChild(messageElement);
-    });
+// Кнопка очистки Input
+const clearInputBtn = document.querySelector(".clear__input")
+const inputUnderReset = document.querySelector(".inputUnderReset")
+function clearInput(){
+    const qrInput = document.querySelector(".order__input")
+    var qrCodeDiv = document.getElementById("qr-code");
+    var messageElement = document.createElement("p");
+    qrCodeDiv.innerHTML = '';
+    qrInput.value = "";
+    messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+    qrCodeDiv.appendChild(messageElement);
+}
+inputUnderReset.addEventListener("click", ()=>{
+    clearInput()
+});
+clearInputBtn.addEventListener("click", ()=>{
+    clearInput()
+});
