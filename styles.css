@@ -43,20 +43,21 @@ body, html {
 /* ! */
 
 body>h1{
-    background: #fff;
+    background: #2c2c2c70;
     width: fit-content;
     left: 50%;
     position: relative;
     transform: translateX(-50%);
     padding: 20px;
     border-radius: 20px;
-    border: 6px double #000;
-    color: #000;
+    border: 6px double #fff;
+    color: #fff;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     font-family: "Roboto", sans-serif;
     font-style: normal;
     display: flex;
     align-items: center;
+    backdrop-filter: blur(4px);
 }
 
 .gradientBg{
@@ -70,12 +71,13 @@ span.catImage{
     width: 50px;
     height: 50px;
     position: relative;
+    background: #e1e1e1;
     background-image: url("https://media.tenor.com/wGMzikyMbeEAAAAi/flower-for-you-cat.gif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
-    border: 2px solid #000;
+    border: 2px solid #fff;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     margin-left: 20px;
 }
