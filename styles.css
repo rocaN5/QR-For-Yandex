@@ -294,3 +294,159 @@ i.printIcon{
     filter: unset !important;
     transition: unset !important;
 }
+
+.qrHistory{
+    backdrop-filter: blur(2px);
+    background: #3d3d3d4d;
+    z-index: 999;
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    transition: 300ms;
+    transform: translateX(-100%);
+    display: none;
+    box-shadow: 0px 0px 30px 10px #000;
+}
+
+.sectionDescription{
+    width: -webkit-fill-available;
+    background: #2c2c2c70;
+    position: relative;
+    padding: 20px 0px;
+    border-bottom: 4px solid #656565;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    text-align: center;
+    justify-content: center;
+}
+
+.historyToggleClose{
+    position: absolute;
+    right: 6px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 10px;
+    transition: 200ms;
+    border: 2px solid transparent;
+}
+
+.historyToggleOpen{
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border-radius: 10px;
+    transition: 200ms;
+    border: 2px solid transparent;
+    justify-content: center;
+    align-items: center;
+    background: #2c2c2c70;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    z-index: 998;
+}
+
+.historyToggleOpen>i{
+    color: #fff;
+    font-size: 18px;
+}
+
+.historyToggleOpen:hover,
+.historyToggleClose:hover{
+    backdrop-filter: brightness(.5);
+    transition: 200ms;
+    border: 2px solid #656565;
+}
+.historyToggleClose>i{
+    font-size: 26px;
+    color: #fff;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.historyList{
+    display: flex;
+    width: 100%;
+    height: 91%;
+    position: relative;
+    justify-content: start;
+    flex-flow: column;
+    align-items: center;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.historyList::-webkit-scrollbar-track {
+    background: #b1b1b177;
+}
+
+.historyList::-webkit-scrollbar-thumb {
+    background: #c9c9c9;
+    border-radius: 6px;
+    transition: 300ms;
+}
+.historyList::-webkit-scrollbar-thumb:hover{
+    background: #9d9d9d;
+}
+
+.historyList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.historyItem{
+    width: 50%;
+    border-radius: 10px;
+    /* border: 4px solid #62626275; */
+    border: 4px solid transparent;
+    padding: 20px;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.historyItem:hover{
+    border: 4px solid red;
+    transition: 200ms;
+}
+
+.historyItem>img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.historyItem:last-child{
+    margin-bottom: 30px;
+}
+button.historyToggleOpen::before{
+    content: attr(data-content);
+    display: none;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(225deg, #01c3fc, #9158ff);
+    z-index: 999;
+    padding: 5px;
+    margin: 0;
+    line-height: 11px;
+    font-size: 14px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    right: -25%;
+    top: 75%;
+    color: #fff;
+    pointer-events: none;
+    box-shadow: 0px 0px 10px 2px #202d9e;
+}

@@ -4,6 +4,7 @@ document.getElementById("qr-text").addEventListener("input", function() {
 
 document.querySelector(".print__code").addEventListener("click", function() {
     convertToImageAndPrint();
+updateToggleContent();
 });
 
 function generateCodes() {
@@ -56,8 +57,10 @@ function getCurrentDateTime() {
 }
 
 function convertToImageAndPrint() {
-    var qrCodeDiv = document.getElementById("qr-code");
-    var imageContainer = document.getElementById("image-container");
+    const qrCodeDiv = document.getElementById("qr-code");
+    const imageContainer = document.getElementById("image-container");
+    const historyList = document.querySelector(".historyList");
+
 
     // Удаляем все дочерние элементы из контейнера
     while (imageContainer.firstChild) {
@@ -66,15 +69,24 @@ function convertToImageAndPrint() {
 
     domtoimage.toPng(qrCodeDiv)
         .then(function (dataUrl) {
+            var imgHistory = new Image();
+            imgHistory.src = dataUrl;
+            imgHistory.classList.add('imgHistory');
+            const historyItem = document.createElement('div');
+            historyItem.classList.add('historyItem');
+            historyList.appendChild(historyItem);
+            historyItem.appendChild(imgHistory);
+        })
+    domtoimage.toPng(qrCodeDiv)
+        .then(function (dataUrl) {
             var img = new Image();
             img.src = dataUrl;
             img.classList.add('test-img');
             imageContainer.appendChild(img);
-
             // Ждем некоторое время перед вызовом печати
             setTimeout(function() {
                 window.print();
-            }, 200);
+            }, 50);
         })
         .catch(function (error) {
             console.error('Произошла ошибка:', error);
@@ -150,3 +162,25 @@ inputUnderReset.addEventListener("click", ()=>{
 clearInputBtn.addEventListener("click", ()=>{
     clearInput()
 });
+
+
+// * qrHistory
+const qrHistory = document.querySelector(".qrHistory")
+const historyToggleOpen = document.querySelector(".historyToggleOpen")
+const historyToggleClose = document.querySelector(".historyToggleClose")
+
+historyToggleOpen.addEventListener("click",()=>{
+    qrHistory.style.display = "block"
+    historyToggleOpen.style.display = "none"
+    setTimeout(()=>{
+        qrHistory.style.transform = "translateX(0)"
+    },1)
+})
+historyToggleClose.addEventListener("click",()=>{
+    qrHistory.style.transform = "translateX(-100%)"
+    setTimeout(()=>{
+        qrHistory.style.display = "none"
+        historyToggleOpen.style.display = "flex"
+    },300)
+})
+// !
