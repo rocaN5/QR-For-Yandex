@@ -4,7 +4,6 @@ document.getElementById("qr-text").addEventListener("input", function() {
 
 document.querySelector(".print__code").addEventListener("click", function() {
     convertToImageAndPrint();
-updateToggleContent();
 });
 
 function generateCodes() {
@@ -86,7 +85,7 @@ function convertToImageAndPrint() {
             // Ждем некоторое время перед вызовом печати
             setTimeout(function() {
                 window.print();
-            }, 50);
+            }, 200);
         })
         .catch(function (error) {
             console.error('Произошла ошибка:', error);
@@ -99,7 +98,7 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-// FСоздание частиц
+// !Создание частиц
 function createParticle() {
     const particle = document.createElement('div');
     particle.classList.add('particle');
@@ -183,4 +182,48 @@ historyToggleClose.addEventListener("click",()=>{
         historyToggleOpen.style.display = "flex"
     },300)
 })
-// !
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+document.addEventListener('DOMContentLoaded', function() {
+    // Функция для обновления счетчика в div с классом historyCounter
+    function updateCounter() {
+        var historyList = document.querySelector('.historyList');
+        var historyCounter = document.querySelector('.historyCounter');
+
+        // Получаем количество элементов в historyList
+        var itemCount = historyList ? historyList.children.length : 0;
+
+        // Если есть хотя бы один элемент, и его значение больше 1, показываем historyCounter
+        if (itemCount > 0) {
+            historyCounter.style.display = 'flex';
+            historyCounter.textContent = itemCount;
+        } else {
+            historyCounter.style.display = 'none';
+        }
+    }
+
+    // Вызываем функцию для обновления содержимого при загрузке страницы
+    updateCounter();
+
+    // Создаем новый экземпляр MutationObserver
+    var observer = new MutationObserver(function(mutationsList) {
+        // При каждой мутации вызываем функцию для обновления счетчика
+        updateCounter();
+    });
+
+    // Наблюдаем за изменениями в списке
+    var historyList = document.querySelector('.historyList');
+    if (historyList) {
+        observer.observe(historyList, { childList: true });
+    }
+
+    // Обработчик события для кнопки с классом print__code
+    var printCodeButton = document.querySelector('.print__code');
+    if (printCodeButton) {
+        printCodeButton.addEventListener('click', function() {
+            // Вызываем функцию для обновления содержимого при клике на кнопку
+            updateCounter();
+        });
+    }
+});
+

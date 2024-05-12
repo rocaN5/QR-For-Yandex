@@ -7,11 +7,15 @@
   div.container {
     width: 85dvw;
   }
+  .qrHistory{
+    width: 30%;
+  }
 }
 @media (max-width: 1000px) {
   div.container {
     width: 98dvw;
   }
+  
 }
 @media (max-width: 860px) {
   i.printIcon{
@@ -73,6 +77,10 @@
   }
   .inputHolder{
     order: 2;
+  }
+
+  .qrHistory{
+    width: 100%;
   }
 }
 @media (max-width: 590px) {

@@ -430,9 +430,9 @@ i.printIcon{
 .historyItem:last-child{
     margin-bottom: 30px;
 }
-button.historyToggleOpen::before{
-    content: attr(data-content);
-    display: none;
+
+.historyCounter{
+    display: block;
     position: absolute;
     width: 10px;
     height: 10px;
@@ -449,4 +449,6 @@ button.historyToggleOpen::before{
     color: #fff;
     pointer-events: none;
     box-shadow: 0px 0px 10px 2px #202d9e;
+    justify-content: center;
+    align-items: center;
 }
