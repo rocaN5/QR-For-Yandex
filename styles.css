@@ -20,6 +20,24 @@
    color:    #000;
 }
 
+*::-webkit-scrollbar-track {
+    background: #b1b1b177;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #c9c9c9;
+    border-radius: 6px;
+    transition: 300ms;
+}
+*::-webkit-scrollbar-thumb:hover{
+    background: #9d9d9d;
+}
+
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+
 /* ! */
 body, html {
     margin: 0;
@@ -296,8 +314,8 @@ i.printIcon{
 }
 
 .qrHistory{
-    backdrop-filter: blur(2px);
-    background: #3d3d3d4d;
+    /* backdrop-filter: blur(2px); */
+    background: radial-gradient(#3d3d3dd1, #00000069);
     z-index: 999;
     position: fixed;
     width: 20%;
@@ -389,36 +407,49 @@ i.printIcon{
     overflow-x: hidden;
 }
 
-.historyList::-webkit-scrollbar-track {
-    background: #b1b1b177;
-}
-
-.historyList::-webkit-scrollbar-thumb {
-    background: #c9c9c9;
-    border-radius: 6px;
-    transition: 300ms;
-}
-.historyList::-webkit-scrollbar-thumb:hover{
-    background: #9d9d9d;
-}
-
-.historyList::-webkit-scrollbar {
-    width: 4px;
-}
 
 .historyItem{
     width: 50%;
     border-radius: 10px;
-    /* border: 4px solid #62626275; */
+    border: 4px solid transparent;
     border: 4px solid transparent;
     padding: 20px;
     margin-top: 30px;
     cursor: pointer;
     transition: 200ms;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
 }
 
 .historyItem:hover{
-    border: 4px solid red;
+    border: 4px solid #01c3fc;
+    transition: 200ms;
+}
+
+.historyItem::before{
+    content: "Открыть QR";
+    display: flex;
+    position: absolute;
+    width: -webkit-fill-available;
+    height: 100%;
+    background: linear-gradient(180deg, #01c3fc00, #9158ff5c);
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 26px;
+    text-decoration: underline;
+    backdrop-filter: brightness(0.3);
+    opacity: 0;
+    transition: 200ms;
+    border-radius: 10px;
+}
+
+.historyItem:hover::before{
+    opacity: 1;
     transition: 200ms;
 }
 

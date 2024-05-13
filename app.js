@@ -226,4 +226,71 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
+// TODO 
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим родительский элемент, куда будем добавлять .historyItem
+    var historyList = document.querySelector('.historyList');
+  
+    // Функция для открытия картинки в новой странице
+    function openImageInNewPage(imageSrc) {
+      // Открываем новую страницу
+      var newWindow = window.open();
+      // Записываем в новую страницу HTML с картинкой и стилями
+      newWindow.document.write(`
+        <html>
+        <head>
+          <title>QR История — Diman v1.35</title>
+          <style>
+            body {
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: #323232;
+            }
+            img {
+              max-width: 120%;
+              max-height: 120%;
+              border-radius: 20px;
+            }
+          </style>
+          <link rel="icon" href="/iconTab.png" type="image/png">
+        </head>
+        <body>
+          <img src="${imageSrc}">
+        </body>
+        </html>
+      `);
+      // Закрываем запись в новой странице
+      newWindow.document.close();
+    }
+  
+    // Функция-обработчик для открытия картинки по клику на .historyItem
+    function openImageHandler(event) {
+      var imageSrc = this.querySelector('img').src;
+      openImageInNewPage(imageSrc);
+    }
+  
+    // Создаем новый экземпляр MutationObserver
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        // Проверяем, были ли добавлены новые элементы
+        if (mutation.addedNodes.length > 0) {
+          // Для каждого нового элемента проверяем, является ли он .historyItem
+          mutation.addedNodes.forEach(function(node) {
+            if (node.classList && node.classList.contains('historyItem')) {
+              // Если да, добавляем к нему слушатель событий
+              node.addEventListener('click', openImageHandler);
+            }
+          });
+        }
+      });
+    });
+  
+    // Начинаем наблюдение за mutations
+    observer.observe(historyList, { childList: true });
+  });
+  
+  

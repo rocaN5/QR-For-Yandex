@@ -62,6 +62,7 @@
 
   input.order__input{
     margin: 0 20px;
+    border-radius: 20px;
   }
   
   .gradientBg{
@@ -81,6 +82,9 @@
 
   .qrHistory{
     width: 100%;
+  }
+  .historyItem{
+    width: 25%;
   }
 }
 @media (max-width: 590px) {
