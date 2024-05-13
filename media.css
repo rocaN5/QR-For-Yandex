@@ -84,7 +84,7 @@
     width: 100%;
   }
   .historyItem{
-    width: 25%;
+    width: 50%;
   }
 }
 @media (max-width: 590px) {
@@ -126,6 +126,10 @@
   button.print__code>i,
   button.clear__input>i{
     font-size: 18px;
+  }
+
+  .historyItem::before{
+    font-size: 1.3rem;
   }
 }
 @media (max-width: 230px) {
