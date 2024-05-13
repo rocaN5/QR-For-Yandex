@@ -159,8 +159,9 @@ button.clear__input{
     transition: transform 300ms ease-in-out;
 }
 
-.button.print__code{
+button.print__code{
     transition: transform 100ms ease-in-out;
+    order: 2;
 }
 
 button.clear__input:hover,
@@ -182,6 +183,14 @@ button.print__code>p{
     align-items: center;
   }
 
+.qrContainer{
+    width: 400px;
+    order: 1;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
 #qr-code {
     margin-top: 20px;
     position: relative;
@@ -189,7 +198,7 @@ button.print__code>p{
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    width: 350px;
+    width: 100%;
     min-height: 400px;
     padding: 30px;
     border-radius: 20px;

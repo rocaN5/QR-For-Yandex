@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.35</title>
+          <title>QR История — Diman v1.35.2</title>
           <style>
             body {
               margin: 0;
