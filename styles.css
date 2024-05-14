@@ -327,7 +327,7 @@ i.printIcon{
 
 .qrHistory{
     /* backdrop-filter: blur(2px); */
-    background: radial-gradient(#3d3d3dd1, #00000069);
+    background: linear-gradient(0deg, #000000d9, transparent, #000000d9);
     z-index: 999;
     position: fixed;
     width: 20%;
@@ -336,6 +336,7 @@ i.printIcon{
     transform: translateX(-100%);
     display: none;
     box-shadow: 0px 0px 30px 10px #000;
+    backdrop-filter: saturate(0.1) brightness(.6);
 }
 
 .sectionDescription{
@@ -442,7 +443,7 @@ i.printIcon{
 }
 
 .historyItem::before{
-    content: "Открыть QR";
+    content: "Открыть QR\Aкод";
     display: flex;
     position: absolute;
     width: -webkit-fill-available;
@@ -453,11 +454,11 @@ i.printIcon{
     color: #fff;
     font-weight: 900;
     font-size: 26px;
-    text-decoration: underline;
     backdrop-filter: brightness(0.3);
     opacity: 0;
     transition: 200ms;
     border-radius: 10px;
+    text-align: center;
 }
 
 .historyItem:hover::before{
