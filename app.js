@@ -78,7 +78,7 @@ function convertToImageAndOpenInNewTab() {
             imgHistory.classList.remove('test-img');
             imgHistory.classList.add('imgHistory');
 
-            const historyItem = document.createElement('div');
+            const historyItem = document.createElement('button');
             historyItem.classList.add('historyItem');
             historyList.appendChild(historyItem);
             historyItem.appendChild(imgHistory);

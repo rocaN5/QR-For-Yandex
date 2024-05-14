@@ -437,9 +437,12 @@ i.printIcon{
     user-select: none;
 }
 
+.historyItem:focus-within,
 .historyItem:hover{
-    border: 4px solid #01c3fc;
+border: 4px solid #01c3fc;
     transition: 200ms;
+    outline: none;
+    box-shadow: none;
 }
 
 .historyItem::before{
@@ -453,14 +456,17 @@ i.printIcon{
     align-items: center;
     color: #fff;
     font-weight: 900;
-    font-size: 26px;
+    font-size: 17px;
     backdrop-filter: brightness(0.3);
     opacity: 0;
     transition: 200ms;
-    border-radius: 10px;
+    border-radius: 6px;
     text-align: center;
+    white-space: pre;
+    text-shadow: 0 0 20px #ab2db5;
 }
 
+.historyItem:focus-within::before,
 .historyItem:hover::before{
     opacity: 1;
     transition: 200ms;
