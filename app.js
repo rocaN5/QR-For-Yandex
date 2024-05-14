@@ -3,7 +3,7 @@ document.getElementById("qr-text").addEventListener("input", function() {
 });
 
 document.querySelector(".print__code").addEventListener("click", function() {
-    convertToImageAndPrint();
+    convertToImageAndOpenInNewTab();
 });
 
 function generateCodes() {
@@ -55,42 +55,75 @@ function getCurrentDateTime() {
            (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
-function convertToImageAndPrint() {
+function convertToImageAndOpenInNewTab() {
     const qrCodeDiv = document.getElementById("qr-code");
     const imageContainer = document.getElementById("image-container");
     const historyList = document.querySelector(".historyList");
-
 
     // Удаляем все дочерние элементы из контейнера
     while (imageContainer.firstChild) {
         imageContainer.removeChild(imageContainer.firstChild);
     }
 
-    domtoimage.toPng(qrCodeDiv)
-        .then(function (dataUrl) {
-            var imgHistory = new Image();
-            imgHistory.src = dataUrl;
-            imgHistory.classList.add('imgHistory');
-            const historyItem = document.createElement('div');
-            historyItem.classList.add('historyItem');
-            historyList.appendChild(historyItem);
-            historyItem.appendChild(imgHistory);
-        })
+    // Генерируем изображение и добавляем его в контейнер
     domtoimage.toPng(qrCodeDiv)
         .then(function (dataUrl) {
             var img = new Image();
             img.src = dataUrl;
             img.classList.add('test-img');
             imageContainer.appendChild(img);
-            // Ждем некоторое время перед вызовом печати
-            setTimeout(function() {
-                window.print();
-            }, 200);
+
+            // Клонируем изображение для истории
+            var imgHistory = img.cloneNode();
+            imgHistory.classList.remove('test-img');
+            imgHistory.classList.add('imgHistory');
+
+            const historyItem = document.createElement('div');
+            historyItem.classList.add('historyItem');
+            historyList.appendChild(historyItem);
+            historyItem.appendChild(imgHistory);
+
+            // Открываем изображение в новой вкладке
+            var newTab = window.open();
+            if (newTab) {
+                newTab.document.write(`
+                <html>
+                <head>
+                  <title>QR Печать — Diman v1.4</title>
+                  <style>
+                    body {
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                      background-color: #323232;
+                    }
+                    img {
+                      max-width: 120%;
+                      max-height: 120%;
+                      border-radius: 20px;
+                    }
+                  </style>
+                  <link rel="shortcut icon" href="/iconPrint.png">
+                </head>
+                <body>
+                  <img src="${dataUrl}">
+                </body>
+                </html>
+                `);
+            newTab.document.close();
+            } else {
+                console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
+            }
         })
         .catch(function (error) {
             console.error('Произошла ошибка:', error);
         });
 }
+
+
 
 // ? Частицы
 // Функция создания случайного числа между min && max
@@ -239,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.35.2</title>
+          <title>QR История — Diman v1.4</title>
           <style>
             body {
               margin: 0;
@@ -256,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
               border-radius: 20px;
             }
           </style>
-          <link rel="icon" href="/iconTab.png" type="image/png">
+          <link rel="shortcut icon" href="/iconTab.png">
         </head>
         <body>
           <img src="${imageSrc}">

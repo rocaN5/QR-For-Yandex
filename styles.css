@@ -216,15 +216,18 @@ button.print__code>p{
 #image-container {
     margin-top: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #image-container img {
     max-width: 100%;
     height: auto;
-    margin-top: 20px;
-    border: 3px double #000;
     border-radius: 20px;
-    padding: 20px;
+    z-index: 99999 !important;
+    position: relative;
+    display: flex;
 }
 
 #qr-code #company-info{
@@ -259,7 +262,7 @@ i.printIcon{
     display: none;
   }
   
-@media print {
+  @media print {
     body * {
         display: none !important;
         width: 100% !important;
