@@ -89,7 +89,7 @@ function convertToImageAndOpenInNewTab() {
                 newTab.document.write(`
                 <html>
                 <head>
-                  <title>QR Печать — Diman v1.4</title>
+                  <title>QR Печать — Diman v1.4.1</title>
                   <style>
                     body {
                       margin: 0;
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.4</title>
+          <title>QR История — Diman v1.4.1</title>
           <style>
             body {
               margin: 0;
