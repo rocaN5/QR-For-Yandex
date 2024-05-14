@@ -435,6 +435,7 @@ i.printIcon{
     justify-content: center;
     align-items: center;
     user-select: none;
+    background: transparent;
 }
 
 .historyItem:focus-within,
