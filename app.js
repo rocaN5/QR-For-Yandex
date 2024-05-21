@@ -90,8 +90,8 @@ function convertToImageAndOpenInNewTab() {
                 <html>
                 <head>
                   <title>QR Печать — Diman v1.4.1</title>
-                  <link rel="shortcut icon" href="/img/iconPrint.png">
-                  <link rel="shortcut icon" href="/img/iconPrint.ico" type="image/x-icon">
+                  <link rel="shortcut icon" href="img/iconPrint.png">
+                  <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
                   <style>
                     body {
                       margin: 0;
@@ -274,8 +274,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <html>
         <head>
           <title>QR История — Diman v1.4.1</title>
-          <link rel="shortcut icon" href="/img/iconTab.png">
-          <link rel="shortcut icon" href="/img/iconTab.ico" type="image/x-icon">
+          <link rel="shortcut icon" href="img/iconTab.png">
+          <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
           <style>
             body {
               margin: 0;
