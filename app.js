@@ -86,36 +86,39 @@ function convertToImageAndOpenInNewTab() {
             // Открываем изображение в новой вкладке
             var newTab = window.open();
             if (newTab) {
-                newTab.document.write(`
-                <html>
-                <head>
-                  <title>QR Печать — Diman v1.4.1</title>
-                  <link rel="shortcut icon" href="img/iconPrint.png">
-                  <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
-                  <style>
-                    body {
-                      margin: 0;
-                      padding: 0;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      height: 100vh;
-                      background-color: #323232;
-                    }
-                    img {
-                      max-width: 120%;
-                      max-height: 120%;
-                      border-radius: 20px;
-                    }
-                  </style>
-                </head>
-                <body>
-                  <img src="${dataUrl}">
-                </body>
-                </html>
-                `);
-            newTab.document.close();
-            } else {
+              newTab.document.write(`
+              <html>
+              <head>
+                <title>QR Печать — Diman v1.4.1</title>
+                <link rel="shortcut icon" href="img/iconPrint.png">
+                <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
+                <style>
+                  body {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #323232;
+                  }
+                  img {
+                    max-width: 120%;
+                    max-height: 120%;
+                    border-radius: 20px;
+                  }
+                </style>
+              </head>
+              <body>
+                <img src="${dataUrl}">
+              </body>
+              </html>
+              `);
+              newTab.document.close();
+              newTab.onload = function() {
+                  newTab.print();
+              };
+          } else {
                 console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
             }
         })
@@ -300,6 +303,9 @@ document.addEventListener('DOMContentLoaded', function() {
       `);
       // Закрываем запись в новой странице
       newWindow.document.close();
+      newWindow.onload = function() {
+          newTab.print();
+      };
     }
   
     // Функция-обработчик для открытия картинки по клику на .historyItem
