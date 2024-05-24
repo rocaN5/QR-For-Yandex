@@ -37,6 +37,15 @@
     width: 4px;
 }
 
+canvas{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background: linear-gradient(240deg, #01c3fc1f, #9158ff1f)
+}
 
 /* ! */
 body, html {
@@ -76,13 +85,6 @@ body>h1{
     display: flex;
     align-items: center;
     backdrop-filter: blur(4px);
-}
-
-.gradientBg{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(240deg, #01c3fc1f, #9158ff1f)
 }
 
 span.catImage{

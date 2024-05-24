@@ -89,7 +89,7 @@ function convertToImageAndOpenInNewTab() {
               newTab.document.write(`
               <html>
               <head>
-                <title>QR Печать — Diman v1.5</title>
+                <title>QR Печать — Diman v1.6</title>
                 <link rel="shortcut icon" href="img/iconPrint.png">
                 <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
                 <style>
@@ -100,17 +100,29 @@ function convertToImageAndOpenInNewTab() {
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
-                    background-color: #323232;
+                    background-color: #000000;
                   }
                   img {
                     max-width: 120%;
                     max-height: 120%;
                     border-radius: 20px;
+                    z-index: 9999;
                   }
+                  canvas{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    position: fixed;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    background: linear-gradient(0deg, #a1fb011f, #00ff951f)
+                }
                 </style>
               </head>
               <body>
+                  <canvas id="particle-canvas"></canvas>
                 <img src="${dataUrl}">
+                <script src="print.js"></script>
               </body>
               </html>
               `);
@@ -127,60 +139,103 @@ function convertToImageAndOpenInNewTab() {
         });
 }
 
+// TODO Частицы ✅
 
+// Настройка canvas
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// ? Частицы
-// Функция создания случайного числа между min && max
+// Слушатель изменения размера окна
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Функция создания случайного числа между min и max
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-// !Создание частиц
-function createParticle() {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    const size = random(2, 6);
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${random(0, window.innerWidth)}px`;
-    particle.style.top = '-10px';
-    particle.style.opacity = random(0.3, 1);
-    document.getElementById('particle-container').appendChild(particle);
+// Класс для частиц
+class Particle {
+    constructor() {
+        this.size = random(2, 6);
+        this.x = random(0, canvas.width);
+        this.y = -this.size;
+        this.opacity = random(0.3, 1);
+        this.speedY = random(1, 3);
+        this.color = '#01c3fc';
+        this.colorChange = '#9158ff';
+        this.duration = random(4000, 12000);
+        this.startTime = Date.now();
+    }
 
-    // Анимация движения и смены цвета
-    const animation = particle.animate([
-        { top: '-10px', backgroundColor: '#01c3fc' },
-        { top: '100vh', backgroundColor: '#9158ff' }
-    ], {
-        duration: random(4000, 12000),
-        easing: 'linear',
-        iterations: 1
+    update() {
+        const elapsed = Date.now() - this.startTime;
+        const progress = Math.min(elapsed / this.duration, 1);
+        this.y += this.speedY;
+        if (progress >= 1) {
+            this.y = canvas.height + this.size; // Удалить частицу
+        } else {
+            this.color = this.interpolateColor('#01c3fc', '#9158ff', progress);
+        }
+    }
+
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+
+    interpolateColor(color1, color2, factor) {
+        const c1 = this.hexToRgb(color1);
+        const c2 = this.hexToRgb(color2);
+        const r = Math.round(c1.r + factor * (c2.r - c1.r));
+        const g = Math.round(c1.g + factor * (c2.g - c1.g));
+        const b = Math.round(c1.b + factor * (c2.b - c1.b));
+        return `rgb(${r},${g},${b})`;
+    }
+
+    hexToRgb(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return { r, g, b };
+    }
+}
+
+// Массив частиц
+const particles = [];
+
+// Функция обновления анимации
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+        if (particle.y > canvas.height + particle.size) {
+            particles.splice(index, 1); // Удалить частицу
+        }
     });
-
-    // Убирает частицы после анимацмя или когда ушли за экран
-    animation.onfinish = () => {
-        particle.remove();
-    };
-    animation.oncancel = () => {
-        particle.remove();
-    };
+    requestAnimationFrame(animate);
 }
 
 // Переодичность создания частиц
-setInterval(createParticle, 100);
-
-// Убирает частицы за экраном
 setInterval(() => {
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach(particle => {
-        const rect = particle.getBoundingClientRect();
-        if (rect.top > window.innerHeight) {
-            particle.remove();
-        }
-    });
-}, 500);
+    particles.push(new Particle());
+}, 100);
 
-// Кнопка очистки Input
+// Начать анимацию
+animate();
+
+// TODO Кнопка очистки Input ✅
 const clearInputBtn = document.querySelector(".clear__input")
 const inputUnderReset = document.querySelector(".inputUnderReset")
 function clearInput(){
@@ -276,30 +331,42 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.5</title>
+          <title>QR История — Diman v1.6</title>
           <link rel="shortcut icon" href="img/iconTab.png">
           <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
           <style>
-            body {
-              margin: 0;
-              padding: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-              background-color: #323232;
-            }
-            img {
-              max-width: 120%;
-              max-height: 120%;
-              border-radius: 20px;
-            }
-          </style>
-        </head>
-        <body>
-          <img src="${imageSrc}">
-        </body>
-        </html>
+                  body {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #000000;
+                  }
+                  img {
+                    max-width: 120%;
+                    max-height: 120%;
+                    border-radius: 20px;
+                    z-index: 9999;
+                  }
+                  canvas{
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    position: fixed;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    background: linear-gradient(0deg, #ff00c51f, #ffa04f1f)
+                }
+                </style>
+              </head>
+              <body>
+                  <canvas id="particle-canvas"></canvas>
+                <img src="${imageSrc}">
+                <script src="history.js"></script>
+              </body>
+              </html>
       `);
       // Закрываем запись в новой странице
       newWindow.document.close();
