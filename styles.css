@@ -135,7 +135,8 @@ input.order__input{
     transition: background 300ms;
 }
 
-input.order__input:focus{
+input.order__input:focus,
+input.order__input:focus-visible{
     outline: none;
     background: linear-gradient(0deg, rgb(139 139 139), rgb(255 255 255));
     transition: background 300ms;
@@ -440,7 +441,7 @@ i.printIcon{
     background: transparent;
 }
 
-.historyItem:focus-within,
+.historyItem:focus-visible,
 .historyItem:hover{
 border: 4px solid #01c3fc;
     transition: 200ms;
@@ -469,7 +470,7 @@ border: 4px solid #01c3fc;
     text-shadow: 0 0 20px #ab2db5;
 }
 
-.historyItem:focus-within::before,
+.historyItem:focus-visible::before,
 .historyItem:hover::before{
     opacity: 1;
     transition: 200ms;
