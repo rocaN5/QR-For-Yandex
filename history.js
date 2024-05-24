@@ -1,3 +1,4 @@
+
 // TODO Частицы ✅
 
 // Настройка canvas
@@ -19,10 +20,10 @@ function random(min, max) {
 
 // Класс для частиц
 class Particle {
-    constructor() {
+    constructor(initial = false) {
         this.size = random(2, 6);
         this.x = random(0, canvas.width);
-        this.y = -this.size;
+        this.y = initial ? random(0, canvas.height) : -this.size;
         this.opacity = random(0.3, 1);
         this.speedY = random(1, 3);
         this.color = '#ff00c5';
@@ -73,6 +74,11 @@ class Particle {
 // Массив частиц
 const particles = [];
 
+// Создание частиц при загрузке страницы
+for (let i = 0; i < 100; i++) {
+    particles.push(new Particle(true));
+}
+
 // Функция обновления анимации
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -86,7 +92,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Переодичность создания частиц
+// Переодичность создания новых частиц
 setInterval(() => {
     particles.push(new Particle());
 }, 100);

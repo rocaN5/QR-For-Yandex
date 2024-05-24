@@ -89,7 +89,7 @@ function convertToImageAndOpenInNewTab() {
               newTab.document.write(`
               <html>
               <head>
-                <title>QR Печать — Diman v1.6</title>
+                <title>QR Печать — Diman v1.7</title>
                 <link rel="shortcut icon" href="img/iconPrint.png">
                 <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
                 <style>
@@ -160,10 +160,10 @@ function random(min, max) {
 
 // Класс для частиц
 class Particle {
-    constructor() {
+    constructor(initial = false) {
         this.size = random(2, 6);
         this.x = random(0, canvas.width);
-        this.y = -this.size;
+        this.y = initial ? random(0, canvas.height) : -this.size;
         this.opacity = random(0.3, 1);
         this.speedY = random(1, 3);
         this.color = '#01c3fc';
@@ -214,6 +214,11 @@ class Particle {
 // Массив частиц
 const particles = [];
 
+// Создание частиц при загрузке страницы
+for (let i = 0; i < 100; i++) {
+    particles.push(new Particle(true));
+}
+
 // Функция обновления анимации
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -227,13 +232,14 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Переодичность создания частиц
+// Переодичность создания новых частиц
 setInterval(() => {
     particles.push(new Particle());
 }, 100);
 
 // Начать анимацию
 animate();
+
 
 // TODO Кнопка очистки Input ✅
 const clearInputBtn = document.querySelector(".clear__input")
@@ -331,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.6</title>
+          <title>QR История — Diman v1.7</title>
           <link rel="shortcut icon" href="img/iconTab.png">
           <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
           <style>
