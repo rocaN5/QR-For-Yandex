@@ -37,6 +37,11 @@
     width: 4px;
 }
 
+::selection {
+    background: #6846bf;
+    color: #fff;
+}
+
 canvas{
     width: 100%;
     height: 100%;
@@ -92,7 +97,7 @@ span.catImage{
     height: 50px;
     background: #e1e1e1;
     position: relative;
-    background-image: url("https://media.tenor.com/wGMzikyMbeEAAAAi/flower-for-you-cat.gif");
+    background-image: url("https://i.pinimg.com/originals/02/30/1f/02301f1307b63b6440b2d704ca48599e.gif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -165,6 +170,7 @@ button.clear__input{
 button.print__code{
     transition: transform 100ms ease-in-out;
     order: 2;
+    user-select: none;
 }
 
 button.clear__input:hover,
@@ -184,6 +190,7 @@ button.print__code>p{
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
   }
 
 .qrContainer{
@@ -207,6 +214,11 @@ button.print__code>p{
     border-radius: 20px;
     background: #fff;
 }
+
+#qr-code img{
+    user-select: none;
+}
+
 #qr-code p{
     word-wrap: break-word;
     width: 100%;
@@ -215,6 +227,7 @@ button.print__code>p{
     text-align: center;
     font-size: 1.5rem;
     max-width: 20rem;
+    user-select: none;
 }
 #image-container {
     margin-top: 20px;
@@ -231,6 +244,7 @@ button.print__code>p{
     z-index: 99999 !important;
     position: relative;
     display: flex;
+    user-select: none;
 }
 
 #qr-code #company-info{
@@ -319,6 +333,7 @@ i.printIcon{
     background: linear-gradient(0deg, #a0fc01, #58ff9e) !important;
     border: 3px solid #000;
     cursor: pointer;
+    user-select: none;
 }
 .inputUnderReset:hover{
     filter: brightness(1.2);
@@ -398,7 +413,7 @@ i.printIcon{
 
 .historyToggleOpen:hover,
 .historyToggleClose:hover{
-    backdrop-filter: brightness(.5);
+    backdrop-filter: brightness(.5) blur(4px);
     transition: 200ms;
     border: 2px solid #656565;
 }
@@ -507,4 +522,5 @@ border: 4px solid #01c3fc;
     box-shadow: 0px 0px 10px 2px #202d9e;
     justify-content: center;
     align-items: center;
+    user-select: none;
 }

@@ -1,3 +1,5 @@
+const version = "v1.8"
+
 document.getElementById("qr-text").addEventListener("input", function() {
     generateCodes();
 });
@@ -67,77 +69,171 @@ function convertToImageAndOpenInNewTab() {
 
     // Генерируем изображение и добавляем его в контейнер
     domtoimage.toPng(qrCodeDiv)
-        .then(function (dataUrl) {
-            var img = new Image();
-            img.src = dataUrl;
-            img.classList.add('test-img');
-            imageContainer.appendChild(img);
+    .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+        img.classList.add('test-img');
+        imageContainer.appendChild(img);
 
-            // Клонируем изображение для истории
-            var imgHistory = img.cloneNode();
-            imgHistory.classList.remove('test-img');
-            imgHistory.classList.add('imgHistory');
+        // Клонируем изображение для истории
+        var imgHistory = img.cloneNode();
+        imgHistory.classList.remove('test-img');
+        imgHistory.classList.add('imgHistory');
 
-            const historyItem = document.createElement('button');
-            historyItem.classList.add('historyItem');
-            historyList.appendChild(historyItem);
-            historyItem.appendChild(imgHistory);
+        const historyItem = document.createElement('button');
+        historyItem.classList.add('historyItem');
+        historyList.appendChild(historyItem);
+        historyItem.appendChild(imgHistory);
 
-            // Открываем изображение в новой вкладке
-            var newTab = window.open();
-            if (newTab) {
-              newTab.document.write(`
-              <html>
-              <head>
-                <title>QR Печать — Diman v1.7</title>
-                <link rel="shortcut icon" href="img/iconPrint.png">
-                <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
-                <style>
-                  body {
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    background-color: #000000;
-                  }
-                  img {
-                    max-width: 120%;
-                    max-height: 120%;
-                    border-radius: 20px;
-                    z-index: 9999;
-                  }
-                  canvas{
-                    width: 100%;
-                    height: 100%;
-                    display: block;
-                    position: fixed;
-                    background-size: 100%;
-                    background-repeat: no-repeat;
-                    background: linear-gradient(0deg, #a1fb011f, #00ff951f)
+        // Открываем изображение в новой вкладке
+        var newTab = window.open();
+        if (newTab) {
+          newTab.document.write(`
+            <html>
+            <head>
+              <title>QR Печать — Diman ${version}</title>
+              <link rel="shortcut icon" href="img/iconPrint.png">
+              <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
+              <style>
+              
+                ::selection {
+                    background: #a1fb01;
+                    color: #fff;
                 }
-                </style>
-              </head>
-              <body>
-                  <canvas id="particle-canvas"></canvas>
-                <img src="${dataUrl}">
-                <script src="print.js"></script>
-              </body>
-              </html>
-              `);
-              newTab.document.close();
-              newTab.onload = function() {
-                  newTab.print();
-              };
-          } else {
-                console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
-            }
-        })
-        .catch(function (error) {
-            console.error('Произошла ошибка:', error);
-        });
-}
+                body {
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100vh;
+                  background-color: #000000;
+                  position: relative;
+                  flex-flow: column;
+                  gap: 30px;
+                }
+                img {
+                  max-width: 120%;
+                  max-height: 120%;
+                  border-radius: 20px;
+                  z-index: 9999;
+                  user-select: none;
+                }
+                canvas {
+                  width: 100%;
+                  height: 100%;
+                  display: block;
+                  position: fixed;
+                  background-size: 100%;
+                  background-repeat: no-repeat;
+                  background: linear-gradient(0deg, #a1fb011f, #00ff951f);
+                }
+                .closingInSec {
+                  position: relative;
+                  color: white;
+                  width: 30%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border: 7px double;
+                  border-radius: 20px;
+                  text-align: center;
+                  gap: 10px;
+                  height: 80px;
+                  background: #44444412;
+                  z-index: 9;
+                  backdrop-filter: blur(4px);
+                }
+                .closingInSec svg {
+                  display: flex;
+                  transform: rotate(-90deg);
+                }
+                .closingInSec p {
+                  font-size: 1.2rem;
+                  font-family: Roboto;
+                  font-weight: 500;
+                  color: #fff;
+                  margin: 0;
+                }
+                .closingInSec circle {
+                  transition: stroke-dashoffset 0.1s linear, stroke 0.1s linear;
+                }
+                @media print {
+                  body * {
+                    display: none !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    padding: unset !important;
+                    margin: unset !important;
+                  }
+                  img{
+                    display: unset !important;
+                    max-width: 120% !important;
+                    max-height: 120% !important;
+                    border-radius: 20px !important;
+                    z-index: 9999 !important;
+                    width: unset !important;
+                    height: unset !important;
+                  }
+                }
+              </style>
+            </head>
+            <body>
+              <div class="closingInSec">
+                <p>Страница закроется через <span id="countdown">3.0</span> секунд</p>
+                <svg width="30" height="30">
+                  <circle cx="15" cy="15" r="12" stroke-linecap="round" stroke="#a1fb01" stroke-width="4" fill="transparent" stroke-dasharray="75.36" stroke-dashoffset="0"></circle>
+                </svg>
+              </div>
+              <canvas id="particle-canvas"></canvas>
+              <img src="${dataUrl}">
+              <script>
+                let countdown = 2.0;
+                const span = document.getElementById('countdown');
+                const circle = document.querySelector('.closingInSec circle');
+                const totalLength = 2 * Math.PI * 12; // 2 * Pi * r
+                circle.style.strokeDasharray = totalLength;
+            
+                const endColor = { r: 161, g: 251, b: 1 };
+                const startColor = { r: 88, g: 255, b: 158 };
+            
+                const interpolateColor = (start, end, factor) => {
+                  const result = [start.r + factor * (end.r - start.r), start.g + factor * (end.g - start.g), start.b + factor * (end.b - start.b)];
+                  return \`rgb(\${Math.round(result[0])}, \${Math.round(result[1])}, \${Math.round(result[2])})\`;
+                };
+            
+                const interval = setInterval(() => {
+                  countdown -= 0.1;
+                  if (countdown <= 0) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                      window.close();
+                    }, 200);
+                  } else {
+                    span.textContent = countdown.toFixed(1);
+                    circle.style.strokeDashoffset = totalLength * (1 - countdown / 2);
+                    const factor = countdown / 2;
+                    const currentColor = interpolateColor(startColor, endColor, factor);
+                    circle.style.stroke = currentColor;
+                  }
+                }, 100);
+              </script>
+              <script src="print.js"></script>
+            </body>
+            </html>
+            `);
+            newTab.document.close();
+            newTab.onload = function() {
+                newTab.print();
+            };
+        } else {
+            console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
+        }
+    })
+    .catch(function (error) {
+        console.error('Произошла ошибка:', error);
+    });
+  }
 
 // TODO Частицы ✅
 
@@ -337,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
       newWindow.document.write(`
         <html>
         <head>
-          <title>QR История — Diman v1.7</title>
+          <title>QR История — Diman ${version}</title>
           <link rel="shortcut icon" href="img/iconTab.png">
           <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
           <style>
@@ -406,5 +502,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Начинаем наблюдение за mutations
     observer.observe(historyList, { childList: true });
   });
-  
   
