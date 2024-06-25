@@ -53,13 +53,35 @@
         <div class="changelogsectionList">
             <div class="changeLogItem">
                 <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.5
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-gears iconChange"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Кнопка "Печать Qr code"</p>
+                                <p class="itemDescriptionTextInfoSub">Изменение функционала кнопки,в предыдущих версиях кнопка печатала QR на домашней страницы, в последущих версиях кнопка открывает новую страницы about:blank</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="changeLogItem">
+                <button class="itemTitle">
                     <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.6
                 </button>
                 <ul class="itemDescription">
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-wrench iconFix"></i>
-                            <p>Отпмизация частиц<br>(fps падал из-за долго нахождения на странице)</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Отпмизация частиц</p>
+                                <p class="itemDescriptionTextInfoSub">Значительные просадки FPS из-за долго нахождения на странице. в предыдущих версиях каждая частица генерировалась в индевидуальном теге div, в последующих версиях используется тэг &lt;canvas&gt;</p>
+                            </div>
+                        </div>
+                        <div class="itemDescriptionDemo">
+                            <canvas id="particle-canvasDemo"></canvas>
                         </div>
                     </li>
                 </ul>
@@ -72,7 +94,10 @@
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-wrench iconFix"></i>
-                            <p>Исправление meta тэгов, улучшение кода, подготовка к переходу на .scss</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Исправление meta тэгов</p>
+                                <p class="itemDescriptionTextInfoSub">Улучшение стилей, изменение структуры DOM, подготовка к переходу с <i style="color: #2f7fff" class="fa-brands fa-css3"></i>.css на <i style="color: #cb6599"  class="fa-brands fa-sass"></i>.scss</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -85,13 +110,18 @@
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
-                            <p>Автоматическое закрытие окна печати</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Автоматическое закрытие окна печати</p>
+                                <p class="itemDescriptionTextInfoSub">После печати QR-кода открытая страница about:blank закрывается автоматически, через 2 секунды</p>
+                            </div>
                         </div>
                     </li>
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
-                            <p>Индекатор времени перед автоматическим закрытием окна печати</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Индекатор времени перед автоматическим закрытием окна печати</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -104,7 +134,10 @@
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
-                            <p>Добавлена кнопка вызова контекстного меню Changelog</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Кнопка Changelog</p>
+                                <p class="itemDescriptionTextInfoSub">Добавлена новая кнопка меню, при нажатии на кнопку открывается котекстное меню Changelog</p>
+                            </div>
                         </div>
                         <div class="itemDescriptionDemo">
                             <button class="changelogToggleOpenDemo">
@@ -115,7 +148,22 @@
                     <li>
                         <div class="itemDescriptionTitle">
                             <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
-                            <p>Контекстное меню Changelog с записью придыдущих обновлений</p>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Контекстное меню Changelog</p>
+                                <p class="itemDescriptionTextInfoSub">Контекстное меню, которое содержит историю обновлений Веб страницы</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Кнопка "Удалить пробелы"</p>
+                                <p class="itemDescriptionTextInfoSub">При нажатии на кнопку удаляет все лишние пробелы из поля ввода текста для генерации QR-кода"</p>
+                            </div>
+                        </div>
+                        <div class="itemDescriptionDemo">
+                            <button class="inputUpperResetSpacesDemo">Удалить пробелы</button>
                         </div>
                     </li>
                 </ul>

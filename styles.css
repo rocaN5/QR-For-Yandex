@@ -335,18 +335,21 @@ i.printIcon{
     user-select: none;
 }
 .inputUnderReset:hover,
-.inputUpperResetSpaces:hover{
+.inputUpperResetSpaces:hover,
+.inputUpperResetSpacesDemo:hover{
     filter: brightness(1.2);
     transition: transform 300ms ease-in-out, filter 100ms ease-in-out;
 }
 
 .inputUnderReset:active,
-.inputUpperResetSpaces:active{
+.inputUpperResetSpaces:active,
+.inputUpperResetSpacesDemo:active{
     filter: unset !important;
     transition: unset !important;
 }
 
-.inputUpperResetSpaces{
+.inputUpperResetSpaces,
+.inputUpperResetSpacesDemo{
     display: block;
     width: 100%;
     height: 30px;
@@ -609,6 +612,7 @@ border: 4px solid #01c3fc;
     border: none;
     font-size: 16px;
     border-bottom: 2px solid #444444;
+    user-select: none;
 }
 
 .changeLogItem>button.itemTitle>i{
@@ -630,13 +634,13 @@ ul.itemDescription{
 ul.itemDescription li{
     color: #fff;
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     padding: 20px;
     background: #373737;
     border: 1px solid #414141;
     flex-flow: column;
-    gap: 20px
+    gap: 20px;
 }
 
 .changeLogItem{
@@ -644,16 +648,106 @@ ul.itemDescription li{
 }
 
 
-ul.itemDescription li .itemDescriptionTitle p{
+ul.itemDescription li .itemDescriptionTitle .itemDescriptionText p{
     margin: 0;
 }
 
-ul.itemDescription li .itemDescriptionTitle i.iconUpdate{
+.itemDescriptionTitle i.iconUpdate{
+    position: relative;
     color: #8cff8c;
+    transition: 150ms;
+    cursor: help;
 }
 
-ul.itemDescription li .itemDescriptionTitle i.iconFix{
+.itemDescriptionTitle i.iconUpdate::after{
+    content: 'Обновления';
+    position: absolute;
+    color: #fff;
+    padding: 10px;
+    background: #00000094;
+    border-radius: 20px;
+    font-size: 12px;
+    top: -50%;
+    backdrop-filter: blur(2px);
+    border: 1px solid #656565;
+    transform: translateY(0%);
+    white-space: pre;
+    font-family: 'Roboto';
+    box-shadow: 0px 0px 10px 2px #000;
+    left: 150%;
+    transition: 200ms;
+    opacity: 0;
+    transform: translateX(-20%);
+    pointer-events: none;
+}
+
+.itemDescriptionTitle i.iconFix{
+    position: relative;
     color: #ffee60;
+    transition: 150ms;
+    cursor: help;
+}
+
+.itemDescriptionTitle i.iconFix::after{
+    content: 'Исправления';
+    position: absolute;
+    color: #fff;
+    padding: 10px;
+    background: #00000094;
+    border-radius: 20px;
+    font-size: 12px;
+    top: -50%;
+    backdrop-filter: blur(2px);
+    border: 1px solid #656565;
+    transform: translateY(0%);
+    white-space: pre;
+    font-family: 'Roboto';
+    box-shadow: 0px 0px 10px 2px #000;
+    left: 150%;
+    transition: 200ms;
+    opacity: 0;
+    transform: translateX(-20%);
+    pointer-events: none;
+}
+
+.itemDescriptionTitle i.iconChange{
+    position: relative;
+    color: #ff6060;
+    transition: 200ms;
+    cursor: help;
+}
+
+.itemDescriptionTitle>i:hover{
+    color: #fff;
+    transition: 200ms;
+}
+
+.itemDescriptionTitle i.iconChange::after{
+    content: 'Переработка функционала';
+    position: absolute;
+    color: #fff;
+    padding: 10px;
+    background: #00000094;
+    border-radius: 20px;
+    font-size: 12px;
+    top: -50%;
+    backdrop-filter: blur(2px);
+    border: 1px solid #656565;
+    transform: translateY(0%);
+    white-space: pre;
+    font-family: 'Roboto';
+    box-shadow: 0px 0px 10px 2px #000;
+    left: 150%;
+    transition: 200ms;
+    opacity: 0;
+    transform: translateX(-20%);
+    pointer-events: none;
+}
+
+.itemDescriptionTitle>i:hover::after{
+    transition: 200ms;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .changeLogItem.open ul.itemDescription{
@@ -661,6 +755,13 @@ ul.itemDescription li .itemDescriptionTitle i.iconFix{
 }
 .changeLogItem.open .itemTitle>i{
     transform: rotate(180deg);
+}
+
+.itemDescriptionTextInfoSub{
+    font-size: 12px;
+    color: #acacac;
+    margin-top: 6px;
+    font-style: italic;
 }
 
 .itemDescriptionTitle{
@@ -681,5 +782,37 @@ ul.itemDescription li .itemDescriptionTitle i.iconFix{
     border: 1px solid;
     border-radius: 20px;
     background: linear-gradient(180deg, #7c7c7cbd, #dbdbdbbd);
-    transition: 300ms;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    overflow: hidden;
+    box-shadow: 0px 16px 10px -10px #000;
+    padding-top: 40px;
+}
+
+.itemDescriptionDemo::before{
+    content: 'Предварительный просмтр:';
+    display: flex;
+    position: absolute;
+    z-index: 99999999;
+    background: #232323;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    top: 0;
+    font-size: 10px;
+    color: #ffffff;
+    box-shadow: 0px 6px 30px 0px #000;
+    font-style: italic;
+}
+
+#particle-canvasDemo{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    background: linear-gradient(355deg, #00000085, #0000001f);
+    border-radius: 10px;
+    border: 1px solid #ffffff29;
+    box-shadow: 0px 0px 8px 0px #000 inset;
 }
