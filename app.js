@@ -1,4 +1,4 @@
-const version = "v1.8"
+const version = "v1.9"
 
 document.getElementById("qr-text").addEventListener("input", function() {
     generateCodes();
