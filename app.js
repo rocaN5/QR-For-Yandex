@@ -356,26 +356,93 @@ clearInputBtn.addEventListener("click", ()=>{
     clearInput()
 });
 
+// TODO Кнопка очщения Input от лишних пробелов ✅
+
+const inputUpperResetSpaces = document.querySelector(".inputUpperResetSpaces");
+
+function clearSpaces(){
+  const qrInput = document.querySelector(".order__input");
+  let inputValue = qrInput.value;
+  inputValue = inputValue.replace(/\s+/g, ''); // Удаление всех пробелов
+  qrInput.value = inputValue;
+  generateCodes()
+}
+
+inputUpperResetSpaces.addEventListener("click", ()=>{
+  clearSpaces();
+});
+
+
 
 // * qrHistory
 const qrHistory = document.querySelector(".qrHistory")
+const changelogHistory = document.querySelector(".changelogHistory")
 const historyToggleOpen = document.querySelector(".historyToggleOpen")
 const historyToggleClose = document.querySelector(".historyToggleClose")
+const changelogToggleOpen = document.querySelector(".changelogToggleOpen")
+const changelogToggleClose = document.querySelector(".changelogToggleClose")
 
-historyToggleOpen.addEventListener("click",()=>{
-    qrHistory.style.display = "block"
-    historyToggleOpen.style.display = "none"
-    setTimeout(()=>{
-        qrHistory.style.transform = "translateX(0)"
-    },1)
+function openQrHistory(){
+  qrHistory.style.display = "block"
+  historyToggleOpen.style.display = "none"
+  setTimeout(()=>{
+      qrHistory.style.transform = "translateX(0)"
+  },1)
+}
+
+function closeQrHistry(){
+  qrHistory.style.transform = "translateX(-100%)"
+  setTimeout(()=>{
+      qrHistory.style.display = "none"
+      historyToggleOpen.style.display = "flex"
+      changelogToggleOpen.style.display = "flex"
+  },300)
+}
+
+function openChangeLog(){
+  changelogHistory.style.display = "block"
+  changelogToggleOpen.style.display = "none"
+  setTimeout(()=>{
+      changelogHistory.style.transform = "translateX(0)"
+  },1)
+}
+
+function closeChangeLog(){
+  changelogHistory.style.transform = "translateX(-100%)"
+  setTimeout(()=>{
+      changelogHistory.style.display = "none"
+      changelogToggleOpen.style.display = "flex"
+      historyToggleOpen.style.display = "flex"
+  },300)
+}
+
+historyToggleOpen.addEventListener("click", ()=>{
+  openQrHistory()
+  changelogToggleOpen.style.display = "none"
 })
+
 historyToggleClose.addEventListener("click",()=>{
-    qrHistory.style.transform = "translateX(-100%)"
-    setTimeout(()=>{
-        qrHistory.style.display = "none"
-        historyToggleOpen.style.display = "flex"
-    },300)
+  closeQrHistry();
 })
+
+changelogToggleOpen.addEventListener("click",()=>{
+  openChangeLog();
+  historyToggleOpen.style.display = "none"
+})
+changelogToggleClose.addEventListener("click", ()=>{
+  closeChangeLog();
+  setTimeout(() => {
+    document.querySelectorAll('.changeLogItem').forEach(item => {
+      item.classList.remove('open');
+    });
+  }, 300);
+})
+
+document.querySelectorAll('.itemTitle').forEach(item => {
+  item.addEventListener('click', function() {
+      this.closest('.changeLogItem').classList.toggle('open');
+  });
+});
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 document.addEventListener('DOMContentLoaded', function() {

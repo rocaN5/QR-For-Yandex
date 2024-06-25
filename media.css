@@ -7,7 +7,8 @@
   div.container {
     width: 85dvw;
   }
-  .qrHistory{
+  .qrHistory,
+  .changelogHistory{
     width: 30%;
   }
 }
@@ -76,14 +77,16 @@
     display: none;
   }
 
-  .inputUnderReset{
+  .inputUnderReset,
+  .inputUpperResetSpaces{
     display: none;
   }
   .inputHolder{
     order: 2;
   }
 
-  .qrHistory{
+  .qrHistory,
+  .changelogHistory{
     width: 100%;
   }
   .historyItem{

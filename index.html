@@ -24,6 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <button class="historyToggleOpen">
         <i class="fa-solid fa-clock-rotate-left fa-shake"></i>
         <div class="historyCounter"></div>
@@ -37,6 +38,90 @@
         </div>
         <div class="historyList" data-content=""></div>
     </div>
+    
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <button class="changelogToggleOpen">
+        <i class="fa-solid fa-code-compare"></i>
+    </button>
+    <div class="changelogHistory">
+        <div class="changelogsectionDescription">
+            Changelog
+            <button class="changelogToggleClose">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="changelogsectionList">
+            <div class="changeLogItem">
+                <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.6
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-wrench iconFix"></i>
+                            <p>Отпмизация частиц<br>(fps падал из-за долго нахождения на странице)</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="changeLogItem">
+                <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.7
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-wrench iconFix"></i>
+                            <p>Исправление meta тэгов, улучшение кода, подготовка к переходу на .scss</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="changeLogItem">
+                <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.8
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <p>Автоматическое закрытие окна печати</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <p>Индекатор времени перед автоматическим закрытием окна печати</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="changeLogItem">
+                <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.9
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <p>Добавлена кнопка вызова контекстного меню Changelog</p>
+                        </div>
+                        <div class="itemDescriptionDemo">
+                            <button class="changelogToggleOpenDemo">
+                                <i class="fa-solid fa-code-compare"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <p>Контекстное меню Changelog с записью придыдущих обновлений</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <canvas id="particle-canvas"></canvas>
     <h1>QR Генератор от Димана v1.8
@@ -46,12 +131,13 @@
         <button class="clear__input"><i class="fa-solid fa-trash"></i></button>
         
         <div class="inputHolder">
+            <button class="inputUpperResetSpaces">Удалить пробелы</button>
             <input class="order__input" id="qr-text" placeholder="Введите текст">
             <button class="inputUnderReset">Очистить</i></button>
         </div>
         <div class="qrContainer">
             <div id="qr-code">
-                <p>Введите текст в поле ввода, чтобы сгенерировать<br>QR код.</p>
+                <p>Введите текст в поле ввода, чтобы сгенерировать QR-код.</p>
             </div>
         </div>
         <button class="print__code"><p>Печать QR Code</p><i class="printIcon fa-solid fa-print"></i></button> <!-- Измененная кнопка -->
