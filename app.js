@@ -567,3 +567,22 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(historyList, { childList: true });
   });
   
+
+  const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
+  const coolDownIndicator = document.querySelector('.coolDownIndicator')
+
+  qrTypeSwitch.addEventListener('click', function(){
+    const coolDown = 1000;
+    this.classList.toggle('qrTypeSwitch__clicked')
+    this.setAttribute('disabled', true)
+    coolDownIndicator.style.background = "linear-gradient(0deg, #fff, #6c6c6c)"
+    coolDownIndicator.style.height = "0"
+    coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
+    setTimeout(() => {
+      this.removeAttribute('disabled', false)
+      coolDownIndicator.style.background = "transparent"
+      coolDownIndicator.style.height = "100%"
+      coolDownIndicator.style.transition = "unset"
+    }, coolDown);
+  })
+  

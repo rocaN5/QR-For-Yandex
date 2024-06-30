@@ -422,11 +422,46 @@ i.printIcon{
 }
 
 
+.historyToggleClose,
+.changelogToggleClose{
+    position: absolute;
+    right: 6px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 10px;
+    transition: 200ms;
+    border: 2px solid transparent;
+}
+
+nav.menu{
+    position: fixed;
+    flex-flow: column;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    z-index: 99999;
+}
+
+nav.menu>button{
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
+i.menuDevider{
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 40%;
+    border: 1px solid #000;
+    display: none !important;  /*        !       Убрать  */
+}
+
 .historyToggleOpen,
 .historyToggleOpenDemo{
-    position: fixed;
-    left: 10px;
-    top: 10px;
+    position: relative;
     width: 50px;
     height: 50px;
     display: flex;
@@ -439,12 +474,6 @@ i.printIcon{
     backdrop-filter: blur(4px);
     cursor: pointer;
     z-index: 998;
-}
-
-.historyToggleOpenDemo{
-    position: relative;
-    left: unset;
-    top: unset;
 }
 
 .historyToggleOpen>i,
@@ -460,7 +489,8 @@ i.printIcon{
 .historyToggleClose:hover,
 .changelogToggleOpen:hover,
 .changelogToggleOpenDemo:hover,
-.changelogToggleClose:hover{
+.changelogToggleClose:hover,
+.qrTypeSwitch:hover{
     backdrop-filter: brightness(.5) blur(4px);
     transition: 200ms;
     border: 2px solid #656565;
@@ -483,10 +513,9 @@ i.printIcon{
 }
 
 .changelogToggleOpen,
-.changelogToggleOpenDemo{
-    position: fixed;
-    left: 10px;
-    top: 70px;
+.changelogToggleOpenDemo,
+.qrTypeSwitch{
+    position: relative;
     width: 50px;
     height: 50px;
     display: flex;
@@ -499,6 +528,75 @@ i.printIcon{
     backdrop-filter: blur(4px);
     cursor: pointer;
     z-index: 998;
+}
+
+.qrTypeSwitch{
+    transition: 200ms;
+    background-image: url("img/buttonQrSwitch.svg");
+    background-position: center;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    display: none !important; /*        !       Убрать  */
+}
+.qrTypeSwitch>.coolDownIndicator{
+    position: absolute;
+    display: block;
+    width: 4px;
+    height: 100%;
+    background: transparent;
+    /* background: linear-gradient(0deg, #fff, #6c6c6c); */
+    border-radius: 10px;
+    z-index: -1;
+    right: -12px;
+    bottom: 0;
+    transition: unset;
+}
+
+.qrTypeSwitch::before{
+    content: 'New';
+    font-family: 'Roboto';
+    color: #fff;
+    background: linear-gradient(90deg, red, #ff9b00);
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    font-weight: 600;
+    position: relative;
+    top: 105%;
+    pointer-events: none;
+    box-shadow: 0px 0px 10px 0px red;
+    animation: rainbowFlash 2s linear infinite;
+}
+
+@keyframes rainbowFlash{
+    from{
+        filter: hue-rotate(0deg);
+    }
+    to{
+        filter: hue-rotate(-360deg);
+    }
+}
+
+.qrTypeSwitch::after{
+    content: '';
+    position: absolute;
+    top: 108%;
+    --size: 4px;
+    border: var(--size) solid transparent;
+    border-bottom: var(--size) solid #fff;
+    pointer-events: none;
+}
+
+.qrTypeSwitch__clicked{
+    transition: 200ms;
+    background-image: url("img/buttonQrSwitchDark.svg");
+    background-color: #fff;
+}
+.qrTypeSwitch__clicked:hover{
+    transition: 200ms;
+    border: 2px solid #292929;
+    background-color: #d7d7d7;
 }
 
 .changelogToggleOpenDemo{
