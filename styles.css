@@ -456,7 +456,7 @@ i.menuDevider{
     background: #ffffff;
     border-radius: 40%;
     border: 1px solid #000;
-    display: none !important;  /*        !       Убрать  */
+    /*! display: none !important;         !       Убрать  */
 }
 
 .historyToggleOpen,
@@ -536,7 +536,7 @@ i.menuDevider{
     background-position: center;
     background-size: 55%;
     background-repeat: no-repeat;
-    display: none !important; /*        !       Убрать  */
+    /*! display: none !important;        !       Убрать  */
 }
 .qrTypeSwitch>.coolDownIndicator{
     position: absolute;

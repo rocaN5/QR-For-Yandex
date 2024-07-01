@@ -237,7 +237,6 @@ function convertToImageAndOpenInNewTab() {
 
 // TODO Частицы ✅
 
-
 function createParticleCanvas(canvasId, sizeRange) {
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
@@ -378,10 +377,20 @@ const historyToggleOpen = document.querySelector(".historyToggleOpen")
 const historyToggleClose = document.querySelector(".historyToggleClose")
 const changelogToggleOpen = document.querySelector(".changelogToggleOpen")
 const changelogToggleClose = document.querySelector(".changelogToggleClose")
+const menu = document.querySelector(".menu")
+let menuState = false;
+
+function toggleMenu(){
+  if(!menuOpen == true){
+    menu.style.display = "flex"
+  } else{
+    menu.style.display = "none"
+  }
+}
 
 function openQrHistory(){
   qrHistory.style.display = "block"
-  historyToggleOpen.style.display = "none"
+  toggleMenu()
   setTimeout(()=>{
       qrHistory.style.transform = "translateX(0)"
   },1)
@@ -391,14 +400,13 @@ function closeQrHistry(){
   qrHistory.style.transform = "translateX(-100%)"
   setTimeout(()=>{
       qrHistory.style.display = "none"
-      historyToggleOpen.style.display = "flex"
-      changelogToggleOpen.style.display = "flex"
+      toggleMenu()
   },300)
 }
 
 function openChangeLog(){
   changelogHistory.style.display = "block"
-  changelogToggleOpen.style.display = "none"
+  toggleMenu()
   setTimeout(()=>{
       changelogHistory.style.transform = "translateX(0)"
   },1)
@@ -408,26 +416,29 @@ function closeChangeLog(){
   changelogHistory.style.transform = "translateX(-100%)"
   setTimeout(()=>{
       changelogHistory.style.display = "none"
-      changelogToggleOpen.style.display = "flex"
-      historyToggleOpen.style.display = "flex"
+      toggleMenu()
   },300)
 }
 
 historyToggleOpen.addEventListener("click", ()=>{
+  menuOpen = true;
   openQrHistory()
-  changelogToggleOpen.style.display = "none"
+  toggleMenu()
 })
 
 historyToggleClose.addEventListener("click",()=>{
   closeQrHistry();
+  menuOpen = false;
 })
 
 changelogToggleOpen.addEventListener("click",()=>{
+  menuOpen = true;
   openChangeLog();
-  historyToggleOpen.style.display = "none"
+  toggleMenu()
 })
 changelogToggleClose.addEventListener("click", ()=>{
   closeChangeLog();
+  menuOpen = false;
   setTimeout(() => {
     document.querySelectorAll('.changeLogItem').forEach(item => {
       item.classList.remove('open');
@@ -583,6 +594,6 @@ document.addEventListener('DOMContentLoaded', function() {
       coolDownIndicator.style.background = "transparent"
       coolDownIndicator.style.height = "100%"
       coolDownIndicator.style.transition = "unset"
-    }, coolDown);
+    }, coolDown + 200);
   })
   
