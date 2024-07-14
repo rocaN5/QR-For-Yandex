@@ -1,33 +1,33 @@
-@media (max-width: 1500px) {
+/*~ @media (max-width: 1500px) {
   div.container {
     width: 70dvw;
   }
-}
+} */
 @media (max-width: 1240px) {
-  div.container {
+  /*~ div.container {
     width: 85dvw;
-  }
+  } */
   .qrHistory,
   .changelogHistory{
     width: 30%;
   }
 }
-@media (max-width: 1000px) {
+/*~ @media (max-width: 1000px) {
   div.container {
     width: 98dvw;
   }
   
-}
+} */
 @media (max-width: 860px) {
   i.printIcon{
     display: block !important;
   }
 
-  div.container {
+  /*~ div.container {
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
+  } */
   .qrContainer{
     width: 100%;
     order: 1;

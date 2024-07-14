@@ -1,0 +1,43 @@
+nav.contacts{
+    position: fixed;
+    flex-flow: column;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    z-index: 99999;
+    right: 0;
+    a{
+        box-shadow: 0px 0px 10px 0px #000;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        border-radius: 10px;
+        transition: 200ms;
+        border: 2px solid transparent;
+        justify-content: center;
+        align-items: center;
+        background: #2c2c2c70;
+        backdrop-filter: blur(4px);
+        cursor: pointer;
+        z-index: 998;
+        text-decoration: none;
+        &:hover{
+            backdrop-filter: brightness(.5) blur(4px);
+            transition: 200ms;
+            border: 2px solid #656565;
+        }
+        i{
+            color: #fff;
+            font-size: 18px;
+            &.developer{
+                background-size: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url(/img/iRock.svg);
+                width: 80%;
+                height: 100%;
+            }
+        }
+    }
+}

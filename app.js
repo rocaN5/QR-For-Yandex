@@ -1,7 +1,16 @@
-const version = "v1.9"
+const version = "v1.10pre"
+let spanHistoryItemCounter = 0;
 
 document.getElementById("qr-text").addEventListener("input", function() {
     generateCodes();
+    const getQrImgContainer = document.querySelector(".qrImgContainer")
+    const getQrLoader = document.querySelector(".qrLoader")
+    if(getQrImgContainer){
+      getQrLoader.style.display = 'flex';
+    }else if(!getQrImgContainer){
+      getQrLoader.style.display = 'none';
+    }
+    clearSpaces();
 });
 
 document.querySelector(".print__code").addEventListener("click", function() {
@@ -9,16 +18,30 @@ document.querySelector(".print__code").addEventListener("click", function() {
 });
 
 function generateCodes() {
-    var qrText = document.getElementById("qr-text").value;
-    var qrCodeDiv = document.getElementById("qr-code");
-    qrCodeDiv.innerHTML = "";
+  var qrText = document.getElementById("qr-text").value;
+  var qrCodeDiv = document.getElementById("qr-code");
+  qrCodeDiv.innerHTML = "";
 
-    if (qrText.trim() === "") {
-        var messageElement = document.createElement("p");
-        messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
-        qrCodeDiv.appendChild(messageElement);
-        return;
-    }
+  if (qrText.trim() === "") {
+    var messageElement = document.createElement("p");
+    messageElement.classList.add("qrCodeDefaultText");
+    messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+    qrCodeDiv.appendChild(messageElement);
+
+    // Генерация случайного числа от 1 до 5
+    var randomNumber = Math.floor(Math.random() * 50) + 1;
+
+    // Добавление стиля через JavaScript
+    var style = document.createElement('style');
+    style.innerHTML = `
+      .qrCodeDefaultText::after {
+        background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
+      }
+    `;
+    document.head.appendChild(style);
+
+    return;
+  }
 
 
 
@@ -29,7 +52,7 @@ function generateCodes() {
     companyName.textContent = "СЦ Воронеж";
     var dateTime = document.createElement("span");
     dateTime.id = "datetime";
-    dateTime.textContent = getCurrentDateTime();
+    dateTime.innerHTML = getCurrentDateTime();
     companyInfoDiv.appendChild(companyName);
     companyInfoDiv.appendChild(dateTime);
     qrCodeDiv.appendChild(companyInfoDiv);
@@ -38,25 +61,54 @@ function generateCodes() {
     var qrCode = document.createElement("img");
     qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
     qrCode.alt = "QR Code";
-    qrCodeDiv.appendChild(qrCode);
+
+    // var qrLoader = document.createElement("div");
+    // qrLoader.classList.add('qrLoader');
+    // qrCodeDiv.appendChild(qrLoader);
+
+    var qrImgContainer = document.createElement("div");
+    qrImgContainer.classList.add('qrImgContainer');
+    qrCodeDiv.appendChild(qrImgContainer);
+    qrImgContainer.appendChild(qrCode);
+
 
     var qrTextElement = document.createElement("p");
     qrTextElement.textContent = qrText;
     qrCodeDiv.appendChild(qrTextElement);
+
+    if(inputDamagedChecked == true){
+      var qrTextDamaged = document.createElement("p");
+      qrTextDamaged.classList.add("orderDamaged")
+
+      qrTextDamaged.innerHTML = `<i></i>Повреждённый заказ<i></i>`;
+      qrCodeDiv.appendChild(qrTextDamaged);
+    }else{
+      const orderDamaged = document.querySelector('.orderDamaged')
+      if(orderDamaged){
+        orderDamaged.remove()
+      }
+    }
+
 }
 
 function getCurrentDateTime() {
-    var currentDate = new Date();
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
-    var year = currentDate.getFullYear();
-    var hours = currentDate.getHours();
-    var minutes = currentDate.getMinutes();
-    var seconds = currentDate.getSeconds();
-    return (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year + ' ' +
-           (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  var currentDate = new Date();
+  var day = currentDate.getDate();
+  var month = currentDate.getMonth() + 1;
+  var year = currentDate.getFullYear();
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  let clockIcon = `<i class="dateTImeIcon dateTimeClock"></i>`;
+  let dateIcon = `<i class="dateTImeIcon dateTimeCalendar"></i>`;
+  return dateIcon + ' ' +
+         (day < 10 ? '0' : '') + day + '.' + 
+         (month < 10 ? '0' : '') + month + '.' + year + ' ' + 
+         clockIcon + ' ' +
+         (hours < 10 ? '0' : '') + hours + ':' + 
+         (minutes < 10 ? '0' : '') + minutes + ':' + 
+         (seconds < 10 ? '0' : '') + seconds;
 }
-
 function convertToImageAndOpenInNewTab() {
     const qrCodeDiv = document.getElementById("qr-code");
     const imageContainer = document.getElementById("image-container");
@@ -70,20 +122,35 @@ function convertToImageAndOpenInNewTab() {
     // Генерируем изображение и добавляем его в контейнер
     domtoimage.toPng(qrCodeDiv)
     .then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        img.classList.add('test-img');
-        imageContainer.appendChild(img);
+      var img = new Image();
+    img.src = dataUrl;
+    img.classList.add('test-img');
+    imageContainer.appendChild(img);
 
-        // Клонируем изображение для истории
-        var imgHistory = img.cloneNode();
-        imgHistory.classList.remove('test-img');
-        imgHistory.classList.add('imgHistory');
+    // Клонируем изображение для истории
+    var imgHistory = img.cloneNode();
+    imgHistory.classList.remove('test-img');
+    imgHistory.classList.add('imgHistory');
 
-        const historyItem = document.createElement('button');
-        historyItem.classList.add('historyItem');
-        historyList.appendChild(historyItem);
-        historyItem.appendChild(imgHistory);
+    // Создаем новый элемент historyItemHolder
+    const historyItemHolder = document.createElement('div');
+    historyItemHolder.classList.add('historyItemHolder');
+    historyList.appendChild(historyItemHolder);
+
+    // Увеличиваем счетчик и используем его для historyItemCounter
+    spanHistoryItemCounter += 1;
+
+    // Создаем span для порядкового номера и добавляем его в historyItemHolder
+    const historyItemCounter = document.createElement('span');
+    historyItemCounter.classList.add('historyItemCounter');
+    historyItemCounter.textContent = spanHistoryItemCounter;
+    historyItemHolder.appendChild(historyItemCounter);
+
+    // Создаем кнопку historyItem и добавляем в неё imgHistory
+    const historyItem = document.createElement('button');
+    historyItem.classList.add('historyItem');
+    historyItemHolder.appendChild(historyItem);
+    historyItem.appendChild(imgHistory);
 
         // Открываем изображение в новой вкладке
         var newTab = window.open();
@@ -94,8 +161,11 @@ function convertToImageAndOpenInNewTab() {
               <title>QR Печать — Diman ${version}</title>
               <link rel="shortcut icon" href="img/iconPrint.png">
               <link rel="shortcut icon" href="img/iconPrint.ico" type="image/x-icon">
+              <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
               <style>
-              
+              body, html{
+              font-family: "Roboto", sans-serif;
+              }
                 ::selection {
                     background: #a1fb01;
                     color: #fff;
@@ -270,7 +340,7 @@ function createParticleCanvas(canvasId, sizeRange) {
           const progress = Math.min(elapsed / this.duration, 1);
           this.y += this.speedY;
           if (progress >= 1) {
-              this.y = canvas.height + this.size; // Удалить частицу
+              this.y = canvas.height + this.size; // Установим значение за пределами canvas
           } else {
               this.color = this.interpolateColor('#01c3fc', '#9158ff', progress);
           }
@@ -299,26 +369,36 @@ function createParticleCanvas(canvasId, sizeRange) {
           const bigint = parseInt(hex.slice(1), 16);
           const r = (bigint >> 16) & 255;
           const g = (bigint >> 8) & 255;
-          const b = bigint & 255;
+          const b = (bigint & 255);
           return { r, g, b };
       }
   }
 
-  const particles = [];
+  let particles = [];
 
-  for (let i = 0; i < 100; i++) {
-      particles.push(new Particle(true));
+  function resetParticles() {
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+          particles.push(new Particle(true));
+      }
   }
 
   function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((particle, index) => {
+      for (let i = particles.length - 1; i >= 0; i--) {
+          const particle = particles[i];
           particle.update();
           particle.draw();
           if (particle.y > canvas.height + particle.size) {
-              particles.splice(index, 1);
+              particles.splice(i, 1); // Удаление частицы
           }
-      });
+      }
+
+      // Проверяем количество частиц и перезапускаем анимацию при необходимости
+      if (particles.length > 300) {
+          resetParticles();
+      }
+
       requestAnimationFrame(animate);
   }
 
@@ -326,49 +406,140 @@ function createParticleCanvas(canvasId, sizeRange) {
       particles.push(new Particle());
   }, 100);
 
+  resetParticles();
   animate();
 }
 
 createParticleCanvas('particle-canvas', { min: 2, max: 6 });
 createParticleCanvas('particle-canvasDemo', { min: 10, max: 15 });
 
+// TODO случайая гифка котяры :D ✅
+document.addEventListener("DOMContentLoaded", function() {
+  // Генерация случайного числа от 1 до 5
+  var randomNumber = Math.floor(Math.random() * 50) + 1;
 
-// TODO Кнопка очистки Input ✅
-const clearInputBtn = document.querySelector(".clear__input")
-const inputUnderReset = document.querySelector(".inputUnderReset")
-function clearInput(){
-    const qrInput = document.querySelector(".order__input")
-    var qrCodeDiv = document.getElementById("qr-code");
-    var messageElement = document.createElement("p");
-    qrCodeDiv.innerHTML = '';
-    qrInput.value = "";
-    messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
-    qrCodeDiv.appendChild(messageElement);
-}
-inputUnderReset.addEventListener("click", ()=>{
-    clearInput()
+  // Добавление стиля через JavaScript
+  var style = document.createElement('style');
+  style.innerHTML = `
+    .qrCodeDefaultText::after {
+      background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
+    }
+  `;
+  document.head.appendChild(style);
 });
-clearInputBtn.addEventListener("click", ()=>{
-    clearInput()
+
+// TODO Кнопка очищения input ✅
+
+      
+function resetInput() {
+  var qrCodeDiv = document.getElementById("qr-code");
+  var messageElement = document.createElement("p");
+  qrCodeDiv.innerHTML = '';
+  messageElement.classList.add("qrCodeDefaultText");
+  messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+  qrCodeDiv.appendChild(messageElement);
+
+  const getQrLoader = document.querySelector('.qrLoader');
+  getQrLoader.style.display = 'none';
+
+  // Генерация случайного числа от 1 до 7
+  var randomNumber = Math.floor(Math.random() * 50) + 1;
+
+  // Добавление стиля через JavaScript
+  var style = document.createElement('style');
+  style.innerHTML = `
+    .qrCodeDefaultText::after {
+      background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const containers = document.querySelectorAll('.inputContainer');
+
+  containers.forEach(container => {
+      const deleteDiv = container.querySelector('.deleteInput');
+      const inputField = container.querySelector('.dataInput');
+
+      function deleteFromImage(){
+          if(inputField.classList.contains('orderNumber')){
+              resetInput()
+          } else if(inputField.classList.contains('orderExtraNumber')){
+              resetInput()
+          } else{
+              console.log("eror ❌")
+          }
+      }
+      
+      deleteDiv.addEventListener('click', () => {
+          inputField.value = '';
+          deleteFromImage();
+      });
+  });
 });
 
 // TODO Кнопка очщения Input от лишних пробелов ✅
 
-const inputUpperResetSpaces = document.querySelector(".inputUpperResetSpaces");
+const checkboxes = document.querySelectorAll(".toggleAutoTrim");
+let inputChecked = true;
 
-function clearSpaces(){
-  const qrInput = document.querySelector(".order__input");
-  let inputValue = qrInput.value;
-  inputValue = inputValue.replace(/\s+/g, ''); // Удаление всех пробелов
-  qrInput.value = inputValue;
-  generateCodes()
+// Функция для переключения состояния всех чекбоксов
+function toggleCheckboxes() {
+  inputChecked = !inputChecked;
+
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = inputChecked;
+  });
+
+  // Если все чекбоксы становятся checked, очищаем пробелы сразу
+  if (inputChecked) {
+    clearSpaces();
+  }
 }
 
-inputUpperResetSpaces.addEventListener("click", ()=>{
-  clearSpaces();
+// Функция для удаления пробелов из текстовых input полей
+function clearSpaces() {
+  if (inputChecked) {
+    const qrInputs = document.querySelectorAll(".dataInput");
+    qrInputs.forEach(input => {
+      input.value = input.value.replace(/\s+/g, '');
+      generateCodes();
+      // generateCodes() // Раскомментируйте, если необходимо
+    });
+  }
+}
+
+const dataInputs = document.querySelectorAll(".dataInput");
+dataInputs.forEach(input => {
+  input.addEventListener("input", function() {
+    clearSpaces();
+  });
 });
 
+// Добавляем обработчик события на каждый чекбокс для переключения состояния
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("click", toggleCheckboxes);
+});
 
+// TODO Кнопка Повреждённый заказ ✅
+
+const checkboxesDamaged = document.querySelectorAll(".toggleDamageTitile");
+let inputDamagedChecked = false;
+
+// Функция для переключения состояния всех чекбоксов
+function toggleCheckboxesDamaged() {
+  inputDamagedChecked = !inputDamagedChecked;
+  generateCodes()
+  checkboxesDamaged.forEach(checkbox => {
+    checkbox.checked = inputDamagedChecked;
+  });
+}
+// Добавляем обработчик события на каждый чекбокс для переключения состояния
+checkboxesDamaged.forEach(checkbox => {
+  checkbox.addEventListener("click", toggleCheckboxesDamaged);
+});
 
 // * qrHistory
 const qrHistory = document.querySelector(".qrHistory")
@@ -497,103 +668,277 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 // TODO 
 document.addEventListener('DOMContentLoaded', function() {
-    // Находим родительский элемент, куда будем добавлять .historyItem
-    var historyList = document.querySelector('.historyList');
+  // Находим родительский элемент, куда будем добавлять .historyItem
+  var historyList = document.querySelector('.historyList');
   
-    // Функция для открытия картинки в новой странице
-    function openImageInNewPage(imageSrc) {
-      // Открываем новую страницу
-      var newWindow = window.open();
-      // Записываем в новую страницу HTML с картинкой и стилями
-      newWindow.document.write(`
-        <html>
-        <head>
-          <title>QR История — Diman ${version}</title>
-          <link rel="shortcut icon" href="img/iconTab.png">
-          <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
-          <style>
-                  body {
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    background-color: #000000;
-                  }
-                  img {
-                    max-width: 120%;
-                    max-height: 120%;
-                    border-radius: 20px;
-                    z-index: 9999;
-                  }
-                  canvas{
-                    width: 100%;
-                    height: 100%;
-                    display: block;
-                    position: fixed;
-                    background-size: 100%;
-                    background-repeat: no-repeat;
-                    background: linear-gradient(0deg, #ff00c51f, #ffa04f1f)
-                }
-                </style>
-              </head>
-              <body>
-                  <canvas id="particle-canvas"></canvas>
-                <img src="${imageSrc}">
-                <script src="history.js"></script>
-              </body>
-              </html>
-      `);
-      // Закрываем запись в новой странице
-      newWindow.document.close();
-      newWindow.onload = function() {
-          newTab.print();
-      };
-    }
+  // Определяем версию (если не определена)
+  var version = version || '1.0';
   
-    // Функция-обработчик для открытия картинки по клику на .historyItem
-    function openImageHandler(event) {
-      var imageSrc = this.querySelector('img').src;
-      openImageInNewPage(imageSrc);
-    }
+  // Функция для открытия картинки в новой странице
+  function openImageInNewPage(imageSrc) {
+    // Открываем новую страницу
+    var newWindow = window.open();
+    // Записываем в новую страницу HTML с картинкой и стилями
+    newWindow.document.write(`
+      <html>
+      <head>
+        <title>QR История — Diman ${version}</title>
+        <link rel="shortcut icon" href="img/iconTab.png">
+        <link rel="shortcut icon" href="img/iconTab.ico" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+          body, html {
+            font-family: "Roboto", sans-serif;
+          }
+          body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+          }
+          img {
+            max-width: 120%;
+            max-height: 120%;
+            border-radius: 20px;
+            z-index: 9999;
+          }
+          canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: fixed;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background: linear-gradient(0deg, #ff00c51f, #ffa04f1f);
+          }
+        </style>
+      </head>
+      <body>
+        <canvas id="particle-canvas"></canvas>
+        <img src="${imageSrc}">
+        <script src="history.js"></script>
+      </body>
+      </html>
+    `);
+    // Закрываем запись в новой странице
+    newWindow.document.close();
+  }
   
-    // Создаем новый экземпляр MutationObserver
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        // Проверяем, были ли добавлены новые элементы
-        if (mutation.addedNodes.length > 0) {
-          // Для каждого нового элемента проверяем, является ли он .historyItem
-          mutation.addedNodes.forEach(function(node) {
-            if (node.classList && node.classList.contains('historyItem')) {
-              // Если да, добавляем к нему слушатель событий
-              node.addEventListener('click', openImageHandler);
-            }
-          });
-        }
-      });
+  // Обработчик клика по элементу .historyItem
+  function openImageHandler(event) {
+    var imageSrc = this.querySelector('img').src;
+    openImageInNewPage(imageSrc);
+  }
+  
+  // Создаем новый экземпляр MutationObserver
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      // Проверяем, были ли добавлены новые элементы
+      if (mutation.addedNodes.length > 0) {
+        // Для каждого нового элемента проверяем, является ли он .historyItem
+        mutation.addedNodes.forEach(function(node) {
+          if (node.classList && node.classList.contains('historyItem')) {
+            // Если да, добавляем к нему слушатель событий
+            node.addEventListener('click', openImageHandler);
+          }
+        });
+      }
     });
-  
-    // Начинаем наблюдение за mutations
-    observer.observe(historyList, { childList: true });
   });
   
+  // Запуск наблюдения за изменениями в DOM-дереве
+  var config = { childList: true, subtree: true };
+  observer.observe(document.body, config);
+  // Начинаем наблюдение за mutations
+  observer.observe(historyList, { childList: true });
+});
 
-  const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
-  const coolDownIndicator = document.querySelector('.coolDownIndicator')
 
-  qrTypeSwitch.addEventListener('click', function(){
-    const coolDown = 1000;
-    this.classList.toggle('qrTypeSwitch__clicked')
-    this.setAttribute('disabled', true)
-    coolDownIndicator.style.background = "linear-gradient(0deg, #fff, #6c6c6c)"
-    coolDownIndicator.style.height = "0"
-    coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
-    setTimeout(() => {
-      this.removeAttribute('disabled', false)
-      coolDownIndicator.style.background = "transparent"
-      coolDownIndicator.style.height = "100%"
-      coolDownIndicator.style.transition = "unset"
-    }, coolDown + 200);
-  })
-  
+// TODO: Переключение между режимами QR-Кодов ✅
+
+const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
+const qrTypeSwitchDemo = document.querySelector('.qrTypeSwitchDemo')
+const coolDownIndicator = document.querySelector('.coolDownIndicator')
+const coolDownIndicatorDemo = document.querySelector('.coolDownIndicatorDemo')
+      
+qrTypeSwitch.addEventListener('click', function qrSwitch(){
+  const coolDown = 1000;
+  this.classList.toggle('qrTypeSwitch__clicked')
+  this.setAttribute('disabled', true)
+  coolDownIndicator.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
+  coolDownIndicator.style.height = "0"
+  coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
+  setTimeout(() => {
+    this.removeAttribute('disabled', false)
+    coolDownIndicator.style.background = "transparent"
+    coolDownIndicator.style.height = "100%"
+    coolDownIndicator.style.transition = "unset"
+  }, coolDown + 200);
+
+  //% Изменение режима QR-Кода
+  const containers = document.querySelectorAll('.container');
+  containers.forEach(item => {
+    if (item.getAttribute('qrType') === 'hidden') {
+      item.setAttribute('qrType', 'visible');
+      item.style.display = "flex"
+    } else {
+      item.setAttribute('qrType', 'hidden');
+      item.style.display = "none"
+    }
+  });
+})
+
+
+//~ qrTypeSwitchDemo
+qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
+  const coolDown = 1000;
+  this.classList.toggle('qrTypeSwitchDemo__clicked')
+  this.setAttribute('disabled', true)
+  coolDownIndicatorDemo.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
+  coolDownIndicatorDemo.style.height = "0"
+  coolDownIndicatorDemo.style.transition = `${coolDown + "ms"} linear`
+  setTimeout(() => {
+    this.removeAttribute('disabled', false)
+    coolDownIndicatorDemo.style.background = "transparent"
+    coolDownIndicatorDemo.style.height = "100%"
+    coolDownIndicatorDemo.style.transition = "unset"
+  }, coolDown + 200);
+})
+
+// TODO: CTRL+DEL очищает input'ы ✅
+document.addEventListener('keydown', function(event) {
+  const keyElements = document.querySelectorAll('[keyId]');
+
+  if (event.ctrlKey && event.key === 'Delete') {
+      resetInput();
+      const dataInputs = document.querySelectorAll(".dataInput");
+      dataInputs.forEach(item => {
+          item.value = "";
+      });
+  }
+
+  keyElements.forEach(element => {
+      const keyId = element.getAttribute('keyId');
+      if (event.key === 'Control' && keyId === 'ctrl') {
+          element.classList.add('keyPressed');
+      }
+      if (event.key === 'Delete' && keyId === 'delete') {
+          element.classList.add('keyPressed');
+      }
+  });
+});
+
+document.addEventListener('keyup', function(event) {
+  const keyElements = document.querySelectorAll('[keyId]');
+
+  keyElements.forEach(element => {
+      const keyId = element.getAttribute('keyId');
+      if (event.key === 'Control' && keyId === 'ctrl') {
+          element.classList.remove('keyPressed');
+      }
+      if (event.key === 'Delete' && keyId === 'delete') {
+          element.classList.remove('keyPressed');
+      }
+  });
+});
+
+// TODO Кнопки переключения гифок ✅
+
+const kittysDemoPlayerControl = document.querySelector('.kittysDemoPlayerControl')
+const kittysDemoPlayerNext = document.querySelector('.kittysDemoPlayerNext')
+const kittysDemoPlayerPrev = document.querySelector('.kittysDemoPlayerPrev')
+let playerIsPaused = false
+const faPlay = `<i class="fa-solid fa-play" id="playerControlIcon"></i>`
+const faPause = `<i class="fa-solid fa-pause" id="playerControlIcon"></i>`
+
+let kittysInterval; // Идентификатор интервала
+
+kittysDemoPlayerControl.addEventListener('click', ()=>{
+  if(playerIsPaused === false){
+    playerIsPaused = true
+    kittysDemoPlayerControl.classList.toggle('control-pause')
+    kittysDemoPlayerControl.innerHTML = `${faPlay}`
+  }else if(playerIsPaused === true){
+    playerIsPaused = false
+    kittysDemoPlayerControl.classList.toggle('control-pause')
+    kittysDemoPlayerControl.innerHTML = `${faPause}`
+  }
+})
+
+kittysDemoPlayerNext.addEventListener('click', ()=>{
+  if(kittysGifNumber > 50 || kittysGifNumber >= 50 || kittysGifNumber == 51){
+    kittysGifNumber = 1
+    kittyCounter.innerText = kittysGifNumber;
+    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  }else{
+    kittysGifNumber++
+    kittyCounter.innerText = kittysGifNumber;
+    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  }
+  resetKittysChangeInterval(); // Перезапуск интервала
+})
+
+kittysDemoPlayerPrev.addEventListener('click', ()=>{
+  if(kittysGifNumber < 1 || kittysGifNumber <= 1 || kittysGifNumber == 0){
+    kittysGifNumber = 50
+    kittyCounter.innerText = kittysGifNumber;
+    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  }else{
+    kittysGifNumber--
+    kittyCounter.innerText = kittysGifNumber;
+    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  }
+  resetKittysChangeInterval(); // Перезапуск интервала
+})
+
+// TODO Переключение гифок с котятами и их номер ✅
+let kittysGifNumber = 0;
+const kittys = document.querySelector(".kittysDemo");
+const kittyCounter = document.querySelector(".kittysDemoCounter");
+document.addEventListener('DOMContentLoaded', function() {
+  kittysChange()
+});
+
+function kittysChange(){
+  kittysInterval = setInterval(() => {
+    if(playerIsPaused === false){
+      kiitysSwitch()
+    }
+  }, 2000);
+}
+
+function kiitysSwitch(){
+  if(kittysGifNumber !== 50){
+    kittysGifNumber++
+    kittyCounter.innerText = kittysGifNumber;
+    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  }else{
+    kittysGifNumber = 0;
+  }
+}
+
+function resetKittysChangeInterval() {
+  clearInterval(kittysInterval);
+  kittysChange();
+}
+
+
+// TODO Кнопки открытия или закрытия всех changelog ✅
+const changeLogItems = document.querySelectorAll('.changeLogItem')
+const collapseChangelog = document.querySelector('.collapseChangelog')
+const expandChangelog = document.querySelector('.expandChangelog')
+
+collapseChangelog.addEventListener('click',()=>{
+  changeLogItems.forEach(item => {
+    item.classList.remove('open')
+  });
+})
+
+expandChangelog.addEventListener('click',()=>{
+  changeLogItems.forEach(item => {
+    item.classList.add('open')
+  });
+})
