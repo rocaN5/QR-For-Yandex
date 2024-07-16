@@ -244,7 +244,7 @@ function convertToImageAndOpenInNewTab() {
                     z-index: 9999 !important;
                     width: unset !important;
                     height: unset !important;
-                    page-break-before: always !important;
+                    overflow: hidden !important;
                   }
                 }
               </style>
@@ -714,25 +714,6 @@ document.addEventListener('DOMContentLoaded', function() {
             background-repeat: no-repeat;
             background: linear-gradient(0deg, #ff00c51f, #ffa04f1f);
           }
-            @media print {
-                  body * {
-                    display: none !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    padding: unset !important;
-                    margin: unset !important;
-                  }
-                  img{
-                    display: unset !important;
-                    max-width: 100% !important;
-                    max-height: 100% !important;
-                    border-radius: 20px !important;
-                    z-index: 9999 !important;
-                    width: unset !important;
-                    height: unset !important;
-                    page-break-before: always !important;
-                  }
-                }
         </style>
       </head>
       <body>
