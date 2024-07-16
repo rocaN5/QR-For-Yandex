@@ -812,7 +812,7 @@ qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
 document.addEventListener('keydown', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
 
-  if (event.ctrlKey && event.key === 'Delete') {
+  if (event.ctrlKey && event.key === 'z') {
       resetInput();
       const dataInputs = document.querySelectorAll(".dataInput");
       dataInputs.forEach(item => {
@@ -825,11 +825,18 @@ document.addEventListener('keydown', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.add('keyPressed');
       }
-      if (event.key === 'Delete' && keyId === 'delete') {
+      if (event.key === 'z' && keyId === 'z') {
+          element.classList.add('keyPressed');
+      }
+      if (event.key === 'p' && keyId === 'p') {
+          element.classList.add('keyPressed');
+      }
+      if (event.key === 'p' && keyId === 'demo-p') {
           element.classList.add('keyPressed');
       }
   });
 });
+
 
 document.addEventListener('keyup', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
@@ -839,11 +846,34 @@ document.addEventListener('keyup', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.remove('keyPressed');
       }
-      if (event.key === 'Delete' && keyId === 'delete') {
+      if (event.key === 'z' && keyId === 'z') {
+          element.classList.remove('keyPressed');
+      }
+      if (event.key === 'p' && keyId === 'p') {
+          element.classList.remove('keyPressed');
+      }
+      if (event.key === 'p' && keyId === 'demo-p') {
           element.classList.remove('keyPressed');
       }
   });
 });
+
+// TODO ctrl+p
+
+window.onload = function() {
+  // Запретить функцию печати
+  window.print = function() {
+      console.log("Печать отключена.");
+  };
+
+  // Запретить Ctrl+P
+  document.addEventListener('keydown', function(event) {
+      if (event.ctrlKey && event.key === 'p') {
+          event.preventDefault();
+          convertToImageAndOpenInNewTab();
+      }
+  });
+};
 
 // TODO Кнопки переключения гифок ✅
 

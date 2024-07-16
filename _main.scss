@@ -584,6 +584,7 @@ div.mainContentContainer{
     border-radius: 10px;
     backdrop-filter: blur(4px) grayscale(1);
     display: flex;
+    flex-flow: column;
     gap: 10px;
     text-align: center;
     justify-content: center;
@@ -632,33 +633,38 @@ div.mainContentContainer{
             filter: hue-rotate(-360deg);
         }
     }
-    i{
-        font-size: 14px;
+    .container{
         display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    p{
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    kbd{
-        padding: 6px;
-        background: black;
-        border: 1px solid rgb(154 154 154 / 27%);
-        border-radius: 6px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: default;
-        transition: 200ms;
-        font-style: italic;
-        &.keyPressed{
-            background: #fff;
-            color: #000;
-            transition: 100ms;
+        gap: 10px;
+        i{
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        kbd{
+            min-width: 20px;
+            padding: 6px;
+            background: black;
+            border: 1px solid rgb(154 154 154 / 27%);
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+            transition: 200ms;
+            font-style: italic;
+            &.keyPressed{
+                background: #fff;
+                color: #000;
+                transition: 100ms;
+            }
         }
     }
 }

@@ -577,6 +577,7 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   border-radius: 10px;
   backdrop-filter: blur(4px) grayscale(1);
   display: flex;
+  flex-flow: column;
   gap: 10px;
   text-align: center;
   justify-content: center;
@@ -628,19 +629,24 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
     filter: hue-rotate(-360deg);
   }
 }
-.shortcut i {
+.shortcut .container {
+  display: flex;
+  gap: 10px;
+}
+.shortcut .container i {
   font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.shortcut p {
+.shortcut .container p {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.shortcut kbd {
+.shortcut .container kbd {
+  min-width: 20px;
   padding: 6px;
   background: black;
   border: 1px solid rgba(154, 154, 154, 0.27);
@@ -652,7 +658,7 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   transition: 200ms;
   font-style: italic;
 }
-.shortcut kbd.keyPressed {
+.shortcut .container kbd.keyPressed {
   background: #fff;
   color: #000;
   transition: 100ms;
@@ -1470,6 +1476,7 @@ nav.contacts a i.developer {
   border: 2px solid #fff;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .shortcutDemo kbd {
+  min-width: 20px;
   padding: 6px;
   background: black;
   border: 1px solid rgba(154, 154, 154, 0.27);

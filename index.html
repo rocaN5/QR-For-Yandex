@@ -15,7 +15,7 @@
 
 <title>QR Генератор от Димана v.1.10pre</title>
 <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
-<link rel="stylesheet" href="css/styles.css?v=1.10.d4-pre">
+<link rel="stylesheet" href="css/styles.css?v=1.10.d6-pre">
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,11 +43,20 @@
         <a href="https://rocan5.github.io/contacts/" target="_blank"><i class="developer"></i></a>
     </nav>
     <div class="shortcut">
-        <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
-        <p>Очистить QR</p>
-        <kbd keyId="ctrl">Ctrl</kbd>
-        <p>+</p>
-        <kbd keyId="delete">Delete</kbd>
+        <div class="container">
+            <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+            <p>Очистить QR</p>
+            <kbd keyId="ctrl">Ctrl</kbd>
+            <p>+</p>
+            <kbd keyId="z">Z</kbd>
+        </div>
+        <div class="container">
+            <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+            <p>Печатать QR</p>
+            <kbd keyId="ctrl">Ctrl</kbd>
+            <p>+</p>
+            <kbd keyId="p">P</kbd>
+        </div>
     </div>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="qrHistory">
@@ -389,13 +398,27 @@
                         <div class="itemDescriptionTitle">
                             <i class="fa-regular fa-circle-plus iconUpdate" aria-hidden="true"></i>
                             <div class="itemDescriptionText">
-                                <p class="itemDescriptionTextInfo">Сочетание клавиш Ctrl+Delete</p>
-                                <p class="itemDescriptionTextInfoSub">При Сочетание клавтшь <kbd>Ctrl</kbd><kbd>+</kbd><kbd>Delete</kbd> очищаются поля ввода генерации QR-Кода, а так же сбрасывается текущий QR-Код</p>
+                                <p class="itemDescriptionTextInfo">Сочетание клавиш Ctrl+Z</p>
+                                <p class="itemDescriptionTextInfoSub">При Сочетание клавтшь <kbd>Ctrl</kbd><kbd>+</kbd><kbd>Z</kbd> очищаются поля ввода генерации QR-Кода, а так же сбрасывается текущий QR-Код</p>
                             </div>
                         </div>
                         <div class="itemDescriptionDemo">
                             <div class="shortcutDemo">
-                                <kbd keyId="ctrl">Ctrl</kbd><p>+</p><kbd  keyId="delete">Delete</kbd>
+                                <kbd keyId="ctrl">Ctrl</kbd><p>+</p><kbd  keyId="z">Z</kbd>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-regular fa-circle-plus iconUpdate" aria-hidden="true"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Сочетание клавиш Ctrl+P</p>
+                                <p class="itemDescriptionTextInfoSub">При Сочетание клавтшь <kbd>Ctrl</kbd><kbd>+</kbd><kbd>P</kbd> открывается окно печати QR-Код</p>
+                            </div>
+                        </div>
+                        <div class="itemDescriptionDemo">
+                            <div class="shortcutDemo">
+                                <kbd keyId="ctrl">Ctrl</kbd><p>+</p><kbd  keyId="demo-p">P</kbd>
                             </div>
                         </div>
                     </li>
