@@ -812,7 +812,7 @@ qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
 document.addEventListener('keydown', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
 
-  if (event.ctrlKey && event.key === 'z') {
+  if (event.ctrlKey && event.key === 'z' || event.ctrlKey && event.key === 'я') {
       resetInput();
       const dataInputs = document.querySelectorAll(".dataInput");
       dataInputs.forEach(item => {
@@ -825,10 +825,10 @@ document.addEventListener('keydown', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.add('keyPressed');
       }
-      if (event.key === 'z' && keyId === 'z') {
+      if (event.key === 'z' && keyId === 'z' || event.key === 'я' && keyId === 'z')  {
           element.classList.add('keyPressed');
       }
-      if (event.key === 'p' && keyId === 'p') {
+      if (event.key === 'p' && keyId === 'p' || event.key === 'з' && keyId === 'p') {
           element.classList.add('keyPressed');
           const demoP = document.querySelector("[keyId=\"demo-p\"]")
           demoP.classList.add('keyPressed');
@@ -845,10 +845,10 @@ document.addEventListener('keyup', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.remove('keyPressed');
       }
-      if (event.key === 'z' && keyId === 'z') {
+      if (event.key === 'z' && keyId === 'z' || event.key === 'я' && keyId === 'z') {
           element.classList.remove('keyPressed');
       }
-      if (event.key === 'p' && keyId === 'p') {
+      if (event.key === 'p' && keyId === 'p' || event.key === 'з' && keyId === 'p') {
           element.classList.remove('keyPressed');
           const demoP = document.querySelector("[keyId=\"demo-p\"]")
           demoP.classList.remove('keyPressed');
@@ -866,7 +866,7 @@ window.onload = function() {
 
   // Запретить Ctrl+P
   document.addEventListener('keydown', function(event) {
-      if (event.ctrlKey && event.key === 'p') {
+      if (event.ctrlKey && event.key === 'p' || event.ctrlKey && event.key === 'з') {
           event.preventDefault();
           convertToImageAndOpenInNewTab();
       }
