@@ -812,7 +812,7 @@ qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
 document.addEventListener('keydown', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
 
-  if (event.ctrlKey && event.key === 'z' || event.ctrlKey && event.key === 'я') {
+  if (event.ctrlKey && (event.key === 'z' || event.key === 'я')) {
       resetInput();
       const dataInputs = document.querySelectorAll(".dataInput");
       dataInputs.forEach(item => {
@@ -825,17 +825,16 @@ document.addEventListener('keydown', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.add('keyPressed');
       }
-      if (event.key === 'z' && keyId === 'z' || event.key === 'я' && keyId === 'z')  {
+      if ((event.key.toLowerCase() === 'z' || event.key.toLowerCase() === 'я') && keyId === 'z') {
           element.classList.add('keyPressed');
       }
-      if (event.key === 'p' && keyId === 'p' || event.key === 'з' && keyId === 'p') {
+      if ((event.key.toLowerCase() === 'p' || event.key.toLowerCase() === 'з') && keyId === 'p') {
           element.classList.add('keyPressed');
           const demoP = document.querySelector("[keyId=\"demo-p\"]")
           demoP.classList.add('keyPressed');
       }
   });
 });
-
 
 document.addEventListener('keyup', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
@@ -845,16 +844,17 @@ document.addEventListener('keyup', function(event) {
       if (event.key === 'Control' && keyId === 'ctrl') {
           element.classList.remove('keyPressed');
       }
-      if (event.key === 'z' && keyId === 'z' || event.key === 'я' && keyId === 'z') {
+      if ((event.key.toLowerCase() === 'z' || event.key.toLowerCase() === 'я') && keyId === 'z') {
           element.classList.remove('keyPressed');
       }
-      if (event.key === 'p' && keyId === 'p' || event.key === 'з' && keyId === 'p') {
+      if ((event.key.toLowerCase() === 'p' || event.key.toLowerCase() === 'з') && keyId === 'p') {
           element.classList.remove('keyPressed');
           const demoP = document.querySelector("[keyId=\"demo-p\"]")
           demoP.classList.remove('keyPressed');
       }
   });
 });
+
 
 // TODO ctrl+p
 
