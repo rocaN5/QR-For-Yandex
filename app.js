@@ -830,9 +830,8 @@ document.addEventListener('keydown', function(event) {
       }
       if (event.key === 'p' && keyId === 'p') {
           element.classList.add('keyPressed');
-      }
-      if (event.key === 'p' && keyId === 'demo-p') {
-          element.classList.add('keyPressed');
+          const demoP = document.querySelector("[keyId=\"demo-p\"]")
+          demoP.classList.add('keyPressed');
       }
   });
 });
@@ -851,9 +850,8 @@ document.addEventListener('keyup', function(event) {
       }
       if (event.key === 'p' && keyId === 'p') {
           element.classList.remove('keyPressed');
-      }
-      if (event.key === 'p' && keyId === 'demo-p') {
-          element.classList.remove('keyPressed');
+          const demoP = document.querySelector("[keyId=\"demo-p\"]")
+          demoP.classList.remove('keyPressed');
       }
   });
 });

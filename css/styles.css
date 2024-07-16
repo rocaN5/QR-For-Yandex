@@ -573,19 +573,14 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   color: #fff;
   font-size: 12px;
   z-index: 9;
-  padding: 6px 20px;
   border-radius: 10px;
-  backdrop-filter: blur(4px) grayscale(1);
   display: flex;
   flex-flow: column;
   gap: 10px;
   text-align: center;
   justify-content: center;
-  border: 2px solid rgba(154, 154, 154, 0.1294117647);
-  box-shadow: 0px 2px 6px 0px #000;
   bottom: 10px;
   left: 10px;
-  user-select: none;
 }
 @media (max-width: 860px) {
   .shortcut {
@@ -630,8 +625,20 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   }
 }
 .shortcut .container {
+  position: relative;
+  color: #fff;
+  font-size: 12px;
+  z-index: 9;
+  padding: 6px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px) grayscale(1);
   display: flex;
   gap: 10px;
+  text-align: center;
+  justify-content: center;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-shadow: 0px 2px 6px 0px #000;
+  user-select: none;
 }
 .shortcut .container i {
   font-size: 14px;
