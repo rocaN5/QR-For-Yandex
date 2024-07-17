@@ -14,15 +14,15 @@ nav.menu{
             display: flex;
             border-radius: 10px;
             transition: 200ms;
-            border: 2px solid transparent;
             justify-content: center;
             align-items: center;
-            background: #2c2c2c70;
-            backdrop-filter: blur(4px);
+            background: transparent;
+            backdrop-filter: blur(2px) grayscale(1);
             cursor: pointer;
+            border: 2px solid #9a9a9a21;
             z-index: 998;
             &:hover{
-                backdrop-filter: brightness(.5) blur(4px);
+                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
                 transition: 200ms;
                 border: 2px solid #656565;
             }
@@ -60,44 +60,44 @@ nav.menu{
             display: flex;
             border-radius: 10px;
             transition: 200ms;
-            border: 2px solid transparent;
             justify-content: center;
             align-items: center;
-            background: #2c2c2c70;
-            backdrop-filter: blur(4px);
+            background: transparent;
+            backdrop-filter: blur(2px) grayscale(1);
             cursor: pointer;
             z-index: 998;
+            border: 2px solid #9a9a9a21;
             i{
                 font-size: 20px;
                 color: #fff;
             }
             &:hover{
-                backdrop-filter: brightness(.5) blur(4px);
+                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
                 transition: 200ms;
                 border: 2px solid #656565;
             }
         }
-        &.qrTypeSwitch{
+        &.qrTypeSwitch{    
             position: relative;
             width: 50px;
             height: 50px;
             display: flex;
             border-radius: 10px;
-            border: 2px solid transparent;
+            transition: 200ms;
             justify-content: center;
             align-items: center;
-            background: #2c2c2c70;
-            backdrop-filter: blur(4px);
+            background-color: transparent;
+            backdrop-filter: blur(2px) grayscale(1);
             cursor: pointer;
             z-index: 998;
-            transition: 200ms;
+            border: 2px solid #9a9a9a21;
             background-image: url("../img/qrSwtichType_1.svg");
             background-position: center;
             background-size: 55%;
             background-repeat: no-repeat;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-tap-highlight-color: #ffffff00;
             &:hover{
-                backdrop-filter: brightness(.5) blur(4px);
+                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
                 transition: 200ms;
                 border: 2px solid #656565;
             }
@@ -157,7 +157,7 @@ nav.menu{
     i.menuDevider{
         width: 100%;
         height: 2px;
-        background: #ffffff;
+        background: #6e6e6eb5;
         box-shadow: 0px 0px 4px 1px #000;
     }
 }
