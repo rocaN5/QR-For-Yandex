@@ -1,6 +1,10 @@
 const version = "v1.10pre"
 let spanHistoryItemCounter = 0;
 
+document.getElementById('qr-text').addEventListener('submit', function(e) {
+  e.preventDefault();
+}, false);
+
 document.getElementById("qr-text").addEventListener("input", function() {
     generateCodes();
     const getQrImgContainer = document.querySelector(".qrImgContainer")
@@ -11,6 +15,12 @@ document.getElementById("qr-text").addEventListener("input", function() {
       getQrLoader.style.display = 'none';
     }
     clearSpaces();
+});
+
+document.getElementById("qr-text").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+      event.preventDefault();
+  }
 });
 
 document.querySelector(".print__code").addEventListener("click", function() {
@@ -875,84 +885,125 @@ window.onload = function() {
 
 // TODO Кнопки переключения гифок ✅
 
-const kittysDemoPlayerControl = document.querySelector('.kittysDemoPlayerControl')
-const kittysDemoPlayerNext = document.querySelector('.kittysDemoPlayerNext')
-const kittysDemoPlayerPrev = document.querySelector('.kittysDemoPlayerPrev')
-let playerIsPaused = false
-const faPlay = `<i class="fa-solid fa-play" id="playerControlIcon"></i>`
-const faPause = `<i class="fa-solid fa-pause" id="playerControlIcon"></i>`
-
+const kittysDemoPlayerControl = document.querySelector('.kittysDemoPlayerControl');
+const kittysDemoPlayerNext = document.querySelector('.kittysDemoPlayerNext');
+const kittysDemoPlayerPrev = document.querySelector('.kittysDemoPlayerPrev');
+const progressRing = document.getElementById('progress-ring');
+let playerIsPaused = false;
+const faPlay = `<i class="fa-solid fa-play" id="playerControlIcon"></i>`;
+const faPause = `<i class="fa-solid fa-pause" id="playerControlIcon"></i>`;
 let kittysInterval; // Идентификатор интервала
+let progressInterval; // Интервал для прогресс-бара
+let progressValue = 0;
 
-kittysDemoPlayerControl.addEventListener('click', ()=>{
-  if(playerIsPaused === false){
-    playerIsPaused = true
-    kittysDemoPlayerControl.classList.toggle('control-pause')
-    kittysDemoPlayerControl.innerHTML = `${faPlay}`
-  }else if(playerIsPaused === true){
-    playerIsPaused = false
-    kittysDemoPlayerControl.classList.toggle('control-pause')
-    kittysDemoPlayerControl.innerHTML = `${faPause}`
+const startColor = {r: 1, g: 195, b: 252};
+const endColor = {r: 145, g: 88, b: 255};
+
+kittysDemoPlayerControl.addEventListener('click', () => {
+  if (playerIsPaused === false) {
+    playerIsPaused = true;
+    kittysDemoPlayerControl.classList.toggle('control-pause');
+    kittysDemoPlayerControl.innerHTML = `${faPlay}`;
+    clearInterval(progressInterval);
+  } else if (playerIsPaused === true) {
+    playerIsPaused = false;
+    kittysDemoPlayerControl.classList.toggle('control-pause');
+    kittysDemoPlayerControl.innerHTML = `${faPause}`;
+    startProgress();
   }
-})
+});
 
-kittysDemoPlayerNext.addEventListener('click', ()=>{
-  if(kittysGifNumber > 50 || kittysGifNumber >= 50 || kittysGifNumber == 51){
-    kittysGifNumber = 1
-    kittyCounter.innerText = kittysGifNumber;
-    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
-  }else{
-    kittysGifNumber++
-    kittyCounter.innerText = kittysGifNumber;
-    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
-  }
-  resetKittysChangeInterval(); // Перезапуск интервала
-})
+kittysDemoPlayerNext.addEventListener('click', () => {
+  changeKittyGif(true);
+});
 
-kittysDemoPlayerPrev.addEventListener('click', ()=>{
-  if(kittysGifNumber < 1 || kittysGifNumber <= 1 || kittysGifNumber == 0){
-    kittysGifNumber = 50
-    kittyCounter.innerText = kittysGifNumber;
-    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
-  }else{
-    kittysGifNumber--
-    kittyCounter.innerText = kittysGifNumber;
-    kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
-  }
-  resetKittysChangeInterval(); // Перезапуск интервала
-})
+kittysDemoPlayerPrev.addEventListener('click', () => {
+  changeKittyGif(false);
+});
 
-// TODO Переключение гифок с котятами и их номер ✅
 let kittysGifNumber = 0;
 const kittys = document.querySelector(".kittysDemo");
 const kittyCounter = document.querySelector(".kittysDemoCounter");
 document.addEventListener('DOMContentLoaded', function() {
-  kittysChange()
+  kittysChange();
+  startProgress();
 });
 
-function kittysChange(){
+function changeKittyGif(next) {
+  if (next) {
+    if (kittysGifNumber >= 50) {
+      kittysGifNumber = 1;
+    } else {
+      kittysGifNumber++;
+    }
+  } else {
+    if (kittysGifNumber <= 1) {
+      kittysGifNumber = 50;
+    } else {
+      kittysGifNumber--;
+    }
+  }
+  kittyCounter.innerText = kittysGifNumber;
+  kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
+  resetKittysChangeInterval();
+}
+
+function kittysChange() {
   kittysInterval = setInterval(() => {
-    if(playerIsPaused === false){
-      kiitysSwitch()
+    if (playerIsPaused === false) {
+      kiitysSwitch();
     }
   }, 2000);
 }
 
-function kiitysSwitch(){
-  if(kittysGifNumber !== 50){
-    kittysGifNumber++
+function kiitysSwitch() {
+  if (kittysGifNumber !== 50) {
+    kittysGifNumber++;
     kittyCounter.innerText = kittysGifNumber;
     kittys.style.backgroundImage = `url("./img/goma and peach/catID_${kittysGifNumber}.gif")`;
-  }else{
+  } else {
     kittysGifNumber = 0;
   }
 }
 
 function resetKittysChangeInterval() {
   clearInterval(kittysInterval);
+  clearInterval(progressInterval);
+  progressValue = 0;
+  updateProgressRing();
   kittysChange();
+  if (!playerIsPaused) {
+    startProgress();
+  }
 }
 
+function startProgress() {
+  progressValue = 0; // Сброс значения прогресса
+  updateProgressRing();
+  progressInterval = setInterval(() => {
+    if (playerIsPaused === false) {
+      progressValue += 1.67; // 100 / 60 = 1.67, так как 2000ms = 2s
+      if (progressValue >= 100) {
+        progressValue = 0;
+      }
+      updateProgressRing();
+    }
+  }, 33); // 2000ms / 60 = 33ms (60 кадров в 2 секунды)
+}
+
+function updateProgressRing() {
+  progressRing.style.strokeDasharray = `${progressValue}, 100`;
+  const color = interpolateColor(startColor, endColor, progressValue / 100);
+  progressRing.style.stroke = `rgb(${color.r}, ${color.g}, ${color.b})`;
+}
+
+function interpolateColor(start, end, factor) {
+  const result = {};
+  result.r = Math.round(start.r + factor * (end.r - start.r));
+  result.g = Math.round(start.g + factor * (end.g - start.g));
+  result.b = Math.round(start.b + factor * (end.b - start.b));
+  return result;
+}
 
 // TODO Кнопки открытия или закрытия всех changelog ✅
 const changeLogItems = document.querySelectorAll('.changeLogItem')

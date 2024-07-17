@@ -497,6 +497,17 @@
                                     margin-bottom: 40px;
                                 }
                             }
+                            svg{
+                                position: absolute;
+                                width: 41px;
+                                top: -4px;
+                                left: -4px;
+                                height: 41px;
+                                z-index: 0;
+                                circle{
+                                    stroke-width: 4;
+                                }
+                            }
                             .kittysDemoCounter{
                                 border: 2px solid;
                                 width: 10px;
@@ -511,6 +522,8 @@
                                 color: #fff;
                                 box-shadow: 0px 2px 24px -10px #000, 0px 0px 10px 0 inset #000;
                                 user-select: none;
+                                z-index: 1;
+                                position: relative;
                             }
                         }
                         .kittysDemoPlayer{

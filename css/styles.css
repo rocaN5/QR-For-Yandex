@@ -1524,6 +1524,17 @@ nav.contacts a i.developer {
     margin-bottom: 40px;
   }
 }
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .kittysDemo svg {
+  position: absolute;
+  width: 41px;
+  top: -4px;
+  left: -4px;
+  height: 41px;
+  z-index: 0;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .kittysDemo svg circle {
+  stroke-width: 4;
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .kittysDemo .kittysDemoCounter {
   border: 2px solid;
   width: 10px;
@@ -1538,6 +1549,8 @@ nav.contacts a i.developer {
   color: #fff;
   box-shadow: 0px 2px 24px -10px #000, 0px 0px 10px 0 inset #000;
   user-select: none;
+  z-index: 1;
+  position: relative;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .kittysDemoPlayer {
   width: -webkit-fill-available;
@@ -1773,4 +1786,4 @@ body, html {
   font-style: normal;
   background: #000000;
   background-repeat: no-repeat;
-}/*# sourceMappingURL=styles.css.map */
+}
