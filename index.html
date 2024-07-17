@@ -15,7 +15,7 @@
 
 <title>QR Генератор от Димана v.1.10pre</title>
 <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
-<link rel="stylesheet" href="css/styles.css?v=1.10.d9-pre">
+<link rel="stylesheet" href="css/styles.css?v=1.10.d10-pre">
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,14 +43,14 @@
         <a href="https://rocan5.github.io/contacts/" target="_blank"><i class="developer"></i></a>
     </nav>
     <div class="shortcut">
-        <div class="container">
+        <div class="shortcutContainer">
             <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
             <p>Очистить QR</p>
             <kbd keyId="ctrl">Ctrl</kbd>
             <p>+</p>
             <kbd keyId="z">Z</kbd>
         </div>
-        <div class="container">
+        <div class="shortcutContainer">
             <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
             <p>Печатать QR</p>
             <kbd keyId="ctrl">Ctrl</kbd>
@@ -176,9 +176,6 @@
                                 <p class="itemDescriptionTextInfoSub">Значительные просадки FPS из-за долго нахождения на странице. в предыдущих версиях каждая частица генерировалась в индевидуальном теге div, в последующих версиях используется тэг &lt;canvas&gt;</p>
                             </div>
                         </div>
-                        <div class="itemDescriptionDemo">
-                            <canvas id="particle-canvasDemo"></canvas>
-                        </div>
                     </li>
                 </ul>
             </div>
@@ -216,7 +213,8 @@
                         <div class="itemDescriptionTitle">
                             <i class="fa-regular fa-circle-plus iconUpdate" aria-hidden="true"></i>
                             <div class="itemDescriptionText">
-                                <p class="itemDescriptionTextInfo">Индекатор времени перед автоматическим закрытием окна печати</p>
+                                <p class="itemDescriptionTextInfo">Индикатор времени</p>
+                                <p class="itemDescriptionTextInfoSub">Добавлен индикатор времени перед автоматическим закрытием окна печати</p>
                             </div>
                         </div>
                     </li>
@@ -285,6 +283,18 @@
                                 <p class="itemDescriptionTextInfo">Media Requests</p>
                                 <p class="itemDescriptionTextInfoSub">Полностью переписаны и оптимизированны все Media Requests с <i style="color: #2f7fff" class="fa-brands fa-css3"></i><span style="color: #2f7fff">.css</span> на препроцессор <i style="color: #ff4ea8"  class="fa-brands fa-sass"></i><span style="color:#ff4ea8;">.scss</span>, старый файл media.css удалён из проэкта</p>
                             </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-solid fa-gear iconChange"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Перписаны функции отрисовки частиц</p>
+                                <p class="itemDescriptionTextInfoSub">Переписаны функции отрисовки частиц, в новой версии установлен лимит в 300 частиц, при достижении количества частиц данного значения. Предыдущие версии не учитывали накопление частиц а так же не успевали удалять достаточное количество частиц чтобы избежать их накопление</p>
+                            </div>
+                        </div>
+                        <div class="itemDescriptionDemo">
+                            <canvas id="particle-canvasDemov1-10"></canvas>
                         </div>
                     </li>
                     <li>

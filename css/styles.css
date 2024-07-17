@@ -624,7 +624,7 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
     filter: hue-rotate(-360deg);
   }
 }
-.shortcut .container {
+.shortcut .shortcutContainer {
   position: relative;
   color: #fff;
   font-size: 12px;
@@ -640,19 +640,19 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   box-shadow: 0px 2px 6px 0px #000;
   user-select: none;
 }
-.shortcut .container i {
+.shortcut .shortcutContainer i {
   font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.shortcut .container p {
+.shortcut .shortcutContainer p {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.shortcut .container kbd {
+.shortcut .shortcutContainer kbd {
   min-width: 20px;
   padding: 6px;
   background: black;
@@ -665,7 +665,7 @@ div.mainContentContainer div.wrapper div.container button.print__code:active {
   transition: 200ms;
   font-style: italic;
 }
-.shortcut .container kbd.keyPressed {
+.shortcut .shortcutContainer kbd.keyPressed {
   background: #fff;
   color: #000;
   transition: 100ms;
@@ -1370,7 +1370,8 @@ nav.contacts a i.developer {
   align-items: center;
   user-select: none;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo canvas#particle-canvasDemo {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo canvas#particle-canvasDemo,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo canvas#particle-canvasDemov1-10 {
   width: 100%;
   height: 100px;
   position: relative;

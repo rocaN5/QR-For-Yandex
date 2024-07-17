@@ -422,7 +422,7 @@ function createParticleCanvas(canvasId, sizeRange) {
 }
 
 createParticleCanvas('particle-canvas', { min: 2, max: 6 });
-createParticleCanvas('particle-canvasDemo', { min: 10, max: 15 });
+createParticleCanvas('particle-canvasDemov1-10', { min: 10, max: 15 });
 
 // TODO случайая гифка котяры :D ✅
 document.addEventListener("DOMContentLoaded", function() {
