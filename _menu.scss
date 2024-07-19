@@ -7,6 +7,125 @@ nav.menu{
     z-index: 99999;
     button{
         box-shadow: 0px 0px 10px 0px #000;
+        &::after{
+            position: absolute;
+            content: '...';
+            display: flex;
+            padding: 4px 10px;
+            background: #00000061;
+            border: 2px solid #fff;
+            left: calc(100% + 14px);
+            z-index: -1;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #fff;
+            backdrop-filter: grayscale(1) blur(2px);
+            border: 2px solid #656565;
+            transition: opacity 500ms, color 1.5s, transform 500ms;
+            opacity: 0;
+            transform: translateX(-10px);
+            pointer-events: none;
+            color: #8d8d8d;
+        }
+        &::before {
+            content: '';
+            display: flex;
+            position: absolute;
+            border: 4px solid transparent;
+            border-right: 4px solid #656565;
+            left: calc(100% + 6px);
+            transition: opacity 500ms, color 1.5s, transform 500ms;
+            opacity: 0;
+            transform: translateX(-10px);
+            border-top-right-radius: 4px;
+            pointer-events: none;
+        }
+        &:hover{
+            &::after,
+            &::before{
+                opacity: 1;
+                transform: unset;
+                transition: opacity 500ms, color 1.5s, transform 500ms;
+                color: #fff;
+            }
+        }
+        &.changelogToggleOpen{
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            border-radius: 10px;
+            transition: 200ms;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            backdrop-filter: blur(2px) grayscale(1);
+            cursor: pointer;
+            z-index: 998;
+            border: 2px solid #9a9a9a21;
+            &::after{
+                content: 'Changelog';
+            }
+            i{
+                font-size: 20px;
+                color: #fff;
+            }
+            &:hover{
+                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+                transition: 200ms;
+                border: 2px solid #656565;
+            }
+        }
+        &.qrTypeSwitch{    
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            border-radius: 10px;
+            transition: 200ms;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            backdrop-filter: blur(2px) grayscale(1);
+            cursor: pointer;
+            z-index: 998;
+            border: 2px solid #9a9a9a21;
+            background-image: url("../img/qrSwtichType_1.svg");
+            background-position: center;
+            background-size: 55%;
+            background-repeat: no-repeat;
+            -webkit-tap-highlight-color: #ffffff00;
+            &:hover{
+                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+                transition: 200ms;
+                border: 2px solid #656565;
+            }
+            @keyframes rainbowFlash{
+                from{
+                    filter: hue-rotate(0deg);
+                }
+                to{
+                    filter: hue-rotate(-360deg);
+                }
+            }
+            &__clicked{
+                transition: 200ms;
+                background-image: url("../img/qrSwtichType_2.svg");
+            }
+            .coolDownIndicator{
+                position: absolute;
+                display: block;
+                width: 4px;
+                height: 100%;
+                background: transparent;
+                border-radius: 10px;
+                z-index: -1;
+                right: -12px;
+                bottom: 0;
+                transition: unset;
+                pointer-events: none;
+            }
+        } 
         &.historyToggleOpen{
             position: relative;
             width: 50px;
@@ -21,6 +140,9 @@ nav.menu{
             cursor: pointer;
             border: 2px solid #9a9a9a21;
             z-index: 998;
+            &::after{
+                content: 'История';
+            }
             &:hover{
                 backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
                 transition: 200ms;
@@ -75,82 +197,6 @@ nav.menu{
                 backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
                 transition: 200ms;
                 border: 2px solid #656565;
-            }
-        }
-        &.qrTypeSwitch{    
-            position: relative;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            border-radius: 10px;
-            transition: 200ms;
-            justify-content: center;
-            align-items: center;
-            background-color: transparent;
-            backdrop-filter: blur(2px) grayscale(1);
-            cursor: pointer;
-            z-index: 998;
-            border: 2px solid #9a9a9a21;
-            background-image: url("../img/qrSwtichType_1.svg");
-            background-position: center;
-            background-size: 55%;
-            background-repeat: no-repeat;
-            -webkit-tap-highlight-color: #ffffff00;
-            &:hover{
-                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
-                transition: 200ms;
-                border: 2px solid #656565;
-            }
-            &::before{
-                content: 'Разработка'; //% CHANGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                left: 12px; //% CHANGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                font-family: 'Roboto';
-                color: #fff;
-                background: linear-gradient(90deg, red, #ff9b00);
-                font-size: 12px;
-                padding: 3px 6px;
-                border-radius: 10px;
-                border: 2px solid #fff;
-                font-weight: 600;
-                position: relative;
-                top: 105%;
-                pointer-events: none;
-                box-shadow: 0px 0px 10px 0px red;
-                animation: rainbowFlash 2s linear infinite;
-            }
-            &::after{
-                content: '';
-                position: absolute;
-                top: 108%;
-                --size: 4px;
-                border: var(--size) solid transparent;
-                border-bottom: var(--size) solid #fff;
-                pointer-events: none;
-            }
-            @keyframes rainbowFlash{
-                from{
-                    filter: hue-rotate(0deg);
-                }
-                to{
-                    filter: hue-rotate(-360deg);
-                }
-            }
-            &__clicked{
-                transition: 200ms;
-                background-image: url("../img/qrSwtichType_2.svg");
-            }
-            .coolDownIndicator{
-                position: absolute;
-                display: block;
-                width: 4px;
-                height: 100%;
-                background: transparent;
-                border-radius: 10px;
-                z-index: -1;
-                right: -12px;
-                bottom: 0;
-                transition: unset;
-                pointer-events: none;
             }
         }
     }
