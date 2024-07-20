@@ -769,54 +769,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // TODO: Переключение между режимами QR-Кодов ✅
 
-const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
-const qrTypeSwitchDemo = document.querySelector('.qrTypeSwitchDemo')
-const coolDownIndicator = document.querySelector('.coolDownIndicator')
-const coolDownIndicatorDemo = document.querySelector('.coolDownIndicatorDemo')
+// const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
+// const qrTypeSwitchDemo = document.querySelector('.qrTypeSwitchDemo')
+// const coolDownIndicator = document.querySelector('.coolDownIndicator')
+// const coolDownIndicatorDemo = document.querySelector('.coolDownIndicatorDemo')
       
-qrTypeSwitch.addEventListener('click', function qrSwitch(){
-  const coolDown = 1000;
-  this.classList.toggle('qrTypeSwitch__clicked')
-  this.setAttribute('disabled', true)
-  coolDownIndicator.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
-  coolDownIndicator.style.height = "0"
-  coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
-  setTimeout(() => {
-    this.removeAttribute('disabled', false)
-    coolDownIndicator.style.background = "transparent"
-    coolDownIndicator.style.height = "100%"
-    coolDownIndicator.style.transition = "unset"
-  }, coolDown + 200);
+// qrTypeSwitch.addEventListener('click', function qrSwitch(){
+//   const coolDown = 1000;
+//   this.classList.toggle('qrTypeSwitch__clicked')
+//   this.setAttribute('disabled', true)
+//   coolDownIndicator.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
+//   coolDownIndicator.style.height = "0"
+//   coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
+//   setTimeout(() => {
+//     this.removeAttribute('disabled', false)
+//     coolDownIndicator.style.background = "transparent"
+//     coolDownIndicator.style.height = "100%"
+//     coolDownIndicator.style.transition = "unset"
+//   }, coolDown + 200);
 
-  //% Изменение режима QR-Кода
-  const containers = document.querySelectorAll('.container');
-  containers.forEach(item => {
-    if (item.getAttribute('qrType') === 'hidden') {
-      item.setAttribute('qrType', 'visible');
-      item.style.display = "flex"
-    } else {
-      item.setAttribute('qrType', 'hidden');
-      item.style.display = "none"
-    }
-  });
-})
+//
+//   const containers = document.querySelectorAll('.container');
+//   containers.forEach(item => {
+//     if (item.getAttribute('qrType') === 'hidden') {
+//       item.setAttribute('qrType', 'visible');
+//       item.style.display = "flex"
+//     } else {
+//       item.setAttribute('qrType', 'hidden');
+//       item.style.display = "none"
+//     }
+//   });
+// })
 
 
-//~ qrTypeSwitchDemo
-qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
-  const coolDown = 1000;
-  this.classList.toggle('qrTypeSwitchDemo__clicked')
-  this.setAttribute('disabled', true)
-  coolDownIndicatorDemo.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
-  coolDownIndicatorDemo.style.height = "0"
-  coolDownIndicatorDemo.style.transition = `${coolDown + "ms"} linear`
-  setTimeout(() => {
-    this.removeAttribute('disabled', false)
-    coolDownIndicatorDemo.style.background = "transparent"
-    coolDownIndicatorDemo.style.height = "100%"
-    coolDownIndicatorDemo.style.transition = "unset"
-  }, coolDown + 200);
-})
+// //~ qrTypeSwitchDemo
+// qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
+//   const coolDown = 1000;
+//   this.classList.toggle('qrTypeSwitchDemo__clicked')
+//   this.setAttribute('disabled', true)
+//   coolDownIndicatorDemo.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
+//   coolDownIndicatorDemo.style.height = "0"
+//   coolDownIndicatorDemo.style.transition = `${coolDown + "ms"} linear`
+//   setTimeout(() => {
+//     this.removeAttribute('disabled', false)
+//     coolDownIndicatorDemo.style.background = "transparent"
+//     coolDownIndicatorDemo.style.height = "100%"
+//     coolDownIndicatorDemo.style.transition = "unset"
+//   }, coolDown + 200);
+// })
 
 // TODO: CTRL+DEL очищает input'ы ✅
 document.addEventListener('keydown', function(event) {
