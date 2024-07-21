@@ -818,6 +818,87 @@ document.addEventListener('DOMContentLoaded', function() {
 //   }, coolDown + 200);
 // })
 
+//TODO: Кнопки generatorType ✅
+
+const generatorType = document.querySelectorAll(".typeSwitch");
+const containers = document.querySelectorAll(".container");
+let generatorTypeFirst = true;
+
+function switchGeneratorType(currentItem, allItems) {
+  if (currentItem.getAttribute("generatorType") === "active") {
+    return;
+  }
+
+  allItems.forEach(item => {
+    item.setAttribute('generatorType', 'disabled');
+    item.setAttribute('disabled', true);
+    item.classList.remove('active');
+    setTimeout(() => {
+      item.removeAttribute('disabled');
+    }, 1100);
+  });
+
+  currentItem.setAttribute('generatorType', 'active');
+  currentItem.classList.add('active');
+
+  if (currentItem.classList.contains("generatorTypeSwitchQR")) {
+    generatorTypeFirst = true;
+    console.log("1");
+    transitionContainers("QR");
+  } else if (currentItem.classList.contains("generatorTypeSwitchLots")) {
+    generatorTypeFirst = false;
+    console.log("2");
+    transitionContainers("Lots");
+  } else {
+    alert("Error");
+  }
+}
+
+function transitionContainers(type) {
+  containers.forEach(container => {
+    if (container.getAttribute("swtichTypeMode") === "active") {
+      container.classList.remove("visible");
+      container.classList.add("hidden");
+      container.setAttribute("swtichTypeMode", "disabled");
+      setTimeout(() => {
+        container.style.display = "none";
+        updateContainers(type);
+      }, 500); // match the transition duration
+    }
+  });
+}
+
+function updateContainers(type) {
+  containers.forEach(container => {
+    if (type === "QR" && container.classList.contains("containerQR")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
+      }, 10); // small delay to ensure transition effect
+    } else if (type === "Lots" && container.classList.contains("containerLots")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
+      }, 10); // small delay to ensure transition effect
+    }
+  });
+}
+
+generatorType.forEach(item => {
+  item.addEventListener('click', () => {
+    switchGeneratorType(item, generatorType);
+  });
+});
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  updateContainers("QR");
+});
+
 // TODO: CTRL+DEL очищает input'ы ✅
 document.addEventListener('keydown', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
