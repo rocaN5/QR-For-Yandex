@@ -251,6 +251,7 @@
                         .itemDescriptionText{
                              p{
                                 margin: 0;
+                                margin-bottom: 10px;
                             }
                             span{
                                 font-family: "Roboto", sans-serif;
@@ -266,6 +267,15 @@
                                     z-index: unset;
                                     &::after{
                                         content: unset;
+                                    }
+                                }
+                                a.telegrammLink{
+                                    text-decoration: none;
+                                    color: #26e3ff;
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    i{
+                                    color: #26e3ff;
                                     }
                                 }
                             }

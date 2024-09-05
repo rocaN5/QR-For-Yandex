@@ -1,4 +1,4 @@
-const version = "v1.10pre"
+const version = "v1.12"
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -120,47 +120,47 @@ function getCurrentDateTime() {
          (seconds < 10 ? '0' : '') + seconds;
 }
 function convertToImageAndOpenInNewTab() {
-    const qrCodeDiv = document.getElementById("qr-code");
-    const imageContainer = document.getElementById("image-container");
-    const historyList = document.querySelector(".historyList");
+  const qrCodeDiv = document.getElementById("qr-code");
+  const imageContainer = document.getElementById("image-container");
+  const historyList = document.querySelector(".historyList");
 
-    // Удаляем все дочерние элементы из контейнера
-    while (imageContainer.firstChild) {
-        imageContainer.removeChild(imageContainer.firstChild);
-    }
+  // Удаляем все дочерние элементы из контейнера
+  while (imageContainer.firstChild) {
+      imageContainer.removeChild(imageContainer.firstChild);
+  }
 
-    // Генерируем изображение и добавляем его в контейнер
-    domtoimage.toPng(qrCodeDiv)
-    .then(function (dataUrl) {
-      var img = new Image();
-    img.src = dataUrl;
-    img.classList.add('test-img');
-    imageContainer.appendChild(img);
+  // Генерируем изображение и добавляем его в контейнер
+  domtoimage.toPng(qrCodeDiv)
+      .then(function (dataUrl) {
+          var img = new Image();
+          img.src = dataUrl;
+          img.classList.add('test-img');
+          imageContainer.appendChild(img);
 
-    // Клонируем изображение для истории
-    var imgHistory = img.cloneNode();
-    imgHistory.classList.remove('test-img');
-    imgHistory.classList.add('imgHistory');
+          // Клонируем изображение для истории
+          var imgHistory = img.cloneNode();
+          imgHistory.classList.remove('test-img');
+          imgHistory.classList.add('imgHistory');
 
-    // Создаем новый элемент historyItemHolder
-    const historyItemHolder = document.createElement('div');
-    historyItemHolder.classList.add('historyItemHolder');
-    historyList.appendChild(historyItemHolder);
+          // Создаем новый элемент historyItemHolder
+          const historyItemHolder = document.createElement('div');
+          historyItemHolder.classList.add('historyItemHolder');
+          historyList.appendChild(historyItemHolder);
 
-    // Увеличиваем счетчик и используем его для historyItemCounter
-    spanHistoryItemCounter += 1;
+          // Увеличиваем счетчик и используем его для historyItemCounter
+          spanHistoryItemCounter += 1;
 
-    // Создаем span для порядкового номера и добавляем его в historyItemHolder
-    const historyItemCounter = document.createElement('span');
-    historyItemCounter.classList.add('historyItemCounter');
-    historyItemCounter.textContent = spanHistoryItemCounter;
-    historyItemHolder.appendChild(historyItemCounter);
+          // Создаем span для порядкового номера и добавляем его в historyItemHolder
+          const historyItemCounter = document.createElement('span');
+          historyItemCounter.classList.add('historyItemCounter');
+          historyItemCounter.textContent = spanHistoryItemCounter;
+          historyItemHolder.appendChild(historyItemCounter);
 
-    // Создаем кнопку historyItem и добавляем в неё imgHistory
-    const historyItem = document.createElement('button');
-    historyItem.classList.add('historyItem');
-    historyItemHolder.appendChild(historyItem);
-    historyItem.appendChild(imgHistory);
+          // Создаем кнопку historyItem и добавляем в неё imgHistory
+          const historyItem = document.createElement('button');
+          historyItem.classList.add('historyItem');
+          historyItemHolder.appendChild(historyItem);
+          historyItem.appendChild(imgHistory);
 
         // Открываем изображение в новой вкладке
         var newTab = window.open();
@@ -304,17 +304,98 @@ function convertToImageAndOpenInNewTab() {
             </html>
             `);
             newTab.document.close();
-            newTab.onload = function() {
-                newTab.print();
-            };
-        } else {
-            console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
-        }
-    })
-    .catch(function (error) {
-        console.error('Произошла ошибка:', error);
-    });
+                newTab.onload = function () {
+                    newTab.print();
+                };
+
+                // Отправляем изображение в Telegram после открытия вкладки
+                sendImageToTelegram();
+            } else {
+                console.error('Не удалось открыть новое окно. Возможно, оно было заблокировано.');
+            }
+        })
+        .catch(function (error) {
+            console.error('Произошла ошибка:', error);
+        });
+}
+
+// Функция для отправки изображения в Telegram
+function sendImageToTelegram() {
+  const token = '7095204830:AAFx3-UnTed0mJbQ0Fh7NgomKUwDEEo8JtE';
+  const chatId = '-1002405934260';
+  const imgElement = document.querySelector('img.test-img');
+  const captionInputText = document.getElementById('qr-text')?.value || ''; // Получаем значение из инпута
+  const currentDate = new Date().toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+  }).replace(',', ''); // Форматируем текущую дату
+  const currentTime = new Date().toLocaleString('ru-RU', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+  }).replace(',', ''); // Форматируем текущую дату
+
+  // Проверяем, является ли captionInputText числом из девяти цифр
+  const isNineDigits = /^\d{9}$/.test(captionInputText);
+
+  // Формируем ссылку в зависимости от значения в captionInputText
+  let piLink = 'https://logistics.market.yandex.ru/sorting-center/21972131/sortables?sortableTypes=all&sortableStatuses=&sortableStatusesLeafs=&orderExternalId=';
+  if (isNineDigits) {
+      // Если значение состоит из девяти цифр
+      piLink += `${captionInputText}&inboundIdTitle=&outboundIdTitle=&groupingDirectionId=&groupingDirectionName=&sortableBarcode=`;
+  } else {
+      // Если значение не состоит из девяти цифр
+      piLink += `&inboundIdTitle=&outboundIdTitle=&groupingDirectionId=&groupingDirectionName=&sortableBarcode=${captionInputText}`;
   }
+
+  // Формируем подпись в HTML формате
+  const captionHTML = `
+<b>Номер заказа:</b> <code>${captionInputText}</code>
+
+<b>📅 Дата:</b> <i>${currentDate}</i>
+<b>🕑 Время:</b> <i>${currentTime}</i>
+
+<b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
+<b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
+`;
+
+  if (!imgElement) {
+      console.error('Изображение с классом "test-img" не найдено.');
+      return;
+  }
+
+  fetch(imgElement.src)
+      .then(res => res.blob()) // Загружаем изображение и конвертируем его в Blob
+      .then(blob => {
+          const formData = new FormData();
+          formData.append('chat_id', chatId);
+          formData.append('photo', blob, 'image.png'); // Отправляем изображение
+          formData.append('caption', captionHTML); // Добавляем подпись в HTML формате
+          formData.append('parse_mode', 'HTML'); // Указываем, что подпись содержит HTML разметку
+
+          fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.ok) {
+                  console.log('Изображение успешно отправлено в Telegram с подписью');
+              } else {
+                  console.error('Ошибка отправки изображения в Telegram:', data);
+                  console.error('Описание ошибки:', data.description); // Отобразите описание ошибки для диагностики
+              }
+          })
+          .catch(error => {
+              console.error('Произошла ошибка при отправке:', error);
+          });
+      })
+      .catch(error => {
+          console.error('Не удалось загрузить изображение:', error);
+      });
+}
+
 
 // TODO Частицы ✅
 

@@ -1717,6 +1717,7 @@ nav.contacts a i.developer {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle .itemDescriptionText p {
   margin: 0;
+  margin-bottom: 10px;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle .itemDescriptionText span {
   font-family: "Roboto", sans-serif;
@@ -1734,6 +1735,15 @@ nav.contacts a i.developer {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle .itemDescriptionText .itemDescriptionTextInfoSub i::after {
   content: unset;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle .itemDescriptionText .itemDescriptionTextInfoSub a.telegrammLink {
+  text-decoration: none;
+  color: #26e3ff;
+  font-size: 12px;
+  font-weight: 500;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle .itemDescriptionText .itemDescriptionTextInfoSub a.telegrammLink i {
+  color: #26e3ff;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo {
   padding: 20px;
