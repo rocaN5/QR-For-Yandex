@@ -1634,6 +1634,13 @@ nav.contacts a i.developer {
   position: absolute;
   left: 20px;
 }
+.changelogHistory .changelogsectionList .changeLogItem button.itemTitle span {
+  position: absolute;
+  font-size: 10px;
+  color: #626262;
+  right: 10px;
+  bottom: 10px;
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription {
   margin: 0;
   width: 100%;
