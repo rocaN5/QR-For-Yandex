@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Удобный генератор QR кодов build-1.12">
-<meta property="og:title" content="QR Генератор от Димана v1.12 ✨">
-<meta property="og:description" content="Удобный генератор QR кодов build-1.12">
+<meta name="description" content="Удобный генератор QR кодов build-1.13">
+<meta property="og:title" content="QR Генератор от Димана v1.13 ✨">
+<meta property="og:description" content="Удобный генератор QR кодов build-1.13">
 <meta property="og:image" content="img/title.png">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/title.png">
 <meta name="twitter:card" content="img/title.png" />
 <meta name="twitter:image" content="img/title.png" />
 
-<title>QR Генератор от Димана v1.12</title>
+<title>QR Генератор от Димана v1.13</title>
 <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
-<link rel="stylesheet" href="css/styles.css?v=1.12.d0-pre-release">
+<link rel="stylesheet" href="css/styles.css?v=1.13.d0">
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,10 @@
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 </head>
 <body>
+    <div class="lotsLoaderHolder">
+        <span class="lotsLoader"></span>
+        <div class="lotsLoadingPersents">0%</div>
+    </div>
     <nav class="menu">
         <button class="historyToggleOpen">
             <i class="fa-solid fa-clock-rotate-left fa-shake"></i>
@@ -480,13 +484,62 @@
                     </li>
                 </ul>
             </div>
+            <div class="changeLogItem">
+                <button class="itemTitle">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.13
+                </button>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-regular fa-wrench iconFix"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Поле ввода "Начать с лота:"</p>
+                                <p class="itemDescriptionTextInfoSub">Исправлен баг в поле ввода начальной точки нумерации страницы. Ранее при каждом изменении в поле воода, происходила генерация нового файла.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-regular fa-wrench iconFix"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Печать пустого QR"</p>
+                                <p class="itemDescriptionTextInfoSub">Исправлен баг, который допускал печать ещё не сгенерированного QR-Кода</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-regular fa-circle-plus iconUpdate"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Индекатор загрузки генератора лотов</p>
+                                <p class="itemDescriptionTextInfoSub">Добавлен индекатор генерации .pdf файла с обезличенными лотами</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="itemDescription">
+                    <li>
+                        <div class="itemDescriptionTitle">
+                            <i class="fa-regular fa-circle-plus iconUpdate"></i>
+                            <div class="itemDescriptionText">
+                                <p class="itemDescriptionTextInfo">Новый тип QR-Кода</p>
+                                <p class="itemDescriptionTextInfoSub">Добавлен новый формат генерации QR-Кодов, для тех, кому удобнее печатать аномалии через QR-Генратор<br><br>Специально для тебмя Миша</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="mainContentContainer">
         <canvas id="particle-canvas"></canvas>
         <div class="wrapper">
-            <h1 class="webTitle">QR Генератор от Димана v1.12
+            <h1 class="webTitle">QR Генератор от Димана v1.13
                 <span class="catImage"></span>
             </h1>
             <!------------------------------------------------------------------------------------------------------------->
@@ -546,7 +599,7 @@
                                 <p>Начать с номера</p>
                             </div>
                             <label for="startFromNumberInput" id="startFromNumberLabel">
-                                <input type="number" id="startFromNumberInput" class="startFromNumberInput" min="1" max="999" step="1" value="1" disabled>
+                                <input type="number" id="startFromNumberInput" class="startFromNumberInput" min="1" max="999" step="1" placeholder="1" disabled>
                             </label>
                         </label>
                     </form>

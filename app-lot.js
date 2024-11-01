@@ -20,12 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentFile = null;
     let currentBlobUrl = null;
+    let inputTimeout;
 
     // Управление видимостью поля ввода в зависимости от состояния чекбокса
     startFromNumberCheckbox.addEventListener('change', () => {
-        if (currentFile) {
-            handleFileSelect({ target: { files: [currentFile] } });
-        }
+        // Очищаем предыдущий таймер
+        clearTimeout(inputTimeout);
+    
+        // Устанавливаем новый таймер на 1 секунду
+        inputTimeout = setTimeout(() => {
+            if (currentFile) {
+                handleFileSelect({ target: { files: [currentFile] } });
+            }
+        }, 1000);
     });
     startFromNumberInput.addEventListener(`click`, () => startFromNumberInput.select());
 
@@ -33,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterInput(event) {
         const input = event.target;
         let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
-        if (value === '') value = '1'; // Минимум 1
+        if (value === '') value = ''; // Минимум 1
         if (parseInt(value, 10) > 999) value = '999'; // Максимум 999
         input.value = value;
     }
@@ -49,10 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Обработчик изменения значения поля ввода цифры
+
     startFromNumberInput.addEventListener('input', () => {
-        if (currentFile) {
-            handleFileSelect({ target: { files: [currentFile] } });
-        }
+        // Очищаем предыдущий таймер
+        clearTimeout(inputTimeout);
+    
+        // Устанавливаем новый таймер на 1 секунду
+        inputTimeout = setTimeout(() => {
+            if (currentFile) {
+                handleFileSelect({ target: { files: [currentFile] } });
+            }
+        }, 1000);
     });
 
     dropZone.addEventListener('click', () => fileInput.click());
@@ -135,26 +149,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function processPDF(file) {
         const pdfDoc = await PDFLib.PDFDocument.load(await file.arrayBuffer());
-
+    
         // Получаем начальный номер из поля ввода или устанавливаем по умолчанию
         const startFromNumber = startFromNumberCheckbox.checked ? parseInt(startFromNumberInput.value, 10) : 1;
-
+    
         // Создаем новый документ PDF с добавленным текстом и изображением
         const newPdfDoc = await PDFLib.PDFDocument.create();
         const pages = pdfDoc.getPages();
         const pageCount = pages.length;
-
+    
+        // Получаем элементы для отображения загрузки и процентов
+        const progressDiv = document.querySelector('.lotsLoadingPersents');
+        const loaderHolder = document.querySelector('.lotsLoaderHolder');
+    
+        // Показать loader
+        loaderHolder.style.display = 'flex';
+    
         for (let i = 0; i < pageCount; i++) {
             const [copiedPage] = await newPdfDoc.copyPages(pdfDoc, [i]);
             newPdfDoc.addPage(copiedPage);
-
+    
             const page = newPdfDoc.getPages()[i];
             const { width, height } = page.getSize();
-
+    
             // Новая высота страницы
             const newHeight = height + 80;
             page.setSize(width, newHeight);
-
+    
             // Добавляем текст и изображение на страницы
             page.drawText((i + startFromNumber).toString(), {
                 x: 0,
@@ -162,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 size: 60,
                 color: PDFLib.rgb(0, 0, 0),
             });
-
+    
             // Вставляем изображение (если требуется)
             const arrowPngBytes = await fetch('img/arrow.png').then(res => res.arrayBuffer());
             const arrowImage = await newPdfDoc.embedPng(arrowPngBytes);
@@ -172,12 +193,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 width: 70,
                 height: 70
             });
+    
+            // Обновляем проценты выполнения
+            const percentComplete = Math.round(((i + 1) / pageCount) * 100);
+            progressDiv.textContent = `${percentComplete}%`;
         }
-
+    
         const pdfBytes = await newPdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
-
+    
+        // Скрыть loader после завершения
+        loaderHolder.style.display = 'none';
+    
         // Кнопка печати
         printButton.onclick = () => {
             const printWindow = window.open(url, '_blank');
@@ -185,13 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 printWindow.print();
             };
         };
-
+    
         // Кнопка скачивания
         downloadButton.onclick = () => {
             const now = new Date();
             const timestamp = `${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
             const filename = `dimanOrphanLots-${timestamp}.pdf`;
-
+    
             const a = document.createElement('a');
             a.href = url;
             a.download = filename;
@@ -199,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
             a.click();
             document.body.removeChild(a);
         };
-
+    
         currentBlobUrl = url; // Сохраняем URL для последующих операций
     }
+    
 });

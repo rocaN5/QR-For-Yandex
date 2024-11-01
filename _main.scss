@@ -411,7 +411,11 @@ div.mainContentContainer{
                                     color: #fff;
                                     cursor: text;
                                     user-select: auto;
-                                }  
+                                    &::placeholder{
+                                        color: #fff;
+                                        transition: 400ms;
+                                    }
+                                } 
                             }
                         }
                     }
@@ -514,6 +518,10 @@ div.mainContentContainer{
                                 transition: 200ms;
                                 user-select: none;
                                 cursor: not-allowed;
+                                &::placeholder{
+                                    color: #828282;
+                                    transition: 400ms;
+                                }
                                 &::-webkit-outer-spin-button,
                                 &::-webkit-inner-spin-button {
                                     display: none;
@@ -742,6 +750,37 @@ div.mainContentContainer{
                             width: 350px;
                         }
                     }
+                    &:has(h1.anomlyText){
+                        align-items: flex-start !important;
+                        p{
+                            text-align: left;
+                            margin-left: 20px;
+                            span.anomalyTextLastLetters{
+                                font-weight: 800;
+                                font-size: 32px;
+                            }
+                        }
+                        .qrImgContainer{
+                            margin-left: 20px;
+                        }
+                        #company-info{
+                            margin-bottom: unset;
+                            border: unset;
+                        }
+                        .anomalyCompanyName{
+                            margin: 0;
+                            margin-bottom: 40px;
+                            margin-left: 20px;
+                            font-size: 20px;
+                        }
+                        #company-info{
+                            padding: 0;
+                            position: absolute;
+                            transform: rotate(-90deg);
+                            bottom: 190px;
+                            right: -160px;
+                        }
+                    }
                     &:not(:has(span#datetime)){
                         justify-content: center;
                     }
@@ -856,6 +895,13 @@ div.mainContentContainer{
                                 }
                             }
                         }
+                    }
+                    h1.anomlyText{
+                        text-align: left;
+                        font-size: 40px;
+                        font-weight: 500;
+                        margin: unset;
+                        margin-left: 20px;
                     }
                 }
             }

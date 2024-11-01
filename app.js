@@ -1,4 +1,4 @@
-const version = "v1.12"
+const version = "v1.13"
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -6,17 +6,18 @@ document.getElementById('qr-text').addEventListener('submit', function(e) {
 }, false);
 
 document.getElementById("qr-text").addEventListener("input", function() {
-    generateCodes();
-    const getQrImgContainer = document.querySelector(".qrImgContainer")
-    const getQrLoader = document.querySelector(".qrLoader")
-    if(getQrImgContainer){
-      getQrLoader.style.display = 'flex';
-    }else if(!getQrImgContainer){
-      getQrLoader.style.display = 'none';
-    }
-    clearSpaces();
-});
+  generateCodes();
+  const getQrImgContainer = document.querySelector(".qrImgContainer");
+  const getQrLoader = document.querySelector(".qrLoader");
 
+  if (getQrImgContainer) {
+      getQrLoader.style.display = 'flex';
+  } else {
+      getQrLoader.style.display = 'none';
+  }
+
+  clearSpaces();
+});
 document.getElementById("qr-text").addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
       event.preventDefault();
@@ -24,36 +25,94 @@ document.getElementById("qr-text").addEventListener("keypress", function(event) 
 });
 
 document.querySelector(".print__code").addEventListener("click", function() {
-    convertToImageAndOpenInNewTab();
+    const qrCodeCreated = document.querySelector(".qrCodeCreated")
+    if(qrCodeCreated){
+      convertToImageAndOpenInNewTab();
+    }else{
+      return
+    }
 });
 
-function generateCodes() {
+
+function generateAnomalyCodes() {
   var qrText = document.getElementById("qr-text").value;
   var qrCodeDiv = document.getElementById("qr-code");
   qrCodeDiv.innerHTML = "";
 
-  if (qrText.trim() === "") {
-    var messageElement = document.createElement("p");
-    messageElement.classList.add("qrCodeDefaultText");
-    messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
-    qrCodeDiv.appendChild(messageElement);
+    // Добавляем текст "Аномалия"
+    let anomalyTest = document.createElement("h1")
+    anomalyTest.classList.add('anomlyText')
+    anomalyTest.textContent = "Аномалия"
+    qrCodeDiv.appendChild(anomalyTest);
 
-    // Генерация случайного числа от 1 до 5
-    var randomNumber = Math.floor(Math.random() * 50) + 1;
+    var qrTextElement = document.createElement("p");
+    var mainText = qrText.slice(0, -4); 
+    var lastFourChars = qrText.slice(-4);
+    qrTextElement.appendChild(document.createTextNode(mainText));
+    var anomalySpan = document.createElement("span");
+    anomalySpan.classList.add("anomalyTextLastLetters");
+    anomalySpan.textContent = lastFourChars;
+    qrTextElement.appendChild(anomalySpan);
+    qrCodeDiv.appendChild(qrTextElement);
+    
+    // Создание и добавление h1 "СЦ Воронеж"
+    var companyName = document.createElement("h1");
+    companyName.textContent = "СЦ Воронеж";
+    companyName.classList.add("anomalyCompanyName")
+    qrCodeDiv.appendChild(companyName);
+    
+    // Генерация QR-кода
+    var qrCode = document.createElement("img");
+    qrCode.classList.add("qrCodeCreated")
+    qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
+    qrCode.alt = "QR Code";
+    
+    var companyInfoDiv = document.createElement("div");
+    companyInfoDiv.id = "company-info";
+    var dateTime = document.createElement("span");
+    dateTime.id = "datetime";
+    dateTime.innerHTML = getCurrentDateTime();
+    companyInfoDiv.appendChild(dateTime);
+    qrCodeDiv.appendChild(companyInfoDiv);
 
-    // Добавление стиля через JavaScript
-    var style = document.createElement('style');
-    style.innerHTML = `
-      .qrCodeDefaultText::after {
-        background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
-      }
-    `;
-    document.head.appendChild(style);
+    var qrImgContainer = document.createElement("div");
+    qrImgContainer.classList.add('qrImgContainer');
+    qrCodeDiv.appendChild(qrImgContainer);
+    qrImgContainer.appendChild(qrCode);
+}
 
-    return;
-  }
+function generateCodes() {
+  const inputText = document.getElementById('qr-text').value.trim();
+  
+  // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
+  if (inputText.startsWith("FA") && inputText.length == 20 ) {
+      generateAnomalyCodes();
+      console.log("dA")
+  } else {
+    var qrText = document.getElementById("qr-text").value;
+    var qrCodeDiv = document.getElementById("qr-code");
+    qrCodeDiv.innerHTML = "";
 
+    if (qrText.trim() === "") {
+      var messageElement = document.createElement("p");
+      messageElement.classList.add("qrCodeDefaultText");
+      messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+      qrCodeDiv.appendChild(messageElement);
 
+      // Генерация случайного числа от 1 до 5
+      var randomNumber = Math.floor(Math.random() * 50) + 1;
+
+      // Добавление стиля через JavaScript
+      var style = document.createElement('style');
+      style.innerHTML = `
+        .qrCodeDefaultText::after {
+          background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
+        }
+      `;
+      document.head.appendChild(style);
+
+      return;
+    }
 
     // Создание и добавление h1 "СЦ Воронеж" и span с датой и временем в один div
     var companyInfoDiv = document.createElement("div");
@@ -69,6 +128,7 @@ function generateCodes() {
 
     // Генерация QR-кода
     var qrCode = document.createElement("img");
+    qrCode.classList.add("qrCodeCreated")
     qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
     qrCode.alt = "QR Code";
 
@@ -98,7 +158,7 @@ function generateCodes() {
         orderDamaged.remove()
       }
     }
-
+  }
 }
 
 function getCurrentDateTime() {
@@ -119,6 +179,10 @@ function getCurrentDateTime() {
          (minutes < 10 ? '0' : '') + minutes + ':' + 
          (seconds < 10 ? '0' : '') + seconds;
 }
+
+
+
+
 function convertToImageAndOpenInNewTab() {
   const qrCodeDiv = document.getElementById("qr-code");
   const imageContainer = document.getElementById("image-container");
@@ -594,7 +658,6 @@ function clearSpaces() {
     qrInputs.forEach(input => {
       input.value = input.value.replace(/\s+/g, '');
       generateCodes();
-      // generateCodes() // Раскомментируйте, если необходимо
     });
   }
 }
@@ -1036,7 +1099,12 @@ window.onload = function() {
   document.addEventListener('keydown', function(event) {
       if (event.ctrlKey && event.key === 'p' || event.ctrlKey && event.key === 'з') {
           event.preventDefault();
-          convertToImageAndOpenInNewTab();
+          const qrCodeCreated = document.querySelector(".qrCodeCreated")
+          if(qrCodeCreated){
+            convertToImageAndOpenInNewTab();
+          }else{
+            return
+          }
       }
   });
 };
