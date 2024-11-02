@@ -409,8 +409,9 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form:has(
   user-select: auto;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form:has(input:checked) label.toggleStartNumber label#startFromNumberLabel input#startFromNumberInput::placeholder {
-  color: #fff;
-  transition: 400ms;
+  color: #797979;
+  transition: 200ms;
+  font-size: 16px;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber {
   width: 224px;
@@ -515,8 +516,9 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form labe
   cursor: not-allowed;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber label#startFromNumberLabel input#startFromNumberInput::placeholder {
-  color: #828282;
-  transition: 400ms;
+  color: #797979;
+  transition: 200ms;
+  font-size: 16px;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber label#startFromNumberLabel input#startFromNumberInput::-webkit-outer-spin-button, div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber label#startFromNumberLabel input#startFromNumberInput::-webkit-inner-spin-button {
   display: none;
@@ -2338,4 +2340,4 @@ body, html {
   font-size: 30px;
   font-weight: 500;
   color: #ffffff;
-}
+}/*# sourceMappingURL=styles.css.map */

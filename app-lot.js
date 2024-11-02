@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startFromNumberCheckbox.addEventListener('change', () => {
         if (startFromNumberCheckbox.checked) {
             startFromNumberInput.removeAttribute('disabled');
+            startFromNumberInput.focus();
         } else {
             startFromNumberInput.setAttribute('disabled', 'disabled');
         }
@@ -40,8 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterInput(event) {
         const input = event.target;
         let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
+        if (value === '0') value = '1'; // Минимум 1
         if (value === '') value = ''; // Минимум 1
-        if (parseInt(value, 10) > 999) value = '999'; // Максимум 999
+        if (value > '276') value = ''; // Минимум 1
+        if (parseInt(value, 10) > 999) value = ''; // Максимум 999
         input.value = value;
     }
 
