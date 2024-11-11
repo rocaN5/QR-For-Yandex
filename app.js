@@ -975,7 +975,7 @@ function switchGeneratorType(currentItem, allItems) {
     item.classList.remove('active');
     setTimeout(() => {
       item.removeAttribute('disabled');
-    }, 1100);
+    }, 1250);
   });
 
   currentItem.setAttribute('generatorType', 'active');
@@ -983,11 +983,9 @@ function switchGeneratorType(currentItem, allItems) {
 
   if (currentItem.classList.contains("generatorTypeSwitchQR")) {
     generatorTypeFirst = true;
-    console.log("1");
     transitionContainers("QR");
   } else if (currentItem.classList.contains("generatorTypeSwitchLots")) {
     generatorTypeFirst = false;
-    console.log("2");
     transitionContainers("Lots");
   } else {
     alert("Error");
@@ -1016,14 +1014,14 @@ function updateContainers(type) {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 10); // small delay to ensure transition effect
+      }, 100); // small delay to ensure transition effect
     } else if (type === "Lots" && container.classList.contains("containerLots")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 10); // small delay to ensure transition effect
+      }, 100); // small delay to ensure transition effect
     }
   });
 }
