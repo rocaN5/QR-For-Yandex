@@ -1,4 +1,4 @@
-const version = "v1.14"
+const version = "1.14"
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -449,6 +449,7 @@ function sendImageToTelegram() {
 <b>Номер заказа:</b> <code>${captionInputText}</code>
 <b>📅 Дата:</b> <i>${currentDate}</i>
 <b>🕑 Время:</b> <i>${currentTime}</i>
+<b>👨‍💻 Версия:</b> <i>${version}</i>
 
 <b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
 <b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
