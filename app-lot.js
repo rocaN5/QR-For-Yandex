@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
         if (value === '0') value = '1'; // Минимум 1
         if (value === '') value = ''; // Минимум 1
-        if (value > '276') value = ''; // Минимум 1
         if (parseInt(value, 10) > 999) value = ''; // Максимум 999
         input.value = value;
     }
