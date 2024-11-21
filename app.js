@@ -49,6 +49,7 @@ function generateAnomalyCodes() {
     var mainText = qrText.slice(0, -4); 
     var lastFourChars = qrText.slice(-4);
     qrTextElement.appendChild(document.createTextNode(mainText));
+
     var anomalySpan = document.createElement("span");
     anomalySpan.classList.add("anomalyTextLastLetters");
     anomalySpan.textContent = lastFourChars;
@@ -87,7 +88,6 @@ function generateCodes() {
   // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
   if (inputText.startsWith("FA") && inputText.length == 20 ) {
       generateAnomalyCodes();
-      console.log("dA")
   } else {
     var qrText = document.getElementById("qr-text").value;
     var qrCodeDiv = document.getElementById("qr-code");
@@ -144,7 +144,33 @@ function generateCodes() {
 
     var qrTextElement = document.createElement("p");
     qrTextElement.textContent = qrText;
+    qrTextElement.classList.add("mainText")
     qrCodeDiv.appendChild(qrTextElement);
+
+    var maxLength = 20;
+
+    var qrTextElementExtraLeft = document.createElement("p");
+    qrTextElementExtraLeft.textContent = formatText(`${qrText}`);
+    qrTextElementExtraLeft.classList.add("mainExtraTextLeft");
+    qrCodeDiv.appendChild(qrTextElementExtraLeft);
+    
+    var qrTextElementExtraRight = document.createElement("p");
+    qrTextElementExtraRight.textContent = formatText(`${qrText}`);
+    qrTextElementExtraRight.classList.add("mainExtraTextRight");
+    qrCodeDiv.appendChild(qrTextElementExtraRight);
+    
+    function formatText(text) {
+        // Обрезаем текст до 14 символов (с учетом "•" по краям)
+        var extraSymbols = 2; // По одному символу "•" слева и справа
+        var adjustedMaxLength = maxLength - extraSymbols;
+    
+        // Если текст длиннее, обрезаем и добавляем многоточие
+        if (text.length > maxLength) {
+            return "..." + text.slice(-adjustedMaxLength);
+        }
+        return text;
+    }
+    
 
     if(inputDamagedChecked == true){
       var qrTextDamaged = document.createElement("p");
@@ -975,7 +1001,7 @@ function switchGeneratorType(currentItem, allItems) {
     item.classList.remove('active');
     setTimeout(() => {
       item.removeAttribute('disabled');
-    }, 1250);
+    }, 1100);
   });
 
   currentItem.setAttribute('generatorType', 'active');
@@ -983,9 +1009,11 @@ function switchGeneratorType(currentItem, allItems) {
 
   if (currentItem.classList.contains("generatorTypeSwitchQR")) {
     generatorTypeFirst = true;
+    console.log("1");
     transitionContainers("QR");
   } else if (currentItem.classList.contains("generatorTypeSwitchLots")) {
     generatorTypeFirst = false;
+    console.log("2");
     transitionContainers("Lots");
   } else {
     alert("Error");
@@ -1014,14 +1042,14 @@ function updateContainers(type) {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 100); // small delay to ensure transition effect
+      }, 10); // small delay to ensure transition effect
     } else if (type === "Lots" && container.classList.contains("containerLots")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 100); // small delay to ensure transition effect
+      }, 10); // small delay to ensure transition effect
     }
   });
 }
