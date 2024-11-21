@@ -732,6 +732,8 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code {
   padding: 30px;
   border-radius: 20px;
   background: #fff;
+  box-shadow: 0px 0px 0px 2px inset;
+  overflow: hidden;
 }
 @media (max-width: 860px) {
   div.mainContentContainer div.wrapper div.container .qrContainer #qr-code {
@@ -907,6 +909,40 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainText {
   margin-top: 30px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainExtraTextTop {
+  top: 0px;
+  left: 0px;
+  letter-spacing: 8px;
+  margin: unset;
+  background: #000;
+  color: #fff;
+  display: flex;
+  width: inherit;
+  padding: 0px 40px;
+  position: absolute;
+  text-align: center;
+  font-size: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 0px 10px 10px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainExtraTextBottom {
+  bottom: 0px;
+  left: 0px;
+  letter-spacing: 8px;
+  margin: unset;
+  background: #000;
+  color: #fff;
+  display: flex;
+  width: inherit;
+  padding: 0px 40px;
+  position: absolute;
+  text-align: center;
+  font-size: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 0px 10px 10px;
 }
 div.mainContentContainer div.wrapper div.container button.print__code {
   text-align: center;

@@ -1,4 +1,4 @@
-const version = "v1.13"
+const version = "v1.14"
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -158,6 +158,16 @@ function generateCodes() {
     qrTextElementExtraRight.textContent = formatText(`${qrText}`);
     qrTextElementExtraRight.classList.add("mainExtraTextRight");
     qrCodeDiv.appendChild(qrTextElementExtraRight);
+
+    var qrTextElementExtraTop = document.createElement("p");
+    qrTextElementExtraTop.textContent = formatText(`${qrText}`);
+    qrTextElementExtraTop.classList.add("mainExtraTextTop");
+    qrCodeDiv.appendChild(qrTextElementExtraTop);
+    
+    var qrTextElementExtraBottom = document.createElement("p");
+    qrTextElementExtraBottom.textContent = formatText(`${qrText}`);
+    qrTextElementExtraBottom.classList.add("mainExtraTextBottom");
+    qrCodeDiv.appendChild(qrTextElementExtraBottom);
     
     function formatText(text) {
         // Обрезаем текст до 14 символов (с учетом "•" по краям)
