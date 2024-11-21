@@ -925,7 +925,6 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
   font-size: 100%;
   justify-content: center;
   align-items: center;
-  border-radius: 0px 0px 10px 10px;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainExtraTextBottom {
   bottom: 0px;
@@ -942,7 +941,6 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
   font-size: 100%;
   justify-content: center;
   align-items: center;
-  border-radius: 0px 0px 10px 10px;
 }
 div.mainContentContainer div.wrapper div.container button.print__code {
   text-align: center;
