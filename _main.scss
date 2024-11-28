@@ -913,6 +913,7 @@ div.mainContentContainer{
                         left: -30%;
                         top: 230px;
                         transform: rotate(-90deg);
+                        white-space: nowrap;
                     }
                     p.mainExtraTextRight{
                         font-size: 16px;
@@ -920,6 +921,7 @@ div.mainContentContainer{
                         right: -30%;
                         top: 230px;
                         transform: rotate(90deg);
+                        white-space: nowrap;
                     }
                     p.mainText{
                         margin-top: 30px;
@@ -939,6 +941,7 @@ div.mainContentContainer{
                         font-size: 100%;
                         justify-content: center;
                         align-items: center;
+                        white-space: nowrap;
                     }
                     p.mainExtraTextBottom{
                         bottom: 0px;
@@ -955,6 +958,7 @@ div.mainContentContainer{
                         font-size: 100%;
                         justify-content: center;
                         align-items: center;
+                        white-space: nowrap;
                     }
                 }
             }
