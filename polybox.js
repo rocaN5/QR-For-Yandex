@@ -291,11 +291,11 @@ function changePolyboxDirectionData(){
               // Определяем содержимое shipDirectionTitle_data
               if (shipDirectionID_data === "17") {
                 shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
-                shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ МК Тарный (День)`
+                shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
                 shipDirectionType_data = "Последняя миля"
               } else if (shipDirectionID_data === "11") {
                   shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">Ночь</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ МК Тарный (Ночь)`
+                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (Ночь)`
                   shipDirectionType_data = "Последняя миля"
               } else if (shipDirectionID_data === "16") {
                   shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 20px; margin-bottom: 20px;">СЦ Ростов</span>`;
@@ -388,11 +388,11 @@ function changePolyboxDirectionData(){
                       // Определяем содержимое shipDirectionTitle_data
                       if (shipDirectionID_data === "17") {
                         shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
-                        shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ МК Тарный (День)`
+                        shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
                         shipDirectionType_data = "Последняя миля"
                       } else if (shipDirectionID_data === "11") {
                           shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">Ночь</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ МК Тарный (Ночь)`
+                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (Ночь)`
                           shipDirectionType_data = "Последняя миля"
                       } else if (shipDirectionID_data === "16") {
                           shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Ростов</span>`;
