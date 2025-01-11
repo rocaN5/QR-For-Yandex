@@ -31,22 +31,56 @@ div.mainContentContainer div.wrapper {
   align-items: center;
   overflow: hidden;
 }
-div.mainContentContainer div.wrapper h1.webTitle {
-  background: rgba(44, 44, 44, 0.4392156863);
-  width: fit-content;
-  position: relative;
+div.mainContentContainer div.wrapper h1.webTitleBlur {
   padding: 20px;
-  border-radius: 20px;
-  border: 6px double #fff;
   color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   font-family: "Roboto", sans-serif;
   font-style: normal;
-  display: flex;
-  align-items: center;
-  backdrop-filter: blur(4px);
   margin: 0;
-  margin-top: 20px;
+  margin-bottom: 20px;
+  background: #000000;
+  width: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 0px 50% 50%;
+  text-shadow: 0px 0px 2px #ffffff;
+  position: absolute;
+  background: linear-gradient(0deg, #01c3fc, #9158ff);
+  filter: blur(20px);
+}
+div.mainContentContainer div.wrapper h1.webTitle {
+  position: relative;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  margin: 0;
+  margin-bottom: 20px;
+  background: #000000;
+  width: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 0px 50% 50%;
+  transition: 500ms letter-spacing linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px rgb(1, 195, 252) inset, 0px -20px 40px -10px rgb(145, 88, 255) inset;
+  border: 1px solid rgb(1, 195, 252);
+  border-top: 0;
+  color: transparent;
+  text-shadow: 0px 0px 30px transparent, 0px 0px 30px transparent, 0px 0px 30px transparent;
+  letter-spacing: -1rem;
+}
+div.mainContentContainer div.wrapper h1.webTitle.webTitleTransition {
+  color: #fff !important;
+  letter-spacing: 0 !important;
+  text-shadow: 0px 0px 30px #000000, 0px 0px 30px #000000, 0px 0px 30px #000000 !important;
+  transition: 500ms letter-spacing linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) !important;
+}
+div.mainContentContainer div.wrapper h1.webTitle > .webTitle-extra-Transition {
+  top: 20% !important;
+  transition: 500ms linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) !important;
 }
 @media (max-width: 640px) {
   div.mainContentContainer div.wrapper h1.webTitle {
@@ -67,6 +101,27 @@ div.mainContentContainer div.wrapper h1.webTitle span.catImage {
   border: 2px solid #fff;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   margin-left: 20px;
+}
+div.mainContentContainer div.wrapper h1.webTitle .versionName {
+  position: absolute;
+  font-size: 10px;
+  color: #444444;
+  left: 20px;
+  top: -100%;
+  text-shadow: 0 0 10px #444444;
+  transition: 300ms;
+  letter-spacing: 0;
+}
+div.mainContentContainer div.wrapper h1.webTitle .authourName {
+  position: absolute;
+  font-size: 10px;
+  color: #444444;
+  top: -100%;
+  right: 20px;
+  text-shadow: 0 0 10px #444444;
+  transition: 300ms;
+  letter-spacing: 0;
+  transition: 500ms linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) !important;
 }
 div.mainContentContainer div.wrapper div.container {
   position: relative;
@@ -314,7 +369,7 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) ~ .dataInputLabel {
   transform: translate(-50%, -50%);
   padding: 0px 18px;
-  background: rgb(0, 0, 0);
+  background: #0c0c0c;
   border-radius: 20px;
   border: 2px solid #ffffff;
   transition: 100ms;
@@ -910,7 +965,8 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
   white-space: nowrap;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainText {
-  margin-top: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainExtraTextTop {
   top: 0px;
@@ -945,6 +1001,81 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly {
+  justify-content: center !important;
+  box-shadow: unset !important;
+  border-radius: 10px;
+  padding: 6px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly:has(.qrImgContainer) {
+  justify-content: flex-start !important;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly p.mainText {
+  word-wrap: unset;
+  margin-top: 10px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly p.mainText span {
+  font-weight: 800;
+  font-size: 2.5rem;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirection div.shipDirectionID {
+  font-size: 3rem;
+  font-weight: 800;
+  border: 2px solid;
+  border-right: 1px solid;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 4px 0px 0px 10px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirection div.shipDirectionDescription {
+  font-size: 1rem;
+  font-weight: 800;
+  border: 2px solid;
+  border-left: 1px solid;
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 0px 4px 10px 0px;
+  text-align: center;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-transform: uppercase;
+  flex-direction: column !important;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionPathTitle {
+  display: flex;
+  width: 100%;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-top: 0px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionPathType {
+  text-decoration: underline;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionPath {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 div.mainContentContainer div.wrapper div.container button.print__code {
   text-align: center;
@@ -1009,15 +1140,368 @@ div.mainContentContainer div.wrapper div.container #dropZone #fileName {
   background: rgba(255, 255, 255, 0.2392156863);
   border-radius: 16px;
 }
+div.mainContentContainer div.wrapper div.container.containerPolybox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 90px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox.hidden {
+  filter: blur(200px) brightness(0);
+  opacity: 0;
+  transform: scale(0.6);
+  display: none;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder {
+  order: 1;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxExtraMessage, div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly {
+  cursor: not-allowed;
+  user-select: none;
+  position: absolute;
+  top: -40%;
+  border: 2px solid #ff0000;
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 10px 0px #ff0000 inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7rem;
+  background: rgba(0, 0, 0, 0);
+  color: #ff0000;
+  padding: 10px 10px;
+  font-weight: 500;
+  border-radius: 10px;
+  backdrop-filter: blur(2px) grayscale(1);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxExtraMessage i, div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly i {
+  font-size: 1rem;
+  text-shadow: 0 0 20px #ff0000;
+  filter: drop-shadow(0px 0px 10px red);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxExtraMessage p, div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly p {
+  margin: unset;
+  font-weight: 800;
+  font-size: 10px;
+  text-shadow: 0 0 10px #ff0000;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly {
+  opacity: 0;
+  pointer-events: none;
+  --atentionColor: #fcc801;
+  top: 43%;
+  padding: 2px 10px;
+  border-radius: 0px 0px 10px 10px;
+  border: 2px solid var(--atentionColor);
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 10px 0px var(--atentionColor) inset;
+  border-top: unset;
+  color: var(--atentionColor);
+  transition: 200ms;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly i {
+  text-shadow: unset;
+  filter: unset;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .inputHolder div.polyboxEanglishOnly p {
+  margin-left: 6px;
+  margin-right: 6px;
+  text-shadow: 0 0 10px var(--atentionColor);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .qrContainer {
+  order: 2;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .directionChoosContainer {
+  order: 3;
+  position: relative;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox button.print__code {
+  text-align: center;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 3px solid;
+  font-weight: 800;
+  background: linear-gradient(0deg, #fcc801, #ff5858);
+  cursor: pointer;
+  box-shadow: 0 10px 30px -10px #000, 0px 0px 5px 0px inset;
+  user-select: none;
+  transition: 300ms ease-in-out;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox button.print__code p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox button.print__code:hover {
+  filter: brightness(1.2);
+  transition: 300ms ease-in-out;
+  box-shadow: 0 10px 30px -10px #000, 0px 0px 10px 2px inset;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox button.print__code:active {
+  transform: scale(0.98);
+  transition: transform 100ms ease-in-out;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .chooseFlowTitle {
+  position: absolute;
+  z-index: 999;
+  width: calc(100% - 4px);
+  height: 40px;
+  color: #d7d7d7;
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 20px 20px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: default;
+  pointer-events: none;
+  left: 2px;
+  top: 1px;
+  box-shadow: 0px 10px 10px -8px #000, 0px 10px 10px -8px #000, 0px 10px 10px -8px #000, 0px 10px 10px -8px #000;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul {
+  --defaultTransition: 300ms;
+  display: flex;
+  justify-content: flex-start;
+  background: rgba(0, 0, 0, 0.368627451);
+  flex-flow: column;
+  gap: 14px;
+  position: relative;
+  color: #fff;
+  padding: 20px 20px;
+  padding-left: 44px;
+  border-radius: 20px;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-shadow: 0px 2px 6px 0px #000;
+  backdrop-filter: blur(2px) grayscale(1);
+  margin: unset;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 60px;
+  scroll-behavior: smooth;
+  transition: var(--defaultTransition);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul::-webkit-scrollbar-track {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul:hover {
+  height: 370px;
+  transition: var(--defaultTransition);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio] {
+  display: none;
+  transition: var(--defaultTransition);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label {
+  transition: var(--defaultTransition);
+  border: 2px solid #ffffff;
+  color: #fff;
+  box-shadow: 0px 0px 10px 4px #000, 0px 0px 10px 4px #000 inset;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label .cellID {
+  transition: var(--defaultTransition);
+  background: #ffffff;
+  color: #000;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label i {
+  transition: var(--defaultTransition);
+  color: #ffffff;
+  filter: drop-shadow(0px 0px 10px #ffffff);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnDay] i.cellLocation {
+  transition: var(--defaultTransition);
+  color: #9bff00;
+  filter: drop-shadow(0px 0px 10px #9bff00);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnNight] i.cellLocation {
+  transition: var(--defaultTransition);
+  color: #00aeff;
+  filter: drop-shadow(0px 0px 10px #00aeff);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=rostov] i.cellLocation {
+  transition: var(--defaultTransition);
+  color: #ff4800;
+  filter: drop-shadow(0px 0px 10px #ff4800);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label i.cellPinned {
+  color: #fff;
+  transition: var(--defaultTransition);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label i.fa-sun.cellSlot {
+  transition: var(--defaultTransition);
+  color: #fc0;
+  filter: drop-shadow(0px 0px 10px #fc0);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label i.fa-moon.cellSlot {
+  transition: var(--defaultTransition);
+  color: #00aeff;
+  filter: drop-shadow(0px 0px 10px #00aeff);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label {
+  transition: var(--defaultTransition);
+  color: #8f8f8f;
+  list-style: none;
+  padding: 18px 20px;
+  width: 200px;
+  background: rgba(18, 18, 18, 0.4196078431);
+  border-radius: 10px;
+  border: 2px solid rgba(53, 53, 53, 0.7098039216);
+  user-select: none;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0px 0px 10px 4px #000;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label p {
+  margin: unset;
+  display: flex;
+  gap: 10px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label[for=tarnDay] > p > span {
+  color: #9bff00;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label[for=tarnNight] > p > span {
+  color: #00aeff;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .cellID {
+  left: 0;
+  position: absolute;
+  transform: translate(calc(-100% + 2px)) rotate(-90deg);
+  background: rgba(53, 53, 53, 0.7098039216);
+  padding: 6px;
+  border-radius: 8px 8px 0px 0px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  font-weight: 800;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label i.cellLocation {
+  transition: var(--defaultTransition);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  color: #545454;
+  filter: drop-shadow(0px 0px 10px #000);
+  cursor: not-allowed;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label i.cellPinned {
+  transition: var(--defaultTransition);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  color: #545454;
+  filter: drop-shadow(0px 0px 10px #000);
+  transform: rotate(45deg);
+  cursor: not-allowed;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label i.cellSlot {
+  transition: var(--defaultTransition);
+  position: absolute;
+  left: 10px;
+  font-size: 14px;
+  color: #545454;
+  filter: drop-shadow(0px 0px 10px #000);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer {
+  position: absolute;
+  left: 10px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer i.isCross {
+  transition: var(--defaultTransition);
+  font-size: 14px;
+  color: #545454;
+  cursor: help;
+  filter: drop-shadow(0px 0px 10px #000);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer:hover::after, div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer:hover::before {
+  opacity: 1;
+  transition: 200ms;
+  transform: translateY(0);
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer:has(i.fa-shuffle)::before {
+  content: "Кросс-док";
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer::after {
+  content: "";
+  transition: 200ms;
+  display: flex;
+  border: 6px solid transparent;
+  border-top: 6px solid #060606;
+  position: absolute;
+  top: -56%;
+  filter: drop-shadow(0px 0px 10px #3d3d3d);
+  transform: translateY(-12px);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li label .crossContainer::before {
+  content: "Последняя миля";
+  transition: 200ms;
+  display: flex;
+  background: #000000;
+  color: #ffffff;
+  top: -200%;
+  left: -100%;
+  position: absolute;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 2px solid #000;
+  box-shadow: 0px 0px 10px 0px #3d3d3d;
+  width: max-content;
+  transform: translateY(-12px);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox ul .devider {
+  width: 110%;
+  height: 3px;
+  background: #1e1e1e;
+  box-shadow: 0px 0px 10px 0px #000;
+  margin: 10px 0px;
+  left: -10%;
+  position: relative;
+  display: flex;
+  padding: 2px 0px;
+  border-radius: 30px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .qrContainer {
+  width: 460px;
+  height: 530px;
+}
+div.mainContentContainer div.wrapper div.container.containerPolybox .qrContainer .qrLoader {
+  border-top: 10px solid #ff3b3b;
+}
 
-#image-container {
+#image-container, #image-containerPoly {
   margin-top: 20px;
   text-align: center;
   justify-content: center;
   align-items: center;
   display: none;
 }
-#image-container img {
+#image-container img, #image-containerPoly img {
   max-width: 100%;
   height: auto;
   border-radius: 20px;
@@ -1108,6 +1592,12 @@ nav.menu {
   gap: 10px;
   z-index: 99999;
 }
+nav.menu:hover button::after, nav.menu:hover button::before {
+  opacity: 0.2;
+  transform: unset;
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  color: #fff;
+}
 nav.menu button {
   box-shadow: 0px 0px 10px 0px #000;
 }
@@ -1146,7 +1636,7 @@ nav.menu button::before {
 }
 nav.menu button:hover::after, nav.menu button:hover::before {
   opacity: 1;
-  transform: unset;
+  transform: translateX(6px);
   transition: opacity 500ms, color 1.5s, transform 500ms;
   color: #fff;
 }
@@ -1159,7 +1649,7 @@ nav.menu button.historyToggleOpen {
   transition: 200ms;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.768627451);
   backdrop-filter: blur(2px) grayscale(1);
   cursor: pointer;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
@@ -1208,7 +1698,7 @@ nav.menu button.changelogToggleOpen {
   transition: 200ms;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.768627451);
   backdrop-filter: blur(2px) grayscale(1);
   cursor: pointer;
   z-index: 998;
@@ -1238,7 +1728,7 @@ nav.menu button.generatorTypeSwitchQR {
   transition: 200ms;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.768627451);
   backdrop-filter: blur(2px) grayscale(1);
   cursor: pointer;
   z-index: 998;
@@ -1278,7 +1768,7 @@ nav.menu button.generatorTypeSwitchLots {
   transition: 200ms;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.768627451);
   backdrop-filter: blur(2px) grayscale(1);
   cursor: pointer;
   z-index: 998;
@@ -1309,6 +1799,130 @@ nav.menu button.generatorTypeSwitchLots[generatorType=active]:hover {
 nav.menu button.generatorTypeSwitchLots[generatorType=active] i {
   color: #000;
 }
+nav.menu button.generatorTypeSwitchPolybox {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+}
+nav.menu button.generatorTypeSwitchPolybox::after {
+  content: "Полибоксы";
+}
+nav.menu button.generatorTypeSwitchPolybox i {
+  font-size: 20px;
+  color: #fff;
+}
+nav.menu button.generatorTypeSwitchPolybox:hover {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+  transition: 200ms;
+  border: 2px solid #656565;
+}
+nav.menu button.generatorTypeSwitchPolybox[generatorType=active] {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px #fff;
+  border: 2px solid #7d7d7d;
+  transition: 200ms;
+}
+nav.menu button.generatorTypeSwitchPolybox[generatorType=active]:hover {
+  transition: 200ms;
+  border: 2px solid #000;
+}
+nav.menu button.generatorTypeSwitchPolybox[generatorType=active] i {
+  color: #000;
+}
+nav.menu button.generatorTypeSwitchPEGASUS {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  opacity: 0.3;
+  pointer-events: none;
+}
+nav.menu button.generatorTypeSwitchPEGASUS::after {
+  content: "...";
+}
+nav.menu button.generatorTypeSwitchPEGASUS i {
+  font-size: 20px;
+  color: #fff;
+}
+nav.menu button.generatorTypeSwitchPEGASUS:hover {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+  transition: 200ms;
+  border: 2px solid #656565;
+}
+nav.menu button.generatorTypeSwitchPEGASUS[generatorType=active] {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px #fff;
+  border: 2px solid #7d7d7d;
+  transition: 200ms;
+}
+nav.menu button.generatorTypeSwitchPEGASUS[generatorType=active]:hover {
+  transition: 200ms;
+  border: 2px solid #000;
+}
+nav.menu button.generatorTypeSwitchPEGASUS[generatorType=active] i {
+  color: #000;
+}
+nav.menu button.generatorTypeSwitchSCAN {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  opacity: 0.3;
+  pointer-events: none;
+}
+nav.menu button.generatorTypeSwitchSCAN::after {
+  content: "...";
+}
+nav.menu button.generatorTypeSwitchSCAN i {
+  font-size: 20px;
+  color: #fff;
+}
+nav.menu button.generatorTypeSwitchSCAN:hover {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+  transition: 200ms;
+  border: 2px solid #656565;
+}
+nav.menu button.generatorTypeSwitchSCAN[generatorType=active] {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px #fff;
+  border: 2px solid #7d7d7d;
+  transition: 200ms;
+}
+nav.menu button.generatorTypeSwitchSCAN[generatorType=active]:hover {
+  transition: 200ms;
+  border: 2px solid #000;
+}
+nav.menu button.generatorTypeSwitchSCAN[generatorType=active] i {
+  color: #000;
+}
 nav.menu button.qrTypeSwitch {
   position: relative;
   width: 50px;
@@ -1318,7 +1932,7 @@ nav.menu button.qrTypeSwitch {
   transition: 200ms;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.768627451);
   backdrop-filter: blur(2px) grayscale(1);
   cursor: pointer;
   z-index: 998;
@@ -2374,7 +2988,7 @@ body, html {
   height: 100px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, #7e01b4 94%, rgba(0, 0, 0, 0)) top/8px 8px no-repeat, conic-gradient(rgba(0, 0, 0, 0) 30%, #7e01b4);
+  background: radial-gradient(farthest-side, #8fff00 94%, rgba(0, 0, 0, 0)) top/8px 8px no-repeat, conic-gradient(rgba(0, 0, 0, 0) 30%, #8fff00);
   -webkit-mask: radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 8px), #000 0);
   animation: spinLoaderLots linear infinite 1s;
 }
@@ -2390,4 +3004,4 @@ body, html {
   font-size: 30px;
   font-weight: 500;
   color: #ffffff;
-}/*# sourceMappingURL=styles.css.map */
+}

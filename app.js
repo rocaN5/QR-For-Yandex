@@ -1,4 +1,5 @@
-const version = "1.14"
+const version = "1.15"
+const versionPoly = "1.0"
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -287,7 +288,6 @@ function convertToImageAndOpenInNewTab() {
                 img {
                   max-width: 120%;
                   max-height: 120%;
-                  border-radius: 20px;
                   z-index: 9999;
                   user-select: none;
                 }
@@ -342,7 +342,6 @@ function convertToImageAndOpenInNewTab() {
                     display: unset !important;
                     max-width: 100% !important;
                     max-height: 100% !important;
-                    border-radius: 20px !important;
                     z-index: 9999 !important;
                     width: unset !important;
                     height: unset !important;
@@ -446,7 +445,7 @@ function sendImageToTelegram() {
 
   // Формируем подпись в HTML формате, используя ваше форматирование
   const captionHTML = `
-<b>Номер заказа:</b> <code>${captionInputText}</code>
+<b>🔢 Номер заказа:</b> <code>${captionInputText}</code>
 <b>📅 Дата:</b> <i>${currentDate}</i>
 <b>🕑 Время:</b> <i>${currentTime}</i>
 <b>👨‍💻 Версия:</b> <i>${version}</i>
@@ -496,6 +495,9 @@ function sendImageToTelegram() {
 
 // TODO Частицы ✅
 
+let particleColorOnEnter = "#01c3fc"
+let particleColorOnLeave = "#9158ff"
+
 function createParticleCanvas(canvasId, sizeRange) {
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
@@ -518,8 +520,8 @@ function createParticleCanvas(canvasId, sizeRange) {
           this.y = initial ? random(0, canvas.height) : -this.size;
           this.opacity = random(0.3, 1);
           this.speedY = random(1, 3);
-          this.color = '#01c3fc';
-          this.colorChange = '#9158ff';
+          this.color = particleColorOnEnter;
+          this.colorChange = particleColorOnLeave;
           this.duration = random(4000, 12000);
           this.startTime = Date.now();
       }
@@ -531,7 +533,7 @@ function createParticleCanvas(canvasId, sizeRange) {
           if (progress >= 1) {
               this.y = canvas.height + this.size; // Установим значение за пределами canvas
           } else {
-              this.color = this.interpolateColor('#01c3fc', '#9158ff', progress);
+              this.color = this.interpolateColor(`${particleColorOnEnter}`, `${particleColorOnLeave}`, progress);
           }
       }
 
@@ -602,7 +604,7 @@ function createParticleCanvas(canvasId, sizeRange) {
 createParticleCanvas('particle-canvas', { min: 2, max: 6 });
 createParticleCanvas('particle-canvasDemov1-10', { min: 10, max: 15 });
 
-// TODO случайая гифка котяры :D ✅
+// TODO случайайная гифка котяры :D ✅
 document.addEventListener("DOMContentLoaded", function() {
   // Генерация случайного числа от 1 до 5
   var randomNumber = Math.floor(Math.random() * 50) + 1;
@@ -889,7 +891,6 @@ document.addEventListener('DOMContentLoaded', function() {
           img {
             max-width: 120%;
             max-height: 120%;
-            border-radius: 20px;
             z-index: 9999;
           }
           canvas {
@@ -943,63 +944,9 @@ document.addEventListener('DOMContentLoaded', function() {
   observer.observe(historyList, { childList: true });
 });
 
-
-// TODO: Переключение между режимами QR-Кодов ✅
-
-// const qrTypeSwitch = document.querySelector('.qrTypeSwitch')
-// const qrTypeSwitchDemo = document.querySelector('.qrTypeSwitchDemo')
-// const coolDownIndicator = document.querySelector('.coolDownIndicator')
-// const coolDownIndicatorDemo = document.querySelector('.coolDownIndicatorDemo')
-      
-// qrTypeSwitch.addEventListener('click', function qrSwitch(){
-//   const coolDown = 1000;
-//   this.classList.toggle('qrTypeSwitch__clicked')
-//   this.setAttribute('disabled', true)
-//   coolDownIndicator.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
-//   coolDownIndicator.style.height = "0"
-//   coolDownIndicator.style.transition = `${coolDown + "ms"} linear`
-//   setTimeout(() => {
-//     this.removeAttribute('disabled', false)
-//     coolDownIndicator.style.background = "transparent"
-//     coolDownIndicator.style.height = "100%"
-//     coolDownIndicator.style.transition = "unset"
-//   }, coolDown + 200);
-
-//
-//   const containers = document.querySelectorAll('.container');
-//   containers.forEach(item => {
-//     if (item.getAttribute('qrType') === 'hidden') {
-//       item.setAttribute('qrType', 'visible');
-//       item.style.display = "flex"
-//     } else {
-//       item.setAttribute('qrType', 'hidden');
-//       item.style.display = "none"
-//     }
-//   });
-// })
-
-
-// //~ qrTypeSwitchDemo
-// qrTypeSwitchDemo.addEventListener('click', function qrSwitchDemo(){
-//   const coolDown = 1000;
-//   this.classList.toggle('qrTypeSwitchDemo__clicked')
-//   this.setAttribute('disabled', true)
-//   coolDownIndicatorDemo.style.background = "linear-gradient(0deg, #DEDEDE, #6c6c6c)"
-//   coolDownIndicatorDemo.style.height = "0"
-//   coolDownIndicatorDemo.style.transition = `${coolDown + "ms"} linear`
-//   setTimeout(() => {
-//     this.removeAttribute('disabled', false)
-//     coolDownIndicatorDemo.style.background = "transparent"
-//     coolDownIndicatorDemo.style.height = "100%"
-//     coolDownIndicatorDemo.style.transition = "unset"
-//   }, coolDown + 200);
-// })
-
-//TODO: Кнопки generatorType ✅
-
 const generatorType = document.querySelectorAll(".typeSwitch");
 const containers = document.querySelectorAll(".container");
-let generatorTypeFirst = true;
+let generatorTypeFirst = 0;
 
 function switchGeneratorType(currentItem, allItems) {
   if (currentItem.getAttribute("generatorType") === "active") {
@@ -1018,16 +965,19 @@ function switchGeneratorType(currentItem, allItems) {
   currentItem.setAttribute('generatorType', 'active');
   currentItem.classList.add('active');
 
+  const webTitle = document.querySelector('.webTitle')
+
   if (currentItem.classList.contains("generatorTypeSwitchQR")) {
-    generatorTypeFirst = true;
-    console.log("1");
+    generatorTypeFirst = 0;
     transitionContainers("QR");
   } else if (currentItem.classList.contains("generatorTypeSwitchLots")) {
-    generatorTypeFirst = false;
-    console.log("2");
+    generatorTypeFirst = 1;
     transitionContainers("Lots");
+  } else if (currentItem.classList.contains("generatorTypeSwitchPolybox")) {
+    generatorTypeFirst = 2;
+    transitionContainers("Polybox");
   } else {
-    alert("Error");
+    alert("PEGASUS.acces.version(pegasus=alpha)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=beta)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d2)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d4)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d7)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d12)\nPEGASUS.request.blocked\n\nCORE.output.message(CORE=\"PEGASUS в разработке\")\n\nCORE.not.admin(request=denied)");
   }
 }
 
@@ -1040,12 +990,17 @@ function transitionContainers(type) {
       setTimeout(() => {
         container.style.display = "none";
         updateContainers(type);
-      }, 500); // match the transition duration
+      }, 500);
     }
   });
 }
 
 function updateContainers(type) {
+  const particleCanvas = document.querySelector("#particle-canvas")
+  const webTitleBlur = document.querySelector(".webTitleBlur")
+  const webTitle = document.querySelector("h1.webTitle")
+  const versionName = document.querySelector(".versionName")
+  const authourName = document.querySelector(".authourName")
   containers.forEach(container => {
     if (type === "QR" && container.classList.contains("containerQR")) {
       container.style.display = "flex";
@@ -1053,16 +1008,129 @@ function updateContainers(type) {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 10); // small delay to ensure transition effect
-    } else if (type === "Lots" && container.classList.contains("containerLots")) {
+        particleColorOnEnter = "#01c3fc"
+        particleColorOnLeave = "#9158ff"
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+        
+        webTitle.innerHTML = `QR-Код Генератор
+                        <div class="versionName webTitle-extra-Transition" style="color: #00e5ff; text-shadow: 0 0 10px #00e5ff;">v1.15</div>
+                        <div class="authourName webTitle-extra-Transition" style="color: #00e5ff; text-shadow: 0 0 10px #00e5ff;">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        versionName.style.color = "#00e5ff"
+        authourName.style.textShadow = "0 0 10px #00e5ff"
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnEnter}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnEnter} inset, 0px -20px 40px -10px ${particleColorOnLeave} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
+    } else
+     if (type === "Lots" && container.classList.contains("containerLots")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-      }, 10); // small delay to ensure transition effect
+        particleColorOnEnter = "#8fff00";
+        particleColorOnLeave = "#ffe200";
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+ 
+        webTitle.innerHTML = `Генератор обезличеных лотов
+                        <div class="versionName webTitle-extra-Transition" style="color: #c2ff00; text-shadow: 0 0 10px #c2ff00;">v1.3</div>
+                        <div class="authourName webTitle-extra-Transition" style="color: #c2ff00; text-shadow: 0 0 10px #c2ff00;">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        authourName.style.color = `${particleColorOnEnter}`
+        authourName.style.textShadow = `0 0 10px ${particleColorOnEnter}`
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnLeave}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnEnter} inset, 0px -20px 40px -10px ${particleColorOnLeave} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
+    } else if (type === "Polybox" && container.classList.contains("containerPolybox")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
+        particleColorOnEnter = "#ff5858";
+        particleColorOnLeave = "#fcc801";
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+        
+        webTitle.innerHTML = `Генератор лотов на полибоксы
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">v1.0</div>
+                              <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        versionName.style.color = `${particleColorOnEnter}`
+        versionName.style.textShadow = `0 0 10px ${particleColorOnEnter}`
+        authourName.style.color = `${particleColorOnEnter}`
+        authourName.style.textShadow = `0 0 10px ${particleColorOnEnter}`
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnLeave}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnLeave} inset, 0px -20px 40px -10px ${particleColorOnEnter} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
     }
   });
+}
+
+// TODO: Изменение иконки сайта
+
+function changeFavicons() {
+  // Определяем путь к иконке в зависимости от значения generatorTypeFirst
+  let newIconPath = '';
+  switch (generatorTypeFirst) {
+      case 0:
+          newIconPath = 'img/icon.png';
+          newTitle = 'QR Генератор от Димана v1.15';
+          break;
+      case 1:
+          newIconPath = 'img/iconLots.png';
+          newTitle = 'Генератор обезличеных лотов v1.3';
+          break;
+      case 2:
+          newIconPath = 'img/iconPolybox.png';
+          newTitle = 'Генератор лотов на полибоксы v1.0';
+          break;
+      default:
+          console.error('Invalid generatorTypeFirst value');
+          return;
+  }
+
+  // Получаем все элементы с классом favIcon
+  const favicons = document.querySelectorAll('link.favIcon');
+  if (favicons.length === 0) {
+      console.error('No favIcon links found.');
+      return;
+  }
+
+  // Меняем путь для каждого найденного элемента
+  favicons.forEach(favicon => {
+      favicon.href = newIconPath;
+  });
+  document.title = newTitle;
 }
 
 generatorType.forEach(item => {
