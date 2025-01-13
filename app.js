@@ -10,6 +10,10 @@ document.getElementById('qr-text').addEventListener('submit', function(e) {
 
 document.getElementById("qr-text").addEventListener("input", function() {
   generateCodes();
+
+  const audio = new Audio("audio/input.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
+  
   const getQrImgContainer = document.querySelector(".qrImgContainer");
   const getQrLoader = document.querySelector(".qrLoader");
 
@@ -667,6 +671,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       deleteDiv.addEventListener('click', () => {
+        
+
+          const audio = new Audio("audio/clear.mp3");
+          audio.play().catch(error => console.error("Error playing audio:", error));
           inputField.value = '';
           deleteFromImage();
       });
@@ -684,6 +692,9 @@ function toggleCheckboxes() {
 
   checkboxes.forEach(checkbox => {
     checkbox.checked = inputChecked;
+    
+    const audio = new Audio("audio/click.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
   });
 
   // Если все чекбоксы становятся checked, очищаем пробелы сразу
@@ -726,6 +737,8 @@ function toggleCheckboxesDamaged() {
   generateCodes()
   checkboxesDamaged.forEach(checkbox => {
     checkbox.checked = inputDamagedChecked;
+    const audio = new Audio("audio/click.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
   });
 }
 // Добавляем обработчик события на каждый чекбокс для переключения состояния

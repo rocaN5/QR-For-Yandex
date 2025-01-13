@@ -4,11 +4,22 @@ document.getElementById('qrPoly-text').addEventListener('submit', function(e) {
 
 let summonedAttention = false;
 
+const inputRadioDirection = document.querySelectorAll('input[name="direction"]')
+
+inputRadioDirection.forEach(radioButton => {
+  radioButton.addEventListener('click', ()=>{
+    const audio = new Audio("audio/click.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  })
+});
+
 document.getElementById("qrPoly-text").addEventListener("input", function (event) {
   const inputElement = event.target;
   const requiredPrefix = "F30000000000000";
   const originalValue = inputElement.value; // Оригинальное значение, введенное пользователем
 
+  const audio = new Audio("audio/input.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
   // Проверяем, содержат ли введенные символы только английские буквы и цифры
   const isEnglishOnly = /^[A-Z0-9]*$/i.test(originalValue); // Регулярное выражение для проверки
 
@@ -19,6 +30,8 @@ document.getElementById("qrPoly-text").addEventListener("input", function (event
         polyboxEanglishOnly.style.opacity = "1";
         polyboxEanglishOnly.style.pointerEvents = 'flex';
         summonedAttention = true;
+        const audio = new Audio("audio/cannceled.wav");
+        audio.play().catch(error => console.error("Error playing audio:", error));
         setTimeout(() => {
             polyboxEanglishOnly.style.opacity = "0";
             polyboxEanglishOnly.style.pointerEvents = 'none';
