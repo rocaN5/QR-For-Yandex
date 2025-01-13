@@ -446,6 +446,218 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer {
     order: 2;
   }
 }
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer {
+  --staColor: #000000;
+  --staBrColor: #fff;
+  --staBoxShadoColor: transparent;
+  width: 100%;
+  height: 80px;
+  background: var(--staColor);
+  border-radius: 0px 20px 20px 20px;
+  position: relative;
+  border: 2px solid var(--staBrColor);
+  box-shadow: 0px 0px 10px 0px var(--staBoxShadoColor), 0px 0px 10px 0px var(--staBoxShadoColor);
+  margin-top: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  transition: 300ms;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer:hover {
+  --staBoxShadoColor: #c0ff00 !important;
+  transition: 300ms;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer::before {
+  content: "Создать лоты:";
+  position: absolute;
+  width: 81%;
+  height: 40px;
+  background: var(--staColor);
+  border-radius: 20px 20px 0px 0px;
+  top: -41px;
+  border: 2px solid var(--staBrColor);
+  border-bottom: unset;
+  left: -2px;
+  box-shadow: 0px 0px 10px 0px var(--staBoxShadoColor), 0px 0px 10px 0px var(--staBoxShadoColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 0 0 10px #fff;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer::after {
+  content: "";
+  display: flex;
+  position: absolute;
+  width: 81%;
+  height: 40px;
+  background: var(--staColor);
+  border-radius: unset;
+  top: -1px;
+  border: 2px solid transparent;
+  border-bottom: unset;
+  left: 0;
+  box-shadow: unset;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer.createOrphanLotsnoData:hover {
+  --staBoxShadoColor: #fff !important;
+  transition: 300ms;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer.attentionLimit {
+  --staBoxShadoColor: red !important;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsLimitAttention {
+  position: absolute;
+  background: red;
+  padding: 4px 10px 10px 10px;
+  font-size: 0.6rem;
+  color: #000;
+  font-weight: 600;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 10px 0px red;
+  text-align: center;
+  left: -26%;
+  bottom: 58%;
+  transform: rotate(-90deg) translateY(30px);
+  z-index: -2;
+  user-select: none;
+  transition: 300ms ease-in-out;
+  opacity: 0;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsLimitAttention.attentionLimitShowed {
+  transform: rotate(-90deg) translateY(0px);
+  transition: 300ms ease-in-out;
+  opacity: 1;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsStatus {
+  --wh: 34px;
+  width: var(--wh);
+  height: var(--wh);
+  background: var(--staColor);
+  position: absolute;
+  right: -4px;
+  top: calc((var(--wh) + 14px) * -1);
+  border-radius: 10px;
+  border: 2px solid var(--staBrColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: help;
+  box-shadow: 0px 0px 10px 0px var(--staBoxShadoColor), 0px 0px 10px 0px var(--staBoxShadoColor);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsStatus i {
+  color: #fff;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsExtraBorderOutline {
+  width: 16px;
+  height: 40px;
+  position: absolute;
+  background: rgba(255, 0, 0, 0);
+  border-top-right-radius: 20px;
+  right: 26px;
+  top: -42px;
+  box-shadow: 0px -20px 0px 0px var(--staBrColor);
+  transform: rotate(180deg);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsExtraBorder {
+  width: 20px;
+  height: 40px;
+  position: absolute;
+  background: rgba(255, 0, 0, 0);
+  border-top-right-radius: 20px;
+  right: 25px;
+  top: -40px;
+  box-shadow: 0px -20px 0px 0px var(--staColor);
+  transform: rotate(180deg);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsInput {
+  text-align: center;
+  z-index: 99999;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset;
+  outline: unset;
+  font-weight: 600;
+  padding: unset;
+  box-shadow: 0px 0px 6px 0px #000 inset;
+  box-shadow: 0px 0px 20px -10px #fff, 0px 0px 6px 0px #000 inset;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsInput::-webkit-outer-spin-button, div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsInput[type=number] {
+  -moz-appearance: textfield;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsArrowIcon {
+  z-index: 99999;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset;
+  outline: none;
+  font-size: 1.2rem;
+  background: #000000;
+  cursor: default;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsArrowIcon i {
+  color: #fff;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton {
+  --colorState: #c0ff00;
+  z-index: 99999;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset;
+  outline: none;
+  font-size: 1.2rem;
+  color: #000;
+  background: var(--colorState);
+  cursor: pointer;
+  box-shadow: 0px 0px 20px -10px var(--colorState), 0px 0px 6px 0px #000 inset;
+  transition: 300ms;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton:hover {
+  transform: scale(1.05);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton.buttonDisabledByAttention {
+  --colorState: red !important;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton.buttonDisabledByAttention[disabled] {
+  cursor: not-allowed;
+  color: #000;
+  transition: 300ms;
+  background: var(--colorState);
+  box-shadow: 0px 0px 20px -10px var(--colorState), 0px 0px 6px 0px #000 inset;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton.buttonDisabledByAttention[disabled]:hover {
+  transform: unset;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton[disabled] {
+  cursor: not-allowed;
+  color: #636363;
+  transition: 300ms;
+  background: #b3b3b3;
+  box-shadow: 0px 0px 20px -10px #fff, 0px 0px 6px 0px #000 inset;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .createOrphanLotsContainer .createOrphanLotsButton[disabled]:hover {
+  transform: unset;
+}
 div.mainContentContainer div.wrapper div.container .fileInputContainer form {
   display: flex;
   flex-flow: column;
@@ -1109,6 +1321,14 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer {
   display: flex;
   flex-flow: column;
   color: #fff;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer .devider {
+  position: relative;
+  width: 110%;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 60px;
+  box-shadow: 0px 0px 10px 0px #000;
 }
 div.mainContentContainer div.wrapper div.container #dropZone {
   width: 340px;
@@ -2301,6 +2521,12 @@ nav.contacts a i.developer {
   border-bottom: 2px solid #444444;
   user-select: none;
 }
+.changelogHistory .changelogsectionList .changeLogItem button.itemTitle i.lotsUpdate {
+  left: 20%;
+  transform: unset;
+  color: #c0ff00;
+  filter: drop-shadow(0px 0px 10px #c0ff00);
+}
 .changelogHistory .changelogsectionList .changeLogItem button.itemTitle i {
   position: absolute;
   left: 20px;
@@ -2946,7 +3172,7 @@ nav.contacts a i.developer {
   width: 4px;
 }
 
-::selection {
+*::selection {
   background: #6846bf;
   color: #fff;
 }
@@ -3004,4 +3230,4 @@ body, html {
   font-size: 30px;
   font-weight: 500;
   color: #ffffff;
-}
+}/*# sourceMappingURL=styles.css.map */

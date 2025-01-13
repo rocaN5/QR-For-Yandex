@@ -1,5 +1,7 @@
 const version = "1.15"
+const versionLots = "1.4"
 const versionPoly = "1.0"
+
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -1015,7 +1017,7 @@ function updateContainers(type) {
         versionName.classList.remove("webTitle-extra-Transition")
         
         webTitle.innerHTML = `QR-Код Генератор
-                        <div class="versionName webTitle-extra-Transition" style="color: #00e5ff; text-shadow: 0 0 10px #00e5ff;">v1.15</div>
+                        <div class="versionName webTitle-extra-Transition" style="color: #00e5ff; text-shadow: 0 0 10px #00e5ff;">${version}</div>
                         <div class="authourName webTitle-extra-Transition" style="color: #00e5ff; text-shadow: 0 0 10px #00e5ff;">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
         versionName.style.color = "#00e5ff"
@@ -1025,6 +1027,13 @@ function updateContainers(type) {
         webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnEnter} inset, 0px -20px 40px -10px ${particleColorOnLeave} inset`
         webTitle.style.borderTop = `0`
         changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #6846bf;
+                color: #fff;
+            }
+        `;
       }, 10);
       setTimeout(()=>{
         webTitle.classList.add("webTitleTransition")
@@ -1045,7 +1054,7 @@ function updateContainers(type) {
         versionName.classList.remove("webTitle-extra-Transition")
  
         webTitle.innerHTML = `Генератор обезличеных лотов
-                        <div class="versionName webTitle-extra-Transition" style="color: #c2ff00; text-shadow: 0 0 10px #c2ff00;">v1.3</div>
+                        <div class="versionName webTitle-extra-Transition" style="color: #c2ff00; text-shadow: 0 0 10px #c2ff00;">${versionLots}</div>
                         <div class="authourName webTitle-extra-Transition" style="color: #c2ff00; text-shadow: 0 0 10px #c2ff00;">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
         authourName.style.color = `${particleColorOnEnter}`
@@ -1055,6 +1064,13 @@ function updateContainers(type) {
         webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnEnter} inset, 0px -20px 40px -10px ${particleColorOnLeave} inset`
         webTitle.style.borderTop = `0`
         changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #7cb900;
+                color: #fff;
+            }
+        `;
       }, 10);
       setTimeout(()=>{
         webTitle.classList.add("webTitleTransition")
@@ -1074,7 +1090,7 @@ function updateContainers(type) {
         versionName.classList.remove("webTitle-extra-Transition")
         
         webTitle.innerHTML = `Генератор лотов на полибоксы
-                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">v1.0</div>
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionPoly}</div>
                               <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
         versionName.style.color = `${particleColorOnEnter}`
@@ -1086,6 +1102,13 @@ function updateContainers(type) {
         webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -6px 20px -10px ${particleColorOnLeave} inset, 0px -20px 40px -10px ${particleColorOnEnter} inset`
         webTitle.style.borderTop = `0`
         changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #ff5858;
+                color: #fff;
+            }
+        `;
       }, 10);
       setTimeout(()=>{
         webTitle.classList.add("webTitleTransition")
@@ -1104,15 +1127,15 @@ function changeFavicons() {
   switch (generatorTypeFirst) {
       case 0:
           newIconPath = 'img/icon.png';
-          newTitle = 'QR Генератор от Димана v1.15';
+          newTitle = `QR Генератор от Димана ${versionLots}`;
           break;
       case 1:
           newIconPath = 'img/iconLots.png';
-          newTitle = 'Генератор обезличеных лотов v1.3';
+          newTitle = `Генератор обезличеных лотов ${versionLots}`;
           break;
       case 2:
           newIconPath = 'img/iconPolybox.png';
-          newTitle = 'Генератор лотов на полибоксы v1.0';
+          newTitle = `Генератор лотов на полибоксы ${versionPoly}`;
           break;
       default:
           console.error('Invalid generatorTypeFirst value');

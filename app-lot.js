@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const startFromNumberInput = document.getElementById('startFromNumberInput');
     const startFromNumberCheckboxClass = document.querySelector('.startFromNumberCheckbox');
     const startFromNumberInputClass = document.querySelector('.startFromNumberInput');
+    const createOrphanLotsInput = document.querySelector('.createOrphanLotsInput');
+    const createOrphanLotsButton = document.querySelector('.createOrphanLotsButton');
+    const createOrphanLotsContainer = document.querySelector('.createOrphanLotsContainer');
+    const createOrphanLotsLimitAttention = document.querySelector('.createOrphanLotsLimitAttention');
+    const createOrphanLotsStatus = document.querySelector('.createOrphanLotsStatus');
 
     startFromNumberCheckbox.addEventListener('change', () => {
         if (startFromNumberCheckbox.checked) {
@@ -232,5 +237,97 @@ document.addEventListener('DOMContentLoaded', () => {
     
         currentBlobUrl = url; // Сохраняем URL для последующих операций
     }
+    // createOrphanLotsButton
+
+    let callAttentionLimit = false;
+    createOrphanLotsInput.addEventListener('input', filterInputCreateLot);
+    function filterInputCreateLot(event) {
+        const input = event.target;
+        let value = input.value.replace(/\D/g, ''); // Убираем все, кроме цифр
     
+        if (value === '0') value = '1'; // Минимальное значение 1
+    
+        if (value === '') {
+            // Если значение пустое
+            createOrphanLotsContainer.classList.add('createOrphanLotsnoData');
+            createOrphanLotsButton.setAttribute('disabled', 'disabled');
+    
+            if (!callAttentionLimit) {
+                createOrphanLotsStatus.innerHTML = '<i class="fa-solid fa-question"></i>';
+            }
+        } else {
+            createOrphanLotsContainer.classList.remove('createOrphanLotsnoData');
+            createOrphanLotsButton.removeAttribute('disabled');
+        }
+    
+        if (parseInt(value, 10) > 150) {
+            value = ''; // Очищаем значение
+            if (callAttentionLimit === false) {
+                callAttentionLimit = true; // Устанавливаем флаг
+                createOrphanLotsContainer.classList.add('attentionLimit');
+                createOrphanLotsLimitAttention.classList.add('attentionLimitShowed');
+                createOrphanLotsStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color: red;"></i>';
+                createOrphanLotsButton.setAttribute('disabled', 'disabled');
+    
+                createOrphanLotsButton.classList.add('buttonDisabledByAttention');
+    
+                setTimeout(() => {
+                    callAttentionLimit = false; // Сбрасываем флаг
+                    createOrphanLotsContainer.classList.remove('attentionLimit');
+                    createOrphanLotsLimitAttention.classList.remove('attentionLimitShowed');
+    
+                    // После завершения callAttentionLimit проверяем input
+                    if (input.value === '') {
+                        createOrphanLotsStatus.innerHTML = '<i class="fa-solid fa-question"></i>';
+                        createOrphanLotsContainer.classList.add('createOrphanLotsnoData');
+                        createOrphanLotsButton.setAttribute('disabled', 'disabled');
+                    } else {
+                        // Если input содержит текст, обновляем состояние
+                        createOrphanLotsStatus.innerHTML = '<i class="fa-regular fa-face-smile-beam" style="color: #c0ff00;"></i>';
+                        createOrphanLotsContainer.classList.remove('createOrphanLotsnoData');
+                        createOrphanLotsButton.removeAttribute('disabled');
+                    }
+    
+                    createOrphanLotsButton.classList.remove('buttonDisabledByAttention');
+                }, 2000);
+            }
+        } else if (value.length >= 1 && !callAttentionLimit) {
+            // Обновляем статус только если callAttentionLimit завершён
+            createOrphanLotsStatus.innerHTML = '<i class="fa-regular fa-face-smile-beam" style="color: #c0ff00;"></i>';
+        }
+    
+        input.value = value;
+    
+        // Финальная проверка состояния кнопки
+        if (input.value === '' || callAttentionLimit === true) {
+            createOrphanLotsButton.setAttribute('disabled', 'disabled');
+        } else {
+            createOrphanLotsButton.removeAttribute('disabled');
+        }
+    }
+    
+    createOrphanLotsContainer.addEventListener('mouseenter', () => {
+        if (document.activeElement !== createOrphanLotsInput) {
+            createOrphanLotsInput.focus(); // Если нет, устанавливаем фокус
+        }
+    });
+    
+    createOrphanLotsButton.addEventListener('click', () => {
+        const inputValue = createOrphanLotsInput.value.trim(); // Получаем значение из input
+
+        if (inputValue) {
+            const url = `https://logistics.market.yandex.ru/api/sorting-center/21972131/sortables/lots/orphanBatch?count=${inputValue}`;
+
+            window.open(url, '_blank');
+        } else {
+            console.warn('Поле ввода пустое. Укажите значение, чтобы открыть ссылку.');
+        }
+    });
+
+    
+    createOrphanLotsInput.addEventListener('keydown', (event) => {
+        if (['+', '-', 'e'].includes(event.key)) {
+            event.preventDefault();
+        }
+    });
 });
