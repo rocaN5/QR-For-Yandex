@@ -799,21 +799,29 @@ historyToggleOpen.addEventListener("click", ()=>{
   menuOpen = true;
   openQrHistory()
   toggleMenu()
+  const audio = new Audio("audio/click.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
 })
 
 historyToggleClose.addEventListener("click",()=>{
   closeQrHistry();
   menuOpen = false;
+  const audio = new Audio("audio/click.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
 })
 
 changelogToggleOpen.addEventListener("click",()=>{
   menuOpen = true;
   openChangeLog();
   toggleMenu()
+  const audio = new Audio("audio/click.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
 })
 changelogToggleClose.addEventListener("click", ()=>{
   closeChangeLog();
   menuOpen = false;
+  const audio = new Audio("audio/click.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
   setTimeout(() => {
     document.querySelectorAll('.changeLogItem').forEach(item => {
       item.classList.remove('open');
@@ -1172,6 +1180,8 @@ function changeFavicons() {
 generatorType.forEach(item => {
   item.addEventListener('click', () => {
     switchGeneratorType(item, generatorType);
+    const audio = new Audio("audio/click.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
   });
 });
 
