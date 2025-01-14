@@ -1,6 +1,6 @@
 const version = "1.15"
 const versionLots = "1.4"
-const versionPoly = "1.0"
+const versionPoly = "1.1"
 
 let spanHistoryItemCounter = 0;
 

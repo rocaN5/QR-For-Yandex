@@ -15,7 +15,9 @@
 
 <title>QR Генератор от Димана v1.15</title>
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico" type="image/x-icon">
-<link rel="stylesheet" href="css/styles.css?v=1.15.d3">
+<!--D-->
+<link rel="stylesheet" href="css/styles.css?v=1.15.d4">
+<!--D-->
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +25,15 @@
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+
+<!--! PreLoad -->
+<!-- Audio -->
+<link rel="preload" href="audio/cannceled.wav" as="audio">
+<link rel="preload" href="audio/lotsGenerated.wav" as="audio">
+<link rel="preload" href="audio/input.mp3" as="audio">
+<link rel="preload" href="audio/clear.mp3" as="audio">
+<link rel="preload" href="audio/click.mp3" as="audio">
+<!--! PreLoad -->
 
 <style class="mainStyle">
 
@@ -776,6 +787,17 @@
                         </li>
                         <div class="devider"></div>
                         <li>
+                            <input type="radio" id="gribki" name="direction"/>
+                            <label for="gribki">
+                                <p>den noch drop</p>
+                                <div class="cellID">–</div>
+                                <div class="crossContainer">
+                                    <i class="fa-solid fa-right-to-line isCross"></i>
+                                </div>
+                                <i class="fa-solid fa-location-dot cellLocation"></i>
+                            </label>
+                        </li>
+                        <li>
                             <input type="radio" id="belgorod" name="direction"/>
                             <label for="belgorod">
                                 <p>СЦ Белгород</p>
@@ -890,17 +912,6 @@
                             <label for="ekb">
                                 <p>СЦ Екатеринбург</p>
                                 <div class="cellID">15</div>
-                                <div class="crossContainer">
-                                    <i class="fa-solid fa-shuffle isCross"></i>
-                                </div>
-                                <i class="fa-solid fa-location-dot cellLocation"></i>
-                            </label>
-                        </li>
-                        <li>
-                            <input type="radio" id="gribki" name="direction"/>
-                            <label for="gribki">
-                                <p>СЦ Грибки</p>
-                                <div class="cellID">20</div>
                                 <div class="crossContainer">
                                     <i class="fa-solid fa-shuffle isCross"></i>
                                 </div>

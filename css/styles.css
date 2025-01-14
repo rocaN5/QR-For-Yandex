@@ -155,6 +155,9 @@ div.mainContentContainer div.wrapper div.container.qrSecondType {
   opacity: 0.5;
   pointer-events: none;
 }
+div.mainContentContainer div.wrapper div.container.containerPolybox {
+  flex-wrap: wrap;
+}
 @media (max-width: 1000px) {
   div.mainContentContainer div.wrapper div.container {
     gap: 2%;
@@ -1222,6 +1225,11 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-code
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly:has(.qrImgContainer) {
   justify-content: flex-start !important;
+}
+@media (max-width: 860px) {
+  div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly {
+    width: 100% !important;
+  }
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly p.mainText {
   word-wrap: unset;
