@@ -3,6 +3,7 @@
 @import "contacts";
 @import "history";
 @import "changelog";
+@import "settings";
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #000;
@@ -50,6 +51,11 @@
 
 *{
     -webkit-tap-highlight-color: #d504ff2b;
+}
+
+body{
+    width: 100dvw;
+    height: 100dvh;
 }
 
 /* ! */

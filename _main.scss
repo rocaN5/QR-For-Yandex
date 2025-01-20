@@ -1,3 +1,4 @@
+
 div.mainContentContainer{
     position: relative;
     canvas#particle-canvas{
@@ -7,6 +8,7 @@ div.mainContentContainer{
         position: fixed;
         background-size: 100%;
         background-repeat: no-repeat;
+        box-shadow: 0px 0px 40px 10px #000 inset;
         background: linear-gradient(240deg, rgba(1, 195, 252, 0.1215686275), rgba(145, 88, 255, 0.1215686275));
         &#particle-container{
             position: fixed;
@@ -1395,6 +1397,10 @@ div.mainContentContainer{
                     border: 2px solid #fff;
                     background: #ffffff3d;
                     border-radius: 16px;
+                    width: 180px;
+                    max-width: 200px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
                 }
             }
 
@@ -1771,6 +1777,7 @@ div.mainContentContainer{
 
                     .qrLoader{
                         border-top: 10px solid #ff3b3b;
+                        top: 260px;
                     }
                 }
             }

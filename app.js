@@ -1,6 +1,7 @@
-const version = "1.15"
+const version = "1.14"
 const versionLots = "1.4"
 const versionPoly = "1.1"
+const versionLabel = "1.0"
 
 let spanHistoryItemCounter = 0;
 
@@ -11,8 +12,7 @@ document.getElementById('qr-text').addEventListener('submit', function(e) {
 document.getElementById("qr-text").addEventListener("input", function() {
   generateCodes();
 
-  const audio = new Audio("audio/input.mp3");
-  audio.play().catch(error => console.error("Error playing audio:", error));
+  makeSoundText()
   
   const getQrImgContainer = document.querySelector(".qrImgContainer");
   const getQrLoader = document.querySelector(".qrLoader");
@@ -497,12 +497,36 @@ function sendImageToTelegram() {
     });
 }
 
+const settings = document.querySelector('section.settings');
+const sectionbodyDOM = document.querySelector('section.bodyDOM');
+const callSettings = document.querySelector('.callSettings');
+const backToWeb = document.querySelector('.backToWeb');
+const contacts = document.querySelector('nav.contacts');
 
+callSettings.addEventListener('click', () => {
+  settings.style.display = "flex";
+  contacts.style.opacity = "0";
+  sectionbodyDOM.style.left = "-30%";
+  settings.removeAttribute('active'); // Убираем атрибут active
+  makeSoundClick();
+  setTimeout(() => {
+    contacts.style.display = 'none';
+  }, 1000);
+});
 
-// TODO Частицы ✅
+backToWeb.addEventListener('click', () => {
+  makeSoundClick();
+  contacts.style.display = 'flex';
+  contacts.style.opacity = "1";
+  sectionbodyDOM.style.left = "0";
+  settings.setAttribute('active', ''); // Добавляем атрибут active
+  setTimeout(() => {
+    settings.style.display = "none";
+  }, 1000);
+});
 
-let particleColorOnEnter = "#01c3fc"
-let particleColorOnLeave = "#9158ff"
+let particleColorOnEnter = "#01c3fc";
+let particleColorOnLeave = "#9158ff";
 
 function createParticleCanvas(canvasId, sizeRange) {
   const canvas = document.getElementById(canvasId);
@@ -510,105 +534,266 @@ function createParticleCanvas(canvasId, sizeRange) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  let mouse = { x: -100, y: -100 };
+  let particlesEnabled = true;
+  let lastTime = 0;
+  let fps = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  document.addEventListener('mouseleave', () => {
+    mouse.x = -100;
+    mouse.y = -100;
+  });
+
   window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+
+const canvasLowButton = document.querySelector('.canvasLow');
+const canvasHighButton = document.querySelector('.canvasHigh');
+const canvasFps = document.querySelector('.canvasFps');
+const canvasParticleCount = document.querySelector('.canvasParticleCount');
+const particleCountScaleUp = document.querySelector('.particleCountScaleUp');
+const particleCountScaleDown = document.querySelector('.particleCountScaleDown');
+
+
+//TODO Функция для управления кнопками canvas
+const toggleCanvasButtons = (enableParticles) => {
+  canvasLowButton.disabled = !enableParticles;
+  canvasHighButton.disabled = enableParticles;
+  canvasLowButton.style.display = enableParticles ? 'flex' : 'none';
+  canvasHighButton.style.display = enableParticles ? 'none' : 'flex';
+  particlesEnabled = enableParticles;
+  makeSoundClick();
+
+  if (enableParticles) {
+    resetParticles();
+  } else {
+    particles = [];
+  }
+
+  updateParticleCount();
+
+  const filterValue = enableParticles ? 'grayscale(0) opacity(1)' : 'grayscale(1) opacity(0.6)';
+  particleCountScaleUp.style.filter = filterValue;
+  particleCountScaleDown.style.filter = filterValue;
+
+  particleCountScaleUp.disabled = !enableParticles;
+  particleCountScaleDown.disabled = !enableParticles;
+  particleCountScaleUp.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
+  particleCountScaleDown.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
+};
+
+canvasLowButton.addEventListener('click', () => toggleCanvasButtons(false));
+canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
+
+  particleCountScaleUp.addEventListener('click', () => {
+    if (particlesEnabled) {
+      for (let i = 0; i < 10; i++) {
+        particles.push(new Particle(true));
+      }
+      updateParticleCount();
+    }
+    makeSoundClick();
+  });
+
+  particleCountScaleDown.addEventListener('click', () => {
+    if (particlesEnabled && particles.length >= 10) {
+      particles.splice(-10, 10);
+      updateParticleCount();
+    } else if (particlesEnabled && particles.length > 0) {
+      particles = [];
+      updateParticleCount();
+    }
+    makeSoundClick();
   });
 
   function random(min, max) {
-      return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min;
   }
 
   class Particle {
-      constructor(initial = false) {
-          this.size = random(sizeRange.min, sizeRange.max);
-          this.x = random(0, canvas.width);
-          this.y = initial ? random(0, canvas.height) : -this.size;
-          this.opacity = random(0.3, 1);
-          this.speedY = random(1, 3);
-          this.color = particleColorOnEnter;
-          this.colorChange = particleColorOnLeave;
-          this.duration = random(4000, 12000);
-          this.startTime = Date.now();
+    constructor(initial = false) {
+      this.size = random(sizeRange.min, sizeRange.max);
+      this.x = random(0, canvas.width);
+      this.y = initial ? random(0, canvas.height) : -this.size;
+      this.opacity = random(0.3, 1);
+      this.speedY = random(1, 3);
+      this.speedX = random(-1, 1);
+      this.color = particleColorOnEnter;
+      this.colorChange = particleColorOnLeave;
+      this.avoidRadius = 100;
+      this.glowRadius = 30;
+      this.glowIntensity = 0.5;
+      this.lightningRadius = this.avoidRadius / 1.8;
+    }
+
+    update() {
+      const progress = Math.min(this.y / canvas.height, 1);
+      this.color = this.interpolateColor(particleColorOnEnter, particleColorOnLeave, progress);
+
+      this.y += this.speedY;
+      this.x += this.speedX;
+
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < this.avoidRadius) {
+        this.x += dx / distance * 2;
       }
 
-      update() {
-          const elapsed = Date.now() - this.startTime;
-          const progress = Math.min(elapsed / this.duration, 1);
-          this.y += this.speedY;
-          if (progress >= 1) {
-              this.y = canvas.height + this.size; // Установим значение за пределами canvas
-          } else {
-              this.color = this.interpolateColor(`${particleColorOnEnter}`, `${particleColorOnLeave}`, progress);
-          }
+      if (distance < this.lightningRadius) {
+        this.glowIntensity = (1 - distance / this.lightningRadius) / 2;
+      } else {
+        this.glowIntensity = 0;
       }
 
-      draw() {
-          ctx.fillStyle = this.color;
-          ctx.globalAlpha = this.opacity;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-          ctx.closePath();
-          ctx.fill();
-          ctx.globalAlpha = 1;
+      if (this.y > canvas.height + this.size) {
+        this.y = -this.size;
+        this.x = random(0, canvas.width);
+      }
+    }
+
+    draw() {
+      if (this.glowIntensity > 0) {
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.glowRadius
+        );
+
+        const glowColor = `rgba(${this.hexToRgb(this.color).r}, ${this.hexToRgb(this.color).g}, ${this.hexToRgb(this.color).b}, ${this.glowIntensity})`;
+        gradient.addColorStop(0, glowColor);
+        gradient.addColorStop(1, `rgba(${this.hexToRgb(this.color).r}, ${this.hexToRgb(this.color).g}, ${this.hexToRgb(this.color).b}, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.glowRadius, 0, Math.PI * 2);
+        ctx.fill();
       }
 
-      interpolateColor(color1, color2, factor) {
-          const c1 = this.hexToRgb(color1);
-          const c2 = this.hexToRgb(color2);
-          const r = Math.round(c1.r + factor * (c2.r - c1.r));
-          const g = Math.round(c1.g + factor * (c2.g - c1.g));
-          const b = Math.round(c1.b + factor * (c2.b - c1.b));
-          return `rgb(${r},${g},${b})`;
-      }
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
 
-      hexToRgb(hex) {
-          const bigint = parseInt(hex.slice(1), 16);
-          const r = (bigint >> 16) & 255;
-          const g = (bigint >> 8) & 255;
-          const b = (bigint & 255);
-          return { r, g, b };
-      }
+    interpolateColor(color1, color2, factor) {
+      const c1 = this.hexToRgb(color1);
+      const c2 = this.hexToRgb(color2);
+      const r = Math.round(c1.r + factor * (c2.r - c1.r));
+      const g = Math.round(c1.g + factor * (c2.g - c1.g));
+      const b = Math.round(c1.b + factor * (c2.b - c1.b));
+      return `rgb(${r},${g},${b})`;
+    }
+
+    hexToRgb(hex) {
+      const bigint = parseInt(hex.slice(1), 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = (bigint & 255);
+      return { r, g, b };
+    }
   }
 
   let particles = [];
 
   function resetParticles() {
-      particles = [];
-      for (let i = 0; i < 100; i++) {
-          particles.push(new Particle(true));
-      }
+    particles = [];
+    for (let i = 0; i < 200; i++) {
+      particles.push(new Particle(true));
+    }
+    updateParticleCount();
   }
 
-  function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function updateParticleCount() {
+    if (!settings.hasAttribute('active')) { // Проверяем, есть ли атрибут active
+      const visibleParticles = particles.filter(particle => {
+        return particle.y >= 0 && particle.y <= canvas.height;
+      });
+      canvasParticleCount.textContent = visibleParticles.length;
+    }
+  }
+
+  function drawLightning(x1, y1, x2, y2, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2;
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 20;
+
+    ctx.quadraticCurveTo(midX + offsetX, midY + offsetY, x2, y2);
+    ctx.stroke();
+  }
+
+  function animate(time) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+    fps = Math.round(1000 / deltaTime);
+
+    if (!settings.hasAttribute('active')) { // Проверяем, есть ли атрибут active
+      canvasFps.textContent = fps;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (particlesEnabled) {
       for (let i = particles.length - 1; i >= 0; i--) {
-          const particle = particles[i];
-          particle.update();
-          particle.draw();
-          if (particle.y > canvas.height + particle.size) {
-              particles.splice(i, 1); // Удаление частицы
+        const particle = particles[i];
+        particle.update();
+        particle.draw();
+
+        if (particle.y > canvas.height + particle.size) {
+          particles.splice(i, 1);
+          updateParticleCount();
+        }
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        const particle1 = particles[i];
+        const dx = mouse.x - particle1.x;
+        const dy = mouse.y - particle1.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < particle1.lightningRadius) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const particle2 = particles[j];
+            const dx2 = particle1.x - particle2.x;
+            const dy2 = particle1.y - particle2.y;
+            const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+            if (distance2 < particle1.lightningRadius) {
+              const color = particle1.color;
+              drawLightning(particle1.x, particle1.y, particle2.x, particle2.y, color);
+            }
           }
+        }
       }
+    }
 
-      // Проверяем количество частиц и перезапускаем анимацию при необходимости
-      if (particles.length > 300) {
-          resetParticles();
-      }
-
-      requestAnimationFrame(animate);
+    updateParticleCount();
+    requestAnimationFrame(animate);
   }
-
-  setInterval(() => {
-      particles.push(new Particle());
-  }, 100);
 
   resetParticles();
-  animate();
+  animate(0);
 }
 
+// Инициализация
 createParticleCanvas('particle-canvas', { min: 2, max: 6 });
-createParticleCanvas('particle-canvasDemov1-10', { min: 10, max: 15 });
+
 
 // TODO случайайная гифка котяры :D ✅
 document.addEventListener("DOMContentLoaded", function() {
@@ -672,9 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       deleteDiv.addEventListener('click', () => {
         
-
-          const audio = new Audio("audio/clear.mp3");
-          audio.play().catch(error => console.error("Error playing audio:", error));
+          makeSoundClean()
           inputField.value = '';
           deleteFromImage();
       });
@@ -693,8 +876,7 @@ function toggleCheckboxes() {
   checkboxes.forEach(checkbox => {
     checkbox.checked = inputChecked;
     
-    const audio = new Audio("audio/click.mp3");
-    audio.play().catch(error => console.error("Error playing audio:", error));
+    makeSoundClick()
   });
 
   // Если все чекбоксы становятся checked, очищаем пробелы сразу
@@ -737,8 +919,7 @@ function toggleCheckboxesDamaged() {
   generateCodes()
   checkboxesDamaged.forEach(checkbox => {
     checkbox.checked = inputDamagedChecked;
-    const audio = new Audio("audio/click.mp3");
-    audio.play().catch(error => console.error("Error playing audio:", error));
+    makeSoundClick()
   });
 }
 // Добавляем обработчик события на каждый чекбокс для переключения состояния
@@ -799,29 +980,25 @@ historyToggleOpen.addEventListener("click", ()=>{
   menuOpen = true;
   openQrHistory()
   toggleMenu()
-  const audio = new Audio("audio/click.mp3");
-  audio.play().catch(error => console.error("Error playing audio:", error));
+  makeSoundClick();
 })
 
 historyToggleClose.addEventListener("click",()=>{
   closeQrHistry();
   menuOpen = false;
-  const audio = new Audio("audio/click.mp3");
-  audio.play().catch(error => console.error("Error playing audio:", error));
+  makeSoundClick();
 })
 
 changelogToggleOpen.addEventListener("click",()=>{
   menuOpen = true;
   openChangeLog();
   toggleMenu()
-  const audio = new Audio("audio/click.mp3");
-  audio.play().catch(error => console.error("Error playing audio:", error));
+  makeSoundClick();
 })
 changelogToggleClose.addEventListener("click", ()=>{
   closeChangeLog();
   menuOpen = false;
-  const audio = new Audio("audio/click.mp3");
-  audio.play().catch(error => console.error("Error playing audio:", error));
+  makeSoundClick();
   setTimeout(() => {
     document.querySelectorAll('.changeLogItem').forEach(item => {
       item.classList.remove('open');
@@ -999,7 +1176,10 @@ function switchGeneratorType(currentItem, allItems) {
   } else if (currentItem.classList.contains("generatorTypeSwitchPolybox")) {
     generatorTypeFirst = 2;
     transitionContainers("Polybox");
-  } else {
+  } else if (currentItem.classList.contains("generatorTypeSwitchDirectionLabel")) {
+    generatorTypeFirst = 3;
+    transitionContainers("DirectionLabel");
+  }  else {
     alert("PEGASUS.acces.version(pegasus=alpha)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=beta)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d2)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d4)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d7)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d12)\nPEGASUS.request.blocked\n\nCORE.output.message(CORE=\"PEGASUS в разработке\")\n\nCORE.not.admin(request=denied)");
   }
 }
@@ -1061,8 +1241,7 @@ function updateContainers(type) {
         versionName.classList.add("webTitle-extra-Transition")
         authourName.classList.add("webTitle-extra-Transition")
       },200)
-    } else
-     if (type === "Lots" && container.classList.contains("containerLots")) {
+    } else if (type === "Lots" && container.classList.contains("containerLots")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
@@ -1136,6 +1315,44 @@ function updateContainers(type) {
         versionName.classList.add("webTitle-extra-Transition")
         authourName.classList.add("webTitle-extra-Transition")
       },200)
+    } else if (type === "DirectionLabel" && container.classList.contains("containerDirectionLabel")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
+        particleColorOnEnter = "#c000ff";
+        particleColorOnLeave = "#00ff43";
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+        
+        webTitle.innerHTML = `Генератор этикеток
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnLeave}; text-shadow: 0 0 10px ${particleColorOnLeave};">${versionLabel}</div>
+                              <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnLeave}; text-shadow: 0 0 10px ${particleColorOnLeave};">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        versionName.style.color = `${particleColorOnLeave}`
+        versionName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        authourName.style.color = `${particleColorOnLeave}`
+        authourName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnLeave}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -16px 30px -10px ${particleColorOnLeave} inset, 0px -20px 40px -10px ${particleColorOnEnter} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #319e6a;
+                color: #fff;
+            }
+        `;
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
     }
   });
 }
@@ -1148,7 +1365,7 @@ function changeFavicons() {
   switch (generatorTypeFirst) {
       case 0:
           newIconPath = 'img/icon.png';
-          newTitle = `QR Генератор от Димана ${versionLots}`;
+          newTitle = `QR Генератор от Димана ${version}`;
           break;
       case 1:
           newIconPath = 'img/iconLots.png';
@@ -1180,8 +1397,7 @@ function changeFavicons() {
 generatorType.forEach(item => {
   item.addEventListener('click', () => {
     switchGeneratorType(item, generatorType);
-    const audio = new Audio("audio/click.mp3");
-    audio.play().catch(error => console.error("Error playing audio:", error));
+    makeSoundClick()
   });
 });
 
@@ -1398,3 +1614,171 @@ expandChangelog.addEventListener('click',()=>{
     item.classList.add('open')
   });
 })
+
+// Объект для хранения всех звуковых опций
+const soundOptions = {
+  soundMain: true,
+  textSound: true,
+  attentionSound: true,
+  keyboardSound: true,
+  cleanSound: true,
+};
+
+const soundOptionElements = document.querySelectorAll('.soundOption');
+const soundMainOn = document.querySelector('.soundMain-ON');
+const soundMainOff = document.querySelector('.soundMain-OFF');
+
+const textSoundOn = document.querySelector('.textSound-ON');
+const textSoundOff = document.querySelector('.textSound-OFF');
+const textSoundTest = document.querySelector('.textSound-TEST');
+const attentionSoundOn = document.querySelector('.attentionSound-ON');
+const attentionSoundOff = document.querySelector('.attentionSound-OFF');
+const attentionSoundTest = document.querySelector('.attentionSound-TEST');
+const keyboardSoundOn = document.querySelector('.keyboardSound-ON');
+const keyboardSoundOff = document.querySelector('.keyboardSound-OFF');
+const keyboardSoundTest = document.querySelector('.keyboardSound-TEST');
+const cleanSoundOn = document.querySelector('.cleanSound-ON');
+const cleanSoundOff = document.querySelector('.cleanSound-OFF');
+const cleanSoundTest = document.querySelector('.cleanSound-TEST');
+const soundOption = document.querySelectorAll('.soundOption > button')
+
+// Функция для переключения звуковых опций
+const toggleSoundOption = (soundKey, enable, onButton, offButton) => {
+  soundOptions[soundKey] = enable; // Изменяем значение в объекте soundOptions
+  onButton.style.display = enable ? 'flex' : 'none';
+  offButton.style.display = enable ? 'none' : 'flex';
+  onButton.disabled = !enable;
+  offButton.disabled = enable;
+  makeSoundClick();
+};
+
+// Функция для управления главным звуком
+const toggleSoundMain = (enable) => {
+  soundOptions.soundMain = enable;
+  soundMainOn.style.display = enable ? 'flex' : 'none';
+  soundMainOff.style.display = enable ? 'none' : 'flex';
+  soundMainOn.disabled = !enable;
+  soundMainOff.disabled = enable;
+  soundOptionElements.forEach(item => item.setAttribute('soundAllowed', enable));
+  if (enable === false) {
+    soundOption.forEach(options => {
+      options.setAttribute("disabled", "disabled");
+    });
+  }
+  // Если звук включен (enable === true), удаляем атрибут disabled
+  else if (enable === true) {
+    soundOption.forEach(options => {
+      options.removeAttribute("disabled");
+    });
+  }
+};
+
+// Добавляем обработчики событий для всех кнопок
+soundMainOn.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('soundMain', false, soundMainOn, soundMainOff);
+  }
+});
+soundMainOff.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('soundMain', true, soundMainOn, soundMainOff);
+  }
+});
+
+textSoundOn.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('textSound', false, textSoundOn, textSoundOff);
+  }
+});
+textSoundOff.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('textSound', true, textSoundOn, textSoundOff);
+  }
+});
+
+attentionSoundOn.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('attentionSound', false, attentionSoundOn, attentionSoundOff);
+  }
+});
+attentionSoundOff.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('attentionSound', true, attentionSoundOn, attentionSoundOff);
+  }
+});
+
+keyboardSoundOn.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('keyboardSound', false, keyboardSoundOn, keyboardSoundOff);
+  }
+});
+keyboardSoundOff.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('keyboardSound', true, keyboardSoundOn, keyboardSoundOff);
+  }
+});
+
+cleanSoundOn.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('cleanSound', false, cleanSoundOn, cleanSoundOff);
+  }
+});
+cleanSoundOff.addEventListener('click', () => {
+  if (soundOptions.soundMain !== false) { // Проверяем, что soundMain не отключен
+    toggleSoundOption('cleanSound', true, cleanSoundOn, cleanSoundOff);
+  }
+});
+
+textSoundTest.addEventListener('click', ()=>{
+  const audio = new Audio("audio/input.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
+})
+attentionSoundTest.addEventListener('click', ()=>{
+  const audio = new Audio("audio/attention.wav");
+  audio.play().catch(error => console.error("Error playing audio:", error));
+})
+keyboardSoundTest.addEventListener('click', ()=>{
+  const audio = new Audio("audio/click.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
+})
+cleanSoundTest.addEventListener('click', ()=>{
+  const audio = new Audio("audio/clear.mp3");
+  audio.play().catch(error => console.error("Error playing audio:", error));
+})
+
+soundMainOn.addEventListener('click', () => toggleSoundMain(false));
+soundMainOff.addEventListener('click', () => toggleSoundMain(true));
+
+//TODO Функция для проигрывания звука
+function makeSoundClick() {
+  if (soundOptions.soundMain === true && soundOptions.keyboardSound === true) {
+    const audio = new Audio("audio/click.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  } else {
+    return;
+  }
+}
+function makeSoundClean() {
+  if (soundOptions.soundMain === true && soundOptions.cleanSound === true) {
+    const audio = new Audio("audio/clear.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  } else {
+    return;
+  }
+}
+function makeSoundText() {
+  if (soundOptions.soundMain === true && soundOptions.textSound === true) {
+    const audio = new Audio("audio/input.mp3");
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  } else {
+    return;
+  }
+}
+function makeSoundAttention() {
+  if (soundOptions.soundMain === true && soundOptions.attentionSound === true) {
+    const audio = new Audio("audio/attention.wav");
+    audio.play().catch(error => console.error("Error playing audio:", error));
+  } else {
+    return;
+  }
+}

@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startFromNumberCheckbox.addEventListener('change', () => {
 
-        const audio = new Audio("audio/click.mp3");
-        audio.play().catch(error => console.error("Error playing audio:", error));
+        makeSoundClick();
         if (startFromNumberCheckbox.checked) {
             startFromNumberInput.removeAttribute('disabled');
             startFromNumberInput.focus();
@@ -47,8 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для фильтрации ввода только цифр в пределах от 1 до 999
     function filterInput(event) {
-        const audio = new Audio("audio/input.mp3");
-        audio.play().catch(error => console.error("Error playing audio:", error));
+        makeSoundText()
         const input = event.target;
         let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
         if (value === '0') value = '1'; // Минимум 1
@@ -253,8 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = event.target;
         let value = input.value.replace(/\D/g, ''); // Убираем все, кроме цифр
         
-        const audio = new Audio("audio/input.mp3");
-        audio.play().catch(error => console.error("Error playing audio:", error));
+        makeSoundText()
     
         if (value === '0') value = '1'; // Минимальное значение 1
     
@@ -280,8 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 createOrphanLotsStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color: red;"></i>';
                 createOrphanLotsButton.setAttribute('disabled', 'disabled');
     
-                const audio = new Audio("audio/cannceled.wav");
-                audio.play().catch(error => console.error("Error playing audio:", error));
+                makeSoundAttention()
                 createOrphanLotsButton.classList.add('buttonDisabledByAttention');
     
                 setTimeout(() => {
