@@ -16,7 +16,7 @@
 <title>QR Генератор от Димана v1.15</title>
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico" type="image/x-icon">
 <!--D-->
-<link rel="stylesheet" href="css/styles.css?v=1.15.d5">
+<link rel="stylesheet" href="css/styles.css?v=1.15.d7">
 <!--D-->
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,13 +154,13 @@
                 <i class="fa-duotone fa-regular fa-cube" style="font-size: 22px;"></i>
             </button>
             <i class="menuDevider"></i>
-            <!-- <button class="typeSwitch generatorTypeSwitchDirectionLabel" generatorType="disabled">
+            <button class="typeSwitch generatorTypeSwitchDirectionLabel" generatorType="disabled" inert>
                 <i class="fa-solid fa-file-lines" style="transform: rotate(90deg);"></i>
-            </button> -->
-            <button class="typeSwitch generatorTypeSwitchPEGASUS" tabindex="-1" generatorType="disabled">
+            </button>
+            <button class="typeSwitch generatorTypeSwitchPEGASUS" generatorType="disabled" inert>
                 <i class="fa-solid fa-file-signature"></i>
             </button>
-            <button class="typeSwitch generatorTypeSwitchSCAN" tabindex="-1" generatorType="disabled">
+            <button class="typeSwitch generatorTypeSwitchSCAN" generatorType="disabled" inert>
                 <i class="fa-solid fa-barcode-read"></i>
             </button>
             <!-- <button class="qrTypeSwitch">
@@ -858,6 +858,26 @@
                         <div class="chooseFlowTitle">Выбор направления:</div>
                         <ul>
                             <li>
+                                <input type="radio" id="gribkiDay" name="direction" checked/>
+                                <label for="gribkiDay">
+                                    <p>СЦ Грибки</p>
+                                    <div class="cellID">24</div>
+                                    <i class="fa-solid fa-sun cellSlot"></i>
+                                    <i class="fa-solid fa-location-dot cellLocation"></i>
+                                    <i class="fa-solid fa-thumbtack cellPinned"></i>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" id="gribkiNight" name="direction"/>
+                                <label for="gribkiNight">
+                                    <p>СЦ Грибки</p>
+                                    <div class="cellID">25</div>
+                                    <i class="fa-solid fa-moon cellSlot"></i>
+                                    <i class="fa-solid fa-location-dot cellLocation"></i>
+                                    <i class="fa-solid fa-thumbtack cellPinned"></i>
+                                </label>
+                            </li>
+                            <li>
                                 <input type="radio" id="tarnDay" name="direction" checked/>
                                 <label for="tarnDay">
                                     <p>МК Тарный</p>
@@ -1060,7 +1080,15 @@
                 </div>
                 <!------------------------------------------------------------------------------------------------------------->
                 <div class="container containerDirectionLabel hidden" qrType="hidden" swtichTypeMode="disabled">
-                    <button class="print__code printCodePoly"><p>Печать QR Code</p></button>
+                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
+                </div>
+                <!------------------------------------------------------------------------------------------------------------->
+                <div class="container PEGASUS hidden" qrType="hidden" swtichTypeMode="disabled">
+                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
+                </div>
+                <!------------------------------------------------------------------------------------------------------------->
+                <div class="container ARGUS hidden" qrType="hidden" swtichTypeMode="disabled">
+                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
                 </div>
                 <!------------------------------------------------------------------------------------------------------------->
             </div>

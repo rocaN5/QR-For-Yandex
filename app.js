@@ -1,6 +1,6 @@
-const version = "1.14"
+const version = "1.15"
 const versionLots = "1.4"
-const versionPoly = "1.1"
+const versionPoly = "1.1.2"
 const versionLabel = "1.0"
 
 let spanHistoryItemCounter = 0;
@@ -629,7 +629,7 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
       this.color = particleColorOnEnter;
       this.colorChange = particleColorOnLeave;
       this.avoidRadius = 100;
-      this.glowRadius = 30;
+      this.glowRadius = 15;
       this.glowIntensity = 0.5;
       this.lightningRadius = this.avoidRadius / 1.8;
     }
@@ -668,9 +668,9 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
           this.x, this.y, this.glowRadius
         );
 
-        const glowColor = `rgba(${this.hexToRgb(this.color).r}, ${this.hexToRgb(this.color).g}, ${this.hexToRgb(this.color).b}, ${this.glowIntensity})`;
-        gradient.addColorStop(0, glowColor);
-        gradient.addColorStop(1, `rgba(${this.hexToRgb(this.color).r}, ${this.hexToRgb(this.color).g}, ${this.hexToRgb(this.color).b}, 0)`);
+        const glowColor = `${particleColorOnEnter}`;
+        gradient.addColorStop(0, `${glowColor}45`);
+        gradient.addColorStop(1, `${particleColorOnLeave}05`);
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -1179,6 +1179,12 @@ function switchGeneratorType(currentItem, allItems) {
   } else if (currentItem.classList.contains("generatorTypeSwitchDirectionLabel")) {
     generatorTypeFirst = 3;
     transitionContainers("DirectionLabel");
+  } else if (currentItem.classList.contains("generatorTypeSwitchPEGASUS")) {
+    generatorTypeFirst = 4;
+    transitionContainers("PEGASUS");
+  } else if (currentItem.classList.contains("generatorTypeSwitchSCAN")) {
+    generatorTypeFirst = 5;
+    transitionContainers("ARGUS");
   }  else {
     alert("PEGASUS.acces.version(pegasus=alpha)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=beta)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d2)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d4)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d7)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d12)\nPEGASUS.request.blocked\n\nCORE.output.message(CORE=\"PEGASUS в разработке\")\n\nCORE.not.admin(request=denied)");
   }
@@ -1321,13 +1327,51 @@ function updateContainers(type) {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
+        particleColorOnEnter = "#ff0081";
+        particleColorOnLeave = "#7a00ff";
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+        
+        webTitle.innerHTML = `Генератор этикеток
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionLabel}</div>
+                              <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        versionName.style.color = `${particleColorOnLeave}`
+        versionName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        authourName.style.color = `${particleColorOnLeave}`
+        authourName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnEnter}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -16px 30px -10px ${particleColorOnLeave} inset, 0px -20px 40px -10px ${particleColorOnEnter} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #ff0081;
+                color: #fff;
+            }
+        `;
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
+    }else if (type === "PEGASUS" && container.classList.contains("PEGASUS")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
         particleColorOnEnter = "#c000ff";
         particleColorOnLeave = "#00ff43";
         webTitle.classList.remove("webTitleTransition")
         authourName.classList.remove("webTitle-extra-Transition")
         versionName.classList.remove("webTitle-extra-Transition")
         
-        webTitle.innerHTML = `Генератор этикеток
+        webTitle.innerHTML = `Генератор Ручных Актов Приёма-передачи
                               <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnLeave}; text-shadow: 0 0 10px ${particleColorOnLeave};">${versionLabel}</div>
                               <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnLeave}; text-shadow: 0 0 10px ${particleColorOnLeave};">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
@@ -1344,6 +1388,44 @@ function updateContainers(type) {
         styleElement.textContent = `
             ::selection {
                 background: #319e6a;
+                color: #fff;
+            }
+        `;
+      }, 10);
+      setTimeout(()=>{
+        webTitle.classList.add("webTitleTransition")
+        versionName.classList.add("webTitle-extra-Transition")
+        authourName.classList.add("webTitle-extra-Transition")
+      },200)
+    }else if (type === "ARGUS" && container.classList.contains("ARGUS")) {
+      container.style.display = "flex";
+      setTimeout(() => {
+        container.classList.remove("hidden");
+        container.classList.add("visible");
+        container.setAttribute("swtichTypeMode", "active");
+        particleColorOnEnter = "#00ffc4";
+        particleColorOnLeave = "#002bff";
+        webTitle.classList.remove("webTitleTransition")
+        authourName.classList.remove("webTitle-extra-Transition")
+        versionName.classList.remove("webTitle-extra-Transition")
+        
+        webTitle.innerHTML = `Сканер Ручных Актов Приёма-передачи
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionLabel}</div>
+                              <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
+        particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
+        versionName.style.color = `${particleColorOnLeave}`
+        versionName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        authourName.style.color = `${particleColorOnLeave}`
+        authourName.style.textShadow = `0 0 10px ${particleColorOnLeave}`
+        webTitleBlur.style.background = `linear-gradient(0deg, ${particleColorOnEnter}, ${particleColorOnLeave})`
+        webTitle.style.border = `1px solid ${particleColorOnEnter}`
+        webTitle.style.boxShadow = `rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px, 0px -16px 30px -10px ${particleColorOnLeave} inset, 0px -20px 40px -10px ${particleColorOnEnter} inset`
+        webTitle.style.borderTop = `0`
+        changeFavicons()
+        const styleElement = document.querySelector(".mainStyle");
+        styleElement.textContent = `
+            ::selection {
+                background: #00ffc4;
                 color: #fff;
             }
         `;
@@ -1493,6 +1575,7 @@ const startColor = {r: 1, g: 195, b: 252};
 const endColor = {r: 145, g: 88, b: 255};
 
 kittysDemoPlayerControl.addEventListener('click', () => {
+  makeSoundClick();
   if (playerIsPaused === false) {
     playerIsPaused = true;
     kittysDemoPlayerControl.classList.toggle('control-pause');
@@ -1508,10 +1591,12 @@ kittysDemoPlayerControl.addEventListener('click', () => {
 
 kittysDemoPlayerNext.addEventListener('click', () => {
   changeKittyGif(true);
+  makeSoundClick();
 });
 
 kittysDemoPlayerPrev.addEventListener('click', () => {
   changeKittyGif(false);
+  makeSoundClick();
 });
 
 let kittysGifNumber = 0;

@@ -1586,14 +1586,16 @@ div.mainContentContainer{
                                     color: #ffffff;
                                     filter: drop-shadow(0px 0px 10px #ffffff);
                                 }
-                                &[for="tarnDay"]{
+                                &[for="tarnDay"],
+                                &[for="gribkiDay"]{
                                     i.cellLocation{
                                         transition: var(--defaultTransition);
                                         color: #9bff00;
                                         filter: drop-shadow(0px 0px 10px #9bff00);
                                     }
                                 }
-                                &[for="tarnNight"]{
+                                &[for="tarnNight"],
+                                &[for="gribkiNight"]{
                                     i.cellLocation{
                                         transition: var(--defaultTransition);
                                         color: #00aeff;

@@ -1550,12 +1550,12 @@ div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[
   color: #ffffff;
   filter: drop-shadow(0px 0px 10px #ffffff);
 }
-div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnDay] i.cellLocation {
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnDay] i.cellLocation, div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=gribkiDay] i.cellLocation {
   transition: var(--defaultTransition);
   color: #9bff00;
   filter: drop-shadow(0px 0px 10px #9bff00);
 }
-div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnNight] i.cellLocation {
+div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=tarnNight] i.cellLocation, div.mainContentContainer div.wrapper div.container.containerPolybox ul li input[type=radio]:checked + label[for=gribkiNight] i.cellLocation {
   transition: var(--defaultTransition);
   color: #00aeff;
   filter: drop-shadow(0px 0px 10px #00aeff);
@@ -1834,6 +1834,9 @@ nav.menu:hover button::after, nav.menu:hover button::before, nav.menu:has(button
 }
 nav.menu button {
   box-shadow: 0px 0px 10px 0px #000;
+}
+nav.menu button.typeSwitch[inert] {
+  opacity: 0.2 !important;
 }
 nav.menu button::after {
   position: absolute;
@@ -2129,11 +2132,9 @@ nav.menu button.generatorTypeSwitchPEGASUS {
   cursor: pointer;
   z-index: 998;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
-  opacity: 0.3;
-  pointer-events: none;
 }
 nav.menu button.generatorTypeSwitchPEGASUS::after {
-  content: "...";
+  content: "PEGASUS";
 }
 nav.menu button.generatorTypeSwitchPEGASUS i {
   font-size: 20px;
@@ -2171,11 +2172,9 @@ nav.menu button.generatorTypeSwitchSCAN {
   cursor: pointer;
   z-index: 998;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
-  opacity: 0.3;
-  pointer-events: none;
 }
 nav.menu button.generatorTypeSwitchSCAN::after {
-  content: "...";
+  content: "ARGUS";
 }
 nav.menu button.generatorTypeSwitchSCAN i {
   font-size: 20px;

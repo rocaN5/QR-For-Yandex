@@ -300,7 +300,17 @@ function changePolyboxDirectionData(){
               shipDirectionID_data = cellID;
               
               // Определяем содержимое shipDirectionTitle_data
-              if (shipDirectionID_data === "17") {
+              if (shipDirectionID_data === "24") {
+                shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">День</span>`;
+                shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (День)`
+                shipDirectionType_data = "Последняя миля"
+                shipDirectionPathType_data = "20px"
+              } else if (shipDirectionID_data === "25") {
+                  shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">Ночь</span>`;
+                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (Ночь)`
+                  shipDirectionType_data = "Последняя миля"
+                  shipDirectionPathType_data = "20px"
+              } else if (shipDirectionID_data === "17") {
                 shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
                 shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
                 shipDirectionType_data = "Последняя миля"
@@ -415,7 +425,17 @@ function changePolyboxDirectionData(){
                       console.log("Selected shipDirectionID:", shipDirectionID_data);
 
                       // Определяем содержимое shipDirectionTitle_data
-                      if (shipDirectionID_data === "17") {
+                      if (shipDirectionID_data === "24") {
+                        shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">День</span>`;
+                        shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (День)`
+                        shipDirectionType_data = "Последняя миля"
+                        shipDirectionPathType_data = "20px"
+                      } else if (shipDirectionID_data === "25") {
+                          shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">Ночь</span>`;
+                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (Ночь)`
+                          shipDirectionType_data = "Последняя миля"
+                          shipDirectionPathType_data = "20px"
+                      } else if (shipDirectionID_data === "17") {
                         shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
                         shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
                         shipDirectionType_data = "Последняя миля"

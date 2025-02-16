@@ -20,6 +20,10 @@ nav.menu{
     }
     button{
         box-shadow: 0px 0px 10px 0px #000;
+
+        &.typeSwitch[inert] {
+            opacity: .2 !important;
+        }
         &::after{
             position: absolute;
             content: '...';
@@ -322,10 +326,8 @@ nav.menu{
             cursor: pointer;
             z-index: 998;
             border: 2px solid #9a9a9a21;
-            opacity: .3;
-            pointer-events: none; //! DELETE
             &::after{
-                content: '...';
+                content: 'PEGASUS';
             }
             i{
                 font-size: 20px;
@@ -364,10 +366,10 @@ nav.menu{
             cursor: pointer;
             z-index: 998;
             border: 2px solid #9a9a9a21;
-            opacity: .3;
-            pointer-events: none; //! DELETE
+            // opacity: .3; //! DELETE
+            // pointer-events: none; //! DELETE
             &::after{
-                content: '...';
+                content: 'ARGUS';
             }
             i{
                 font-size: 20px;
