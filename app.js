@@ -1176,9 +1176,6 @@ function switchGeneratorType(currentItem, allItems) {
   } else if (currentItem.classList.contains("generatorTypeSwitchPolybox")) {
     generatorTypeFirst = 2;
     transitionContainers("Polybox");
-  } else if (currentItem.classList.contains("generatorTypeSwitchDirectionLabel")) {
-    generatorTypeFirst = 3;
-    transitionContainers("DirectionLabel");
   } else if (currentItem.classList.contains("generatorTypeSwitchPEGASUS")) {
     generatorTypeFirst = 4;
     transitionContainers("PEGASUS");
@@ -1186,7 +1183,7 @@ function switchGeneratorType(currentItem, allItems) {
     generatorTypeFirst = 5;
     transitionContainers("ARGUS");
   }  else {
-    alert("PEGASUS.acces.version(pegasus=alpha)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=beta)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d2)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d4)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d7)\nPEGASUS.request.blocked\nPEGASUS.acces.version(pegasus=v1.0.d12)\nPEGASUS.request.blocked\n\nCORE.output.message(CORE=\"PEGASUS в разработке\")\n\nCORE.not.admin(request=denied)");
+    return
   }
 }
 
