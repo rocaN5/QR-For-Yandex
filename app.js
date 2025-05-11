@@ -46,6 +46,11 @@ anomaly_description.addEventListener("input", ()=>{
   makeSoundText();
 })
 
+const anomaly_description_clearData = document.querySelector("#anomalyDesccription .deleteInput")
+anomaly_description_clearData.addEventListener("click", ()=>{
+    anomaly_description.value = ""
+})
+
 function generateAnomalyCodes() {
   var qrText = document.getElementById("qr-text").value;
   var qrCodeDiv = document.getElementById("qr-code");
@@ -122,25 +127,27 @@ function generateAnomalyCodes() {
     }
 }
 
+const damageVisible = document.getElementById("damageVisible")
+const anomalyDesccription = document.getElementById("anomalyDesccription")
+
+function anomalyDescription__active(){
+  damageVisible.setAttribute("isVisible", false)
+  damageVisible.setAttribute("inert", true)
+  anomalyDesccription.setAttribute("isVisible", true)
+  anomalyDesccription.removeAttribute("inert")
+}
+
+function anomalyDescription__disabled(){
+  damageVisible.setAttribute("isVisible", true)
+  damageVisible.removeAttribute("inert")
+  anomalyDesccription.setAttribute("isVisible", false)
+  anomalyDesccription.setAttribute("inert", true)
+  anomaly_description.value = ""
+}
+
 function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
-  const damageVisible = document.getElementById("damageVisible")
-  const anomalyDesccription = document.getElementById("anomalyDesccription")
-  
-  function anomalyDescription__active(){
-    damageVisible.setAttribute("isVisible", false)
-    damageVisible.setAttribute("inert", true)
-    anomalyDesccription.setAttribute("isVisible", true)
-    anomalyDesccription.removeAttribute("inert")
-  }
 
-  function anomalyDescription__disabled(){
-    damageVisible.setAttribute("isVisible", true)
-    damageVisible.removeAttribute("inert")
-    anomalyDesccription.setAttribute("isVisible", false)
-    anomalyDesccription.setAttribute("inert", true)
-    anomaly_description.value = ""
-  }
 
   // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
   if (inputText.startsWith("FA254") && inputText.length == 20 ) {
@@ -929,6 +936,7 @@ document.addEventListener('DOMContentLoaded', function() {
       deleteDiv.addEventListener('click', () => {
         
           makeSoundClean()
+          anomalyDescription__disabled()
           inputField.value = '';
           deleteFromImage();
       });

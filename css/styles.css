@@ -379,7 +379,8 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:focus,
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:focus-visible,
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) input.dataInputDescription:focus,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown),
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:focus,
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:focus-visible,
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:not(:placeholder-shown) {
   border: 2px solid #fff;
