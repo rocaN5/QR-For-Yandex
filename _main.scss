@@ -237,6 +237,14 @@ div.mainContentContainer{
                     display: flex;
                     flex-flow: column;
                     gap: 20px;
+                    label[for="toggleDamageTitile"]{
+                        position: relative;
+                        // *[isVisible="true"]{}
+                        *[isVisible="false"]{
+                            opacity: 0;
+                            visibility: hidden;
+                        }
+                    }
                     .labelContainer{
                         display: flex;
                         gap: 10px;
@@ -324,7 +332,8 @@ div.mainContentContainer{
                         width: 100%;
                         backdrop-filter: blur(2px) grayscale(1);
                         border-radius: 20px;
-                        input.dataInput{
+                        input.dataInput,
+                        input.dataInputDescription{
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -342,6 +351,10 @@ div.mainContentContainer{
                             &::-webkit-input-placeholder{
                                 color: transparent;
                             }
+                        }
+                        &:has(#anomaly-description){
+                            position: absolute;
+                            top: 0;
                         }
                         .dataInputLabel{
                             color: #fff;
@@ -361,18 +374,24 @@ div.mainContentContainer{
                             user-select: none;
                         }
 
-                        input.dataInput:placeholder-shown{
+                        input.dataInput:placeholder-shown,
+                        input.dataInputDescription:placeholder-shown{
                             user-select: none;
                         }
                         input.dataInput:focus,
                         input.dataInput:focus-visible,
-                        input.dataInput:not(:placeholder-shown){
+                        input.dataInput:not(:placeholder-shown)
+                        input.dataInputDescription:focus,
+                        input.dataInputDescription:focus-visible,
+                        input.dataInputDescription:not(:placeholder-shown){
                             border: 2px solid #fff;
                             outline: none;
                         }
 
                         input.dataInput:focus ~ label,
-                        input.dataInput:not(:placeholder-shown) ~ .dataInputLabel {
+                        input.dataInput:not(:placeholder-shown) ~ .dataInputLabel,
+                        input.dataInputDescription:focus ~ label,
+                        input.dataInputDescription:not(:placeholder-shown) ~ .dataInputLabel {
                             transform: translate(-50%, -50%);
                             padding: 0px 18px;
                             background: #0c0c0c;
@@ -388,7 +407,10 @@ div.mainContentContainer{
                         input.dataInput:not(:placeholder-shown)) .deleteInput,
                         &:has(input.dataInput:focus,
                         input.dataInput:focus-visible,
-                        input.dataInput:not(:placeholder-shown)) .setDateInput{
+                        input.dataInput:not(:placeholder-shown)) .setDateInput,
+                        &:has(input.dataInputDescription:focus,
+                        input.dataInputDescription:focus-visible,
+                        input.dataInputDescription:not(:placeholder-shown)) .deleteInput{
                             opacity: 1;
                             transition: var(--transition);
                             display: flex;
@@ -825,7 +847,8 @@ div.mainContentContainer{
                         width: 100%;
                         backdrop-filter: blur(2px) grayscale(1);
                         border-radius: 20px;
-                        input.dataInput{
+                        input.dataInput,
+                        input.dataInputDescription{
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -862,18 +885,25 @@ div.mainContentContainer{
                             user-select: none;
                         }
 
-                        input.dataInput:placeholder-shown{
+                        input.dataInput:placeholder-shown,
+                        input.dataInputDescription:placeholder-shown{
                             user-select: none;
                         }
+                        
                         input.dataInput:focus,
                         input.dataInput:focus-visible,
-                        input.dataInput:not(:placeholder-shown){
+                        input.dataInput:not(:placeholder-shown),
+                        input.dataInputDescription:focus,
+                        input.dataInputDescription:focus-visible,
+                        input.dataInputDescription:not(:placeholder-shown){
                             border: 2px solid #fff;
                             outline: none;
                         }
 
                         input.dataInput:focus ~ label,
-                        input.dataInput:not(:placeholder-shown) ~ .dataInputLabel {
+                        input.dataInput:not(:placeholder-shown) ~ .dataInputLabel,
+                        input.dataInputDescription:focus ~ label,
+                        input.dataInputDescription:not(:placeholder-shown) ~ .dataInputLabel {
                             transform: translate(-50%, -50%);
                             padding: 0px 18px;
                             background: rgb(0, 0, 0);
@@ -887,6 +917,9 @@ div.mainContentContainer{
                         &:has(input.dataInput:focus,
                         input.dataInput:focus-visible,
                         input.dataInput:not(:placeholder-shown)) .deleteInput,
+                        &:has(input.dataInputDescription:focus,
+                        input.dataInputDescription:focus-visible,
+                        input.dataInputDescription:not(:placeholder-shown)) .deleteInput,
                         &:has(input.dataInput:focus,
                         input.dataInput:focus-visible,
                         input.dataInput:not(:placeholder-shown)) .setDateInput{
@@ -1047,10 +1080,6 @@ div.mainContentContainer{
                         .qrImgContainer{
                             margin-left: 20px;
                         }
-                        #company-info{
-                            margin-bottom: unset;
-                            border: unset;
-                        }
                         .anomalyCompanyName{
                             margin: 0;
                             margin-bottom: 40px;
@@ -1060,13 +1089,63 @@ div.mainContentContainer{
                         #company-info{
                             padding: 0;
                             position: absolute;
-                            transform: rotate(-90deg);
-                            bottom: 190px;
-                            right: -160px;
+                            bottom: 20px;
+                            left: 0;
+                            margin-bottom: unset;
+                            border: unset;
                         }
                     }
                     &:not(:has(span#datetime)){
                         justify-content: center;
+                    }
+
+                    .anomalyDesccriptionWrapper{
+                        width: 130px;
+                        height: 260px;
+                        position: absolute;
+                        right: calc(0% - 2px);
+                        top: 40%;
+                        transform: translateY(-20%);
+                        border: 2px solid;
+                        border-radius: 10px 0px 0px 10px;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: end;
+                        justify-content: center;
+                        p.anomalyDesccriptionWrapper-title{
+                            position: absolute;
+                            font-size: 1rem;
+                            width: 100%;
+                            background: #000;
+                            color: #fff;
+                            left: 0;
+                            top: 0;
+                            margin: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        div.anomalyDesccription-item{
+                            margin: 0;
+                            padding: 6px;
+                            text-align: center;
+                            width: 100%;
+                            height: calc(100% - 32px);
+                            justify-content: center;
+                            align-items: center;
+                            display: flex;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            word-break: break-all;
+                            h4.anomalyDesccription-item-data{
+                                margin: unset;
+                                font-weight: 500;
+                                position: relative;
+                                display: inline-flex;
+                                writing-mode: vertical-rl;
+                                transform: rotate(180deg);
+                            }
+                        }
                     }
                     .qrImgContainer{
                         position: relative;

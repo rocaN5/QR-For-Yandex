@@ -1,4 +1,4 @@
-const version = "1.15"
+const version = "1.16"
 const versionLots = "1.4"
 const versionPoly = "1.1.2"
 const versionLabel = "1.0"
@@ -40,6 +40,11 @@ document.querySelector(".print__code").addEventListener("click", function() {
     }
 });
 
+const anomaly_description = document.getElementById("anomaly-description")
+anomaly_description.addEventListener("input", ()=>{
+  generateCodes();
+  makeSoundText();
+})
 
 function generateAnomalyCodes() {
   var qrText = document.getElementById("qr-text").value;
@@ -87,18 +92,65 @@ function generateAnomalyCodes() {
     qrImgContainer.classList.add('qrImgContainer');
     qrCodeDiv.appendChild(qrImgContainer);
     qrImgContainer.appendChild(qrCode);
+
+    
+    
+    if (anomaly_description.value !== "") {
+      let anomalyDesccriptionWrapper = document.createElement("div");
+      anomalyDesccriptionWrapper.classList.add("anomalyDesccriptionWrapper");
+    
+      let anomalyDesccriptionWrapper_title = document.createElement("p");
+      anomalyDesccriptionWrapper_title.classList.add("anomalyDesccriptionWrapper-title");
+      anomalyDesccriptionWrapper_title.innerText = "Описание";
+    
+      let anomalyDesccription_item = document.createElement("div");
+      anomalyDesccription_item.classList.add("anomalyDesccription-item"); // ✅ без точки
+    
+      let anomalyDesccription_item_data = document.createElement("h4");
+      anomalyDesccription_item_data.classList.add("anomalyDesccription-item-data"); // ✅ без точки
+    
+      anomalyDesccription_item.appendChild(anomalyDesccription_item_data);
+      anomalyDesccriptionWrapper.appendChild(anomalyDesccriptionWrapper_title);
+      anomalyDesccriptionWrapper.appendChild(anomalyDesccription_item);
+      qrCodeDiv.appendChild(anomalyDesccriptionWrapper);
+    
+      const anomDesriptionLabelText = document.querySelector(".anomalyDesccription-item-data");
+      let anomData = anomaly_description.value;
+      if (anomDesriptionLabelText) {
+        anomDesriptionLabelText.innerText = anomData;
+      }
+    }
 }
 
 function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
+  const damageVisible = document.getElementById("damageVisible")
+  const anomalyDesccription = document.getElementById("anomalyDesccription")
   
+  function anomalyDescription__active(){
+    damageVisible.setAttribute("isVisible", false)
+    damageVisible.setAttribute("inert", true)
+    anomalyDesccription.setAttribute("isVisible", true)
+    anomalyDesccription.removeAttribute("inert")
+  }
+
+  function anomalyDescription__disabled(){
+    damageVisible.setAttribute("isVisible", true)
+    damageVisible.removeAttribute("inert")
+    anomalyDesccription.setAttribute("isVisible", false)
+    anomalyDesccription.setAttribute("inert", true)
+    anomaly_description.value = ""
+  }
+
   // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
-  if (inputText.startsWith("FA") && inputText.length == 20 ) {
+  if (inputText.startsWith("FA254") && inputText.length == 20 ) {
       generateAnomalyCodes();
+      anomalyDescription__active()
   } else {
     var qrText = document.getElementById("qr-text").value;
     var qrCodeDiv = document.getElementById("qr-code");
     qrCodeDiv.innerHTML = "";
+    anomalyDescription__disabled()
 
     if (qrText.trim() === "") {
       var messageElement = document.createElement("p");
@@ -450,7 +502,25 @@ function sendImageToTelegram() {
   }
 
   // Формируем подпись в HTML формате, используя ваше форматирование
-  const captionHTML = `
+  
+  let captionHTML = "ooops"
+
+  const inputText = document.getElementById('qr-text').value.trim();
+  if (inputText.startsWith("FA254") && inputText.length == 20 ) {
+
+    captionHTML = `
+<b>🅰 Номер Аномалии:</b> <code>${captionInputText}</code>
+<b>💬 Описание:</b> <i>${anomaly_description.value == "" ? "❌ Без описания ❌" : anomaly_description.value}</i>
+<b>📅 Дата:</b> <i>${currentDate}</i>
+<b>🕑 Время:</b> <i>${currentTime}</i>
+<b>👨‍💻 Версия:</b> <i>${version}</i>
+
+<b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
+<b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
+    
+  `;
+  }else{
+    captionHTML = `
 <b>🔢 Номер заказа:</b> <code>${captionInputText}</code>
 <b>📅 Дата:</b> <i>${currentDate}</i>
 <b>🕑 Время:</b> <i>${currentTime}</i>
@@ -458,8 +528,9 @@ function sendImageToTelegram() {
 
 <b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
 <b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
-  
-`;
+    
+  `;
+  }
 
   if (!imgElement) {
     console.error('Изображение с классом "test-img" не найдено.');

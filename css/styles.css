@@ -237,6 +237,13 @@ div.mainContentContainer div.wrapper div.container .inputHolder form {
   flex-flow: column;
   gap: 20px;
 }
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleDamageTitile] {
+  position: relative;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleDamageTitile] *[isVisible=false] {
+  opacity: 0;
+  visibility: hidden;
+}
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer {
   display: flex;
   gap: 10px;
@@ -325,7 +332,8 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
   backdrop-filter: blur(2px) grayscale(1);
   border-radius: 20px;
 }
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput {
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -340,8 +348,13 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
   box-shadow: 0px 2px 6px 0px #000;
 }
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput::-webkit-input-placeholder {
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput::-webkit-input-placeholder,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription::-webkit-input-placeholder {
   color: transparent;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer:has(#anomaly-description) {
+  position: absolute;
+  top: 0;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer .dataInputLabel {
   color: #fff;
@@ -360,17 +373,22 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
   width: max-content;
   user-select: none;
 }
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:placeholder-shown {
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:placeholder-shown,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:placeholder-shown {
   user-select: none;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:focus,
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:focus-visible,
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) {
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) input.dataInputDescription:focus,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:focus-visible,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:not(:placeholder-shown) {
   border: 2px solid #fff;
   outline: none;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:focus ~ label,
-div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) ~ .dataInputLabel {
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInput:not(:placeholder-shown) ~ .dataInputLabel,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:focus ~ label,
+div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer input.dataInputDescription:not(:placeholder-shown) ~ .dataInputLabel {
   transform: translate(-50%, -50%);
   padding: 0px 18px;
   background: #0c0c0c;
@@ -384,7 +402,9 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .inputConta
 input.dataInput:focus-visible,
 input.dataInput:not(:placeholder-shown)) .deleteInput, div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer:has(input.dataInput:focus,
 input.dataInput:focus-visible,
-input.dataInput:not(:placeholder-shown)) .setDateInput {
+input.dataInput:not(:placeholder-shown)) .setDateInput, div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer:has(input.dataInputDescription:focus,
+input.dataInputDescription:focus-visible,
+input.dataInputDescription:not(:placeholder-shown)) .deleteInput {
   opacity: 1;
   transition: var(--transition);
   display: flex;
@@ -809,7 +829,8 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form .inp
   backdrop-filter: blur(2px) grayscale(1);
   border-radius: 20px;
 }
-div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput {
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -824,7 +845,8 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form .inp
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
   box-shadow: 0px 2px 6px 0px #000;
 }
-div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput::-webkit-input-placeholder {
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput::-webkit-input-placeholder,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription::-webkit-input-placeholder {
   color: transparent;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer .dataInputLabel {
@@ -844,17 +866,23 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form .inp
   width: max-content;
   user-select: none;
 }
-div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:placeholder-shown {
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:placeholder-shown,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:placeholder-shown {
   user-select: none;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:focus,
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:focus-visible,
-div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:not(:placeholder-shown) {
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:not(:placeholder-shown),
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:focus,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:focus-visible,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:not(:placeholder-shown) {
   border: 2px solid #fff;
   outline: none;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:focus ~ label,
-div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:not(:placeholder-shown) ~ .dataInputLabel {
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInput:not(:placeholder-shown) ~ .dataInputLabel,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:focus ~ label,
+div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer input.dataInputDescription:not(:placeholder-shown) ~ .dataInputLabel {
   transform: translate(-50%, -50%);
   padding: 0px 18px;
   background: rgb(0, 0, 0);
@@ -866,7 +894,9 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form .inp
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer:has(input.dataInput:focus,
 input.dataInput:focus-visible,
-input.dataInput:not(:placeholder-shown)) .deleteInput, div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer:has(input.dataInput:focus,
+input.dataInput:not(:placeholder-shown)) .deleteInput, div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer:has(input.dataInputDescription:focus,
+input.dataInputDescription:focus-visible,
+input.dataInputDescription:not(:placeholder-shown)) .deleteInput, div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer:has(input.dataInput:focus,
 input.dataInput:focus-visible,
 input.dataInput:not(:placeholder-shown)) .setDateInput {
   opacity: 1;
@@ -1025,10 +1055,6 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) .qrImgContainer {
   margin-left: 20px;
 }
-div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) #company-info {
-  margin-bottom: unset;
-  border: unset;
-}
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) .anomalyCompanyName {
   margin: 0;
   margin-bottom: 40px;
@@ -1038,12 +1064,61 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) #company-info {
   padding: 0;
   position: absolute;
-  transform: rotate(-90deg);
-  bottom: 190px;
-  right: -160px;
+  bottom: 20px;
+  left: 0;
+  margin-bottom: unset;
+  border: unset;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:not(:has(span#datetime)) {
   justify-content: center;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomalyDesccriptionWrapper {
+  width: 130px;
+  height: 260px;
+  position: absolute;
+  right: calc(0% - 2px);
+  top: 40%;
+  transform: translateY(-20%);
+  border: 2px solid;
+  border-radius: 10px 0px 0px 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomalyDesccriptionWrapper p.anomalyDesccriptionWrapper-title {
+  position: absolute;
+  font-size: 1rem;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  left: 0;
+  top: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomalyDesccriptionWrapper div.anomalyDesccription-item {
+  margin: 0;
+  padding: 6px;
+  text-align: center;
+  width: 100%;
+  height: calc(100% - 32px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomalyDesccriptionWrapper div.anomalyDesccription-item h4.anomalyDesccription-item-data {
+  margin: unset;
+  font-weight: 500;
+  position: relative;
+  display: inline-flex;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .qrImgContainer {
   position: relative;

@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Удобный генератор QR кодов build-1.15">
-<meta property="og:title" content="QR Генератор от Димана v1.15 ✨">
-<meta property="og:description" content="Удобный генератор QR кодов build-1.15">
+<meta name="description" content="Удобный генератор QR кодов build-1.16">
+<meta property="og:title" content="QR Генератор от Димана v1.16 ✨">
+<meta property="og:description" content="Удобный генератор QR кодов build-1.16">
 <meta property="og:image" content="img/title.png">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/title.png">
 <meta name="twitter:card" content="img/title.png" />
 <meta name="twitter:image" content="img/title.png" />
 
-<title>QR Генератор от Димана v1.15</title>
+<title>QR Генератор от Димана v1.16</title>
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico" type="image/x-icon">
 <!--D-->
-<link rel="stylesheet" href="css/styles.css?v=1.15.d7">
+<link rel="stylesheet" href="css/styles.css?v=1.16">
 <!--D-->
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -751,7 +751,7 @@
                                 <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
                             </div>
                             <label for="toggleDamageTitile" class="toggleLabel">
-                                <div class="labelContainer">
+                                <div class="labelContainer" id="damageVisible" isVisible="true">
                                     <div class="checkboxWrapper">
                                         <input type="checkbox" id="toggleDamageTitile" class="toggleDamageTitile">
                                         <div class="inputBody">
@@ -759,6 +759,11 @@
                                         </div>
                                     </div>
                                     <p>Повреждённый заказ</p>
+                                </div>
+                                <div class="inputContainer" id="anomalyDesccription" isVisible="false" inert>
+                                    <input type="text" id="anomaly-description" class="dataInputDescription anomalyDesciption" autocomplete="off" id="description" name="description" placeholder="Описаниие аномалии">
+                                    <label html="description" class="dataInputLabel">Описаниие аномалии</label>
+                                    <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
                                 </div>
                             </label>
                         </form>
