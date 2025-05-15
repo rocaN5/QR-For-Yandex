@@ -1111,7 +1111,6 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomal
   display: flex;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-break: break-all;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomalyDesccriptionWrapper div.anomalyDesccription-item h4.anomalyDesccription-item-data {
   margin: unset;
