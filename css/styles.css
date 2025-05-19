@@ -1042,6 +1042,29 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code {
     width: 350px;
   }
 }
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.notAlowedPolybox {
+  box-shadow: 0px 0px 30px 10px #ff0000 inset, 0px 0px 10px 0px #ff0000;
+  transition: 500ms;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(2px) hue-rotate(125deg);
+  animation: notAlowedPolybox 1s infinite ease-in-out alternate;
+}
+@keyframes notAlowedPolybox {
+  from {
+    box-shadow: 0px 0px 0px 1px #ff0000 inset, 0px 0px 0px 0px #ff0000;
+  }
+  to {
+    box-shadow: 0px 0px 35px 10px #ff0000 inset, 0px 0px 20px 0px #ff0000;
+  }
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.notAlowedPolybox h1.notAlowedPolybox-text {
+  color: #ff0000;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  user-select: none;
+  text-shadow: 0px 0px 10px #ff0000, 0px 0px 20px #ff0000;
+}
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) {
   align-items: flex-start !important;
 }
@@ -2200,6 +2223,46 @@ nav.menu button.generatorTypeSwitchPolybox[generatorType=active]:hover, nav.menu
 nav.menu button.generatorTypeSwitchPolybox[generatorType=active] i, nav.menu a.generatorTypeSwitchPolybox[generatorType=active] i {
   color: #000;
 }
+nav.menu button.generatorTypeSwitchAddUsers, nav.menu a.generatorTypeSwitchAddUsers {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+}
+nav.menu button.generatorTypeSwitchAddUsers::after, nav.menu a.generatorTypeSwitchAddUsers::after {
+  content: "Сотрудники";
+}
+nav.menu button.generatorTypeSwitchAddUsers i, nav.menu a.generatorTypeSwitchAddUsers i {
+  font-size: 20px;
+  color: #fff;
+}
+nav.menu button.generatorTypeSwitchAddUsers:hover, nav.menu a.generatorTypeSwitchAddUsers:hover {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+  transition: 200ms;
+  border: 2px solid #656565;
+}
+nav.menu button.generatorTypeSwitchAddUsers[generatorType=active], nav.menu a.generatorTypeSwitchAddUsers[generatorType=active] {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px #fff;
+  border: 2px solid #7d7d7d;
+  transition: 200ms;
+}
+nav.menu button.generatorTypeSwitchAddUsers[generatorType=active]:hover, nav.menu a.generatorTypeSwitchAddUsers[generatorType=active]:hover {
+  transition: 200ms;
+  border: 2px solid #000;
+}
+nav.menu button.generatorTypeSwitchAddUsers[generatorType=active] i, nav.menu a.generatorTypeSwitchAddUsers[generatorType=active] i {
+  color: #000;
+}
 nav.menu button.goTo__iRDG, nav.menu a.goTo__iRDG {
   position: relative;
   width: 47px;
@@ -2224,7 +2287,7 @@ nav.menu button.goTo__iRDG i, nav.menu a.goTo__iRDG i {
   background: linear-gradient(0deg, #cf0, #fc0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: grayscale(1);
+  filter: grayscale(1) brightness(1.5);
   font-size: 22px;
   transition: 200ms;
 }
@@ -2805,6 +2868,30 @@ nav.contacts i.menuDevider {
 .changelogHistory .changelogsectionList .changeLogItem {
   width: 100%;
 }
+.changelogHistory .changelogsectionList .changeLogItem[changeType=qr] i.updateIcon {
+  left: 20%;
+  transform: unset;
+  color: #01c3fc;
+  filter: drop-shadow(0px 0px 10px #01c3fc);
+}
+.changelogHistory .changelogsectionList .changeLogItem[changeType=polybox] i.updateIcon {
+  left: 20%;
+  transform: unset;
+  color: #c0ff00;
+  filter: drop-shadow(0px 0px 10px #c0ff00);
+}
+.changelogHistory .changelogsectionList .changeLogItem[changeType=lots] i.updateIcon {
+  left: 20%;
+  transform: unset;
+  color: #c0ff00;
+  filter: drop-shadow(0px 0px 10px #c0ff00);
+}
+.changelogHistory .changelogsectionList .changeLogItem[changeType=users] i.updateIcon {
+  left: 20%;
+  transform: unset;
+  color: #c0ff00;
+  filter: drop-shadow(0px 0px 10px #c0ff00);
+}
 .changelogHistory .changelogsectionList .changeLogItem button.itemTitle {
   position: relative;
   width: 100%;
@@ -2821,12 +2908,6 @@ nav.contacts i.menuDevider {
   font-size: 16px;
   border-bottom: 2px solid #444444;
   user-select: none;
-}
-.changelogHistory .changelogsectionList .changeLogItem button.itemTitle i.lotsUpdate {
-  left: 20%;
-  transform: unset;
-  color: #c0ff00;
-  filter: drop-shadow(0px 0px 10px #c0ff00);
 }
 .changelogHistory .changelogsectionList .changeLogItem button.itemTitle i {
   position: absolute;
@@ -3425,7 +3506,7 @@ nav.contacts i.menuDevider {
 .changelogHistory .changelogsectionList .changeLogItem.open ul.itemDescription {
   height: fit-content;
 }
-.changelogHistory .changelogsectionList .changeLogItem.open .itemTitle i {
+.changelogHistory .changelogsectionList .changeLogItem.open .itemTitle i.fa-chevron-down {
   transform: rotate(180deg);
 }
 

@@ -1,7 +1,7 @@
-const version = "1.16"
+const version = "1.17"
 const versionLots = "1.4"
 const versionPoly = "1.1.2"
-const versionLabel = "1.0"
+const versionAddUsers = "1.0"
 
 let spanHistoryItemCounter = 0;
 
@@ -147,12 +147,21 @@ function anomalyDescription__disabled(){
 
 function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
+  document.getElementById("qr-code").classList.remove("notAlowedPolybox")
 
 
   // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
   if (inputText.startsWith("FA254") && inputText.length == 20 ) {
       generateAnomalyCodes();
       anomalyDescription__active()
+  } else if(inputText.startsWith("F3") || inputText.startsWith("F4") || inputText.startsWith("F5")){
+    
+    let qrCodeDiv = document.getElementById("qr-code");
+    qrCodeDiv.innerHTML = "";
+    qrCodeDiv.classList.add("notAlowedPolybox")
+    qrCodeDiv.innerHTML = `
+      <h1 class="notAlowedPolybox-text">Генерация этикеток полибоксов запрещена !</h1>
+    `
   } else {
     var qrText = document.getElementById("qr-text").value;
     var qrCodeDiv = document.getElementById("qr-code");
@@ -924,6 +933,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const inputField = container.querySelector('.dataInput');
 
       function deleteFromImage(){
+          document.getElementById("qr-code").classList.remove("notAlowedPolybox")
           if(inputField.classList.contains('orderNumber')){
               resetInput()
           } else if(inputField.classList.contains('orderExtraNumber')){
@@ -1255,13 +1265,10 @@ function switchGeneratorType(currentItem, allItems) {
   } else if (currentItem.classList.contains("generatorTypeSwitchPolybox")) {
     generatorTypeFirst = 2;
     transitionContainers("Polybox");
-  } else if (currentItem.classList.contains("generatorTypeSwitchPEGASUS")) {
+  } else if (currentItem.classList.contains("generatorTypeSwitchAddUsers")) {
     generatorTypeFirst = 4;
-    transitionContainers("PEGASUS");
-  } else if (currentItem.classList.contains("generatorTypeSwitchSCAN")) {
-    generatorTypeFirst = 5;
-    transitionContainers("ARGUS");
-  }  else {
+    transitionContainers("AddUsers");
+  } else {
     return
   }
 }
@@ -1397,20 +1404,20 @@ function updateContainers(type) {
         versionName.classList.add("webTitle-extra-Transition")
         authourName.classList.add("webTitle-extra-Transition")
       },200)
-    } else if (type === "DirectionLabel" && container.classList.contains("containerDirectionLabel")) {
+    } else if (type === "AddUsers" && container.classList.contains("containerAddUsers")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
         container.classList.add("visible");
         container.setAttribute("swtichTypeMode", "active");
-        particleColorOnEnter = "#ff0081";
+        particleColorOnEnter = "#C800FF";
         particleColorOnLeave = "#7a00ff";
         webTitle.classList.remove("webTitleTransition")
         authourName.classList.remove("webTitle-extra-Transition")
         versionName.classList.remove("webTitle-extra-Transition")
         
-        webTitle.innerHTML = `Генератор этикеток
-                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionLabel}</div>
+        webTitle.innerHTML = `Генератор QR-кодов сотрудников
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionAddUsers}</div>
                               <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
         versionName.style.color = `${particleColorOnLeave}`
@@ -1425,7 +1432,7 @@ function updateContainers(type) {
         const styleElement = document.querySelector(".mainStyle");
         styleElement.textContent = `
             ::selection {
-                background: #ff0081;
+                background: #F200FFFF;
                 color: #fff;
             }
         `;

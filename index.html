@@ -153,6 +153,9 @@
             <button class="typeSwitch generatorTypeSwitchPolybox" generatorType="disabled">
                 <i class="fa-duotone fa-regular fa-cube" style="font-size: 22px;"></i>
             </button>
+            <button class="typeSwitch generatorTypeSwitchAddUsers" generatorType="disabled" inert>
+                <i class="fa-solid fa-id-card"></i>
+            </button>
             <i class="menuDevider"></i>
             <a class="goTo__iRDG" href="https://rocan5.github.io/iRDG" target="_blank">
                 <i class="fa-solid fa-fire"></i>
@@ -702,7 +705,7 @@
                 </div>
                 <div class="changeLogItem" changeType="lots">
                     <button class="itemTitle">
-                        <i aria-hidden="true" class="fa-solid fa-toilet-paper-under lotsUpdate"></i>
+                        <i aria-hidden="true" class="fa-solid fa-toilet-paper-under updateIcon"></i>
                         <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.4
                         <span class="itemTitle">13.01.2025</span>
                     </button>
@@ -713,6 +716,42 @@
                                 <div class="itemDescriptionText">
                                     <p class="itemDescriptionTextInfo">Создание обезличенных лотов</p>
                                     <p class="itemDescriptionTextInfoSub">Добавлено новое поле воода в генератор обезличенных лотов, теперь обезличенные лоты можно создавать нпрямую с сайта."</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="changeLogItem" changeType="qr">
+                    <button class="itemTitle">
+                        <i aria-hidden="true" class="fa-solid fa-qrcode updateIcon"></i>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.16
+                        <span class="itemTitle">11.05.2025</span>
+                    </button>
+                    <ul class="itemDescription">
+                        <li>
+                            <div class="itemDescriptionTitle">
+                                <i class="fa-regular fa-circle-plus iconUpdate"></i>
+                                <div class="itemDescriptionText">
+                                    <p class="itemDescriptionTextInfo">Описание аномалии</p>
+                                    <p class="itemDescriptionTextInfoSub">Добавлена возможность прописывать описание аномалии при генерации этикетки."</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="changeLogItem" changeType="qr">
+                    <button class="itemTitle">
+                        <i aria-hidden="true" class="fa-solid fa-qrcode updateIcon"></i>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.17
+                        <span class="itemTitle">17.05.2025</span>
+                    </button>
+                    <ul class="itemDescription">
+                        <li>
+                            <div class="itemDescriptionTitle">
+                                <i class="fa-solid fa-ban iconDelete"></i>
+                                <div class="itemDescriptionText">
+                                    <p class="itemDescriptionTextInfo">Запрет генерации</p>
+                                    <p class="itemDescriptionTextInfoSub">Удалена возможность создания этикеток для полибоксов при помощи генератор QR-Кодов из-за поступления жалоб на обнаружения подобных маркировок от СЦ Воронеж на других СЦ</p>
                                 </div>
                             </div>
                         </li>
@@ -1078,18 +1117,33 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------------------------------->
-                <div class="container containerDirectionLabel hidden" qrType="hidden" swtichTypeMode="disabled">
-                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
+                <div class="container containerAddUsers hidden" qrType="hidden" swtichTypeMode="disabled">
+                    <button class="clear__input"><i class="fa-solid fa-trash"></i></button>
+                    <div class="inputHolder">
+                        <form>
+                            <div class="inputContainer">
+                                <input type="text" id="qr-text" class="dataInput orderNumber" autocomplete="off" id="name" name="name" placeholder="Логин сотрудника">
+                                <label html="name" class="dataInputLabel">Логин сотрудника</label>
+                                <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
+                            </div>
+                            <div class="inputContainer">
+                                <input type="text" id="qr-text" class="dataInput orderNumber" autocomplete="off" id="name" name="name" placeholder="Пароль сотрудника">
+                                <label html="name" class="dataInputLabel">Пароль сотрудника</label>
+                                <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
+                            </div>
+                        </form>
+                        <button class="print__code"><p>Печать</p></button>
+                        <button class="print__code"><p>Скачать</p></button>
+                        <button class="print__code"><p>Копировать</p></button>
+                    </div>
+                    <div class="qrContainer">
+                        <div id="qr-code">
+                            <p class="qrCodeDefaultText">Введите текст в поле ввода, чтобы сгенерировать QR-код.</p>
+                        </div>
+                        <div class="qrLoader"></div>
+                    </div>
                 </div>
-                <!------------------------------------------------------------------------------------------------------------->
-                <div class="container PEGASUS hidden" qrType="hidden" swtichTypeMode="disabled">
-                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
-                </div>
-                <!------------------------------------------------------------------------------------------------------------->
-                <div class="container ARGUS hidden" qrType="hidden" swtichTypeMode="disabled">
-                    <button class="print__code printCodePoly"><p>😐😑😐</p></button>
-                </div>
-                <!------------------------------------------------------------------------------------------------------------->
+                ------------------------------------------------------------------------------------------->
             </div>
         </div>
         <div id="image-container"></div> <!-- Контейнер для отображения изображения QR-Кодов-->

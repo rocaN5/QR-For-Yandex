@@ -96,6 +96,32 @@
         overflow-x: hidden;
         .changeLogItem{
             width: 100%;
+
+            &[changeType="qr"] i.updateIcon{
+                left: 20%;
+                transform: unset;
+                color: #01c3fc;
+                filter: drop-shadow(0px 0px 10px #01c3fc);
+            }
+            &[changeType="polybox"] i.updateIcon{
+                left: 20%;
+                transform: unset;
+                color: #c0ff00;
+                filter: drop-shadow(0px 0px 10px #c0ff00);
+            }
+            &[changeType="lots"] i.updateIcon{
+                left: 20%;
+                transform: unset;
+                color: #c0ff00;
+                filter: drop-shadow(0px 0px 10px #c0ff00);
+            }
+            &[changeType="users"] i.updateIcon{
+                left: 20%;
+                transform: unset;
+                color: #c0ff00;
+                filter: drop-shadow(0px 0px 10px #c0ff00);
+            }
+
             button.itemTitle{
                 position: relative;
                 width: 100%;
@@ -112,12 +138,6 @@
                 font-size: 16px;
                 border-bottom: 2px solid #444444;
                 user-select: none;
-                i.lotsUpdate{
-                    left: 20%;
-                    transform: unset;
-                    color: #c0ff00;
-                    filter: drop-shadow(0px 0px 10px #c0ff00);
-                }
                 i{
                     position: absolute;
                     left: 20px;
@@ -742,7 +762,7 @@
                     height: fit-content;
                 }
                 .itemTitle{
-                    i{
+                    i.fa-chevron-down{
                         transform: rotate(180deg);
                     }
                 }
