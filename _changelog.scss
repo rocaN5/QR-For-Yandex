@@ -106,8 +106,8 @@
             &[changeType="polybox"] i.updateIcon{
                 left: 20%;
                 transform: unset;
-                color: #c0ff00;
-                filter: drop-shadow(0px 0px 10px #c0ff00);
+                color: #ff5858;
+                filter: drop-shadow(0px 0px 10px #ff5858) drop-shadow(0px 0px 10px #ff58588f);
             }
             &[changeType="lots"] i.updateIcon{
                 left: 20%;
@@ -115,11 +115,11 @@
                 color: #c0ff00;
                 filter: drop-shadow(0px 0px 10px #c0ff00);
             }
-            &[changeType="users"] i.updateIcon{
+            &[changeType="addUsers"] i.updateIcon{
                 left: 20%;
                 transform: unset;
-                color: #c0ff00;
-                filter: drop-shadow(0px 0px 10px #c0ff00);
+                color: #ff00dd;
+                filter: drop-shadow(0px 0px 10px #ff00dd);
             }
 
             button.itemTitle{
@@ -170,6 +170,7 @@
                     border: 1px solid #414141;
                     flex-flow: column;
                     gap: 20px;
+                    box-shadow: 0px 0px 30px -10px #000000 inset;
                     &.developing{
                         &::before{
                             content: 'В разработке';
@@ -189,12 +190,14 @@
                         }
                     }
                     &:has(i.iconDelete){
+                        background: linear-gradient(90deg, #ff0000 -300%, transparent);
                         .itemDescriptionDemo{    
                             background: linear-gradient(180deg, #ff6060bd, rgba(219, 219, 219, 0.7411764706));
                             border: 2px solid #ff6060;
                         }
                     }
                     &:has(i.iconUpdate){
+                        background: linear-gradient(90deg, #00ff0080 -370%, transparent);
                         .itemDescriptionDemo{    
                             background: linear-gradient(180deg, #8cff8cbd, rgba(219, 219, 219, 0.7411764706));
                             border: 2px solid #8cff8c;
@@ -202,6 +205,7 @@
                     }
                     &:has(i.iconFix){
                         background: #272727;
+                        background: linear-gradient(90deg, #ffd600c7 -370%, transparent);
                         .itemDescriptionDemo{    
                             background: linear-gradient(180deg, #ffee60bd, rgba(219, 219, 219, 0.7411764706));
                             border: 2px solid #ffee60;
@@ -209,6 +213,7 @@
                     }
                     &:has(i.iconChange){
                         background: #272727;
+                        background: linear-gradient(90deg, #eb35ffbd -370%, transparent);
                         .itemDescriptionDemo{    
                             background: linear-gradient(180deg, #eb35ffbd, rgba(219, 219, 219, 0.7411764706));
                             border: 2px solid #eb35ff;

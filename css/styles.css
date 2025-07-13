@@ -33,6 +33,7 @@ div.mainContentContainer div.wrapper {
   overflow: hidden;
 }
 div.mainContentContainer div.wrapper h1.webTitleBlur {
+  position: fixed;
   padding: 20px;
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -47,12 +48,12 @@ div.mainContentContainer div.wrapper h1.webTitleBlur {
   align-items: center;
   border-radius: 0px 0px 50% 50%;
   text-shadow: 0px 0px 2px #ffffff;
-  position: absolute;
   background: linear-gradient(0deg, #01c3fc, #9158ff);
   filter: blur(20px);
+  z-index: 2;
 }
 div.mainContentContainer div.wrapper h1.webTitle {
-  position: relative;
+  position: fixed;
   padding: 20px;
   font-family: "Roboto", sans-serif;
   font-style: normal;
@@ -72,6 +73,7 @@ div.mainContentContainer div.wrapper h1.webTitle {
   color: transparent;
   text-shadow: 0px 0px 30px transparent, 0px 0px 30px transparent, 0px 0px 30px transparent;
   letter-spacing: -1rem;
+  z-index: 3;
 }
 div.mainContentContainer div.wrapper h1.webTitle.webTitleTransition {
   color: #fff !important;
@@ -133,6 +135,7 @@ div.mainContentContainer div.wrapper div.container {
   height: fit-content;
   transition: 500ms;
   gap: 5%;
+  margin-top: 120px;
 }
 div.mainContentContainer div.wrapper div.container.hidden {
   filter: blur(200px) brightness(0);
@@ -158,6 +161,9 @@ div.mainContentContainer div.wrapper div.container.qrSecondType {
 }
 div.mainContentContainer div.wrapper div.container.containerPolybox {
   flex-wrap: wrap;
+}
+div.mainContentContainer div.wrapper div.container.containerQR:has(input#toggleAltenrativeQR:checked) .alternateInfo {
+  display: flex !important;
 }
 @media (max-width: 1000px) {
   div.mainContentContainer div.wrapper div.container {
@@ -244,6 +250,13 @@ div.mainContentContainer div.wrapper div.container .inputHolder form label[for=t
   opacity: 0;
   visibility: hidden;
 }
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleAltenrativeQR] {
+  position: relative;
+  transition: 100ms;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleAltenrativeQR] *[isVisible=false] {
+  transform: translateY(20px);
+}
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer {
   display: flex;
   gap: 10px;
@@ -286,6 +299,13 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleDamageTitile:checked) .inputBody {
   background: linear-gradient(225deg, #ff3a75, #ff3737);
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleAltenrativeQR:checked) {
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
+  border: 2px solid #00974e;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleAltenrativeQR:checked) .inputBody {
+  background: linear-gradient(225deg, #00974e, #009654);
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer .checkboxWrapper {
   width: 30%;
@@ -1255,6 +1275,19 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code #compan
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code #company-info span#datetime i.dateTimeCalendar {
   background-image: url("../img/calendar.svg");
 }
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code #company-info p.alternateInfo {
+  display: none;
+  position: absolute;
+  font-size: 0.8rem;
+  bottom: -10px;
+  right: 0;
+  width: fit-content;
+  margin: 0;
+  padding: 4px;
+  background: #000;
+  border-radius: 30px;
+  color: #fff;
+}
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code h1.anomlyText {
   text-align: left;
   font-size: 40px;
@@ -2223,7 +2256,8 @@ nav.menu button.generatorTypeSwitchPolybox[generatorType=active]:hover, nav.menu
 nav.menu button.generatorTypeSwitchPolybox[generatorType=active] i, nav.menu a.generatorTypeSwitchPolybox[generatorType=active] i {
   color: #000;
 }
-nav.menu button.generatorTypeSwitchAddUsers, nav.menu a.generatorTypeSwitchAddUsers {
+nav.menu button.generatorCart, nav.menu a.generatorCart {
+  display: flex;
   position: relative;
   width: 50px;
   height: 50px;
@@ -2238,29 +2272,29 @@ nav.menu button.generatorTypeSwitchAddUsers, nav.menu a.generatorTypeSwitchAddUs
   z-index: 998;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
 }
-nav.menu button.generatorTypeSwitchAddUsers::after, nav.menu a.generatorTypeSwitchAddUsers::after {
-  content: "Сотрудники";
+nav.menu button.generatorCart::after, nav.menu a.generatorCart::after {
+  content: "Карты";
 }
-nav.menu button.generatorTypeSwitchAddUsers i, nav.menu a.generatorTypeSwitchAddUsers i {
+nav.menu button.generatorCart i, nav.menu a.generatorCart i {
   font-size: 20px;
   color: #fff;
 }
-nav.menu button.generatorTypeSwitchAddUsers:hover, nav.menu a.generatorTypeSwitchAddUsers:hover {
+nav.menu button.generatorCart:hover, nav.menu a.generatorCart:hover {
   backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
   transition: 200ms;
   border: 2px solid #656565;
 }
-nav.menu button.generatorTypeSwitchAddUsers[generatorType=active], nav.menu a.generatorTypeSwitchAddUsers[generatorType=active] {
+nav.menu button.generatorCart[generatorType=active], nav.menu a.generatorCart[generatorType=active] {
   background-color: #fff;
   box-shadow: 0px 0px 10px 0px #fff;
   border: 2px solid #7d7d7d;
   transition: 200ms;
 }
-nav.menu button.generatorTypeSwitchAddUsers[generatorType=active]:hover, nav.menu a.generatorTypeSwitchAddUsers[generatorType=active]:hover {
+nav.menu button.generatorCart[generatorType=active]:hover, nav.menu a.generatorCart[generatorType=active]:hover {
   transition: 200ms;
   border: 2px solid #000;
 }
-nav.menu button.generatorTypeSwitchAddUsers[generatorType=active] i, nav.menu a.generatorTypeSwitchAddUsers[generatorType=active] i {
+nav.menu button.generatorCart[generatorType=active] i, nav.menu a.generatorCart[generatorType=active] i {
   color: #000;
 }
 nav.menu button.goTo__iRDG, nav.menu a.goTo__iRDG {
@@ -2579,7 +2613,8 @@ nav.contacts button:hover::after, nav.contacts button:hover::before {
   transition: opacity 500ms, color 1.5s, transform 500ms;
   color: #fff;
 }
-nav.contacts button.callSettings {
+nav.contacts button.callSettings,
+nav.contacts button.callAutorization {
   position: relative;
   width: 50px;
   height: 50px;
@@ -2594,12 +2629,17 @@ nav.contacts button.callSettings {
   z-index: 998;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
 }
-nav.contacts button.callSettings i {
+nav.contacts button.callSettings i,
+nav.contacts button.callAutorization i {
   font-size: 20px;
   color: #fff;
 }
-nav.contacts button.callSettings::after {
+nav.contacts button.callSettings::after,
+nav.contacts button.callAutorization::after {
   content: "Настройки";
+}
+nav.contacts button.callAutorization::after {
+  content: "Пользователь";
 }
 nav.contacts i.menuDevider {
   width: 100%;
@@ -2877,8 +2917,8 @@ nav.contacts i.menuDevider {
 .changelogHistory .changelogsectionList .changeLogItem[changeType=polybox] i.updateIcon {
   left: 20%;
   transform: unset;
-  color: #c0ff00;
-  filter: drop-shadow(0px 0px 10px #c0ff00);
+  color: #ff5858;
+  filter: drop-shadow(0px 0px 10px #ff5858) drop-shadow(0px 0px 10px rgba(255, 88, 88, 0.5607843137));
 }
 .changelogHistory .changelogsectionList .changeLogItem[changeType=lots] i.updateIcon {
   left: 20%;
@@ -2886,11 +2926,11 @@ nav.contacts i.menuDevider {
   color: #c0ff00;
   filter: drop-shadow(0px 0px 10px #c0ff00);
 }
-.changelogHistory .changelogsectionList .changeLogItem[changeType=users] i.updateIcon {
+.changelogHistory .changelogsectionList .changeLogItem[changeType=addUsers] i.updateIcon {
   left: 20%;
   transform: unset;
-  color: #c0ff00;
-  filter: drop-shadow(0px 0px 10px #c0ff00);
+  color: #ff00dd;
+  filter: drop-shadow(0px 0px 10px #ff00dd);
 }
 .changelogHistory .changelogsectionList .changeLogItem button.itemTitle {
   position: relative;
@@ -2941,6 +2981,7 @@ nav.contacts i.menuDevider {
   border: 1px solid #414141;
   flex-flow: column;
   gap: 20px;
+  box-shadow: 0px 0px 30px -10px #000000 inset;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li.developing::before {
   content: "В разработке";
@@ -2958,9 +2999,15 @@ nav.contacts i.menuDevider {
   font-size: 30px;
   cursor: help;
 }
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete) {
+  background: linear-gradient(90deg, #ff0000 -300%, transparent);
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(255, 96, 96, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
   border: 2px solid #ff6060;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate) {
+  background: linear-gradient(90deg, rgba(0, 255, 0, 0.5019607843) -370%, transparent);
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(140, 255, 140, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
@@ -2968,6 +3015,7 @@ nav.contacts i.menuDevider {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix) {
   background: #272727;
+  background: linear-gradient(90deg, rgba(255, 214, 0, 0.7803921569) -370%, transparent);
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(255, 238, 96, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
@@ -2975,6 +3023,7 @@ nav.contacts i.menuDevider {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange) {
   background: #272727;
+  background: linear-gradient(90deg, rgba(235, 53, 255, 0.7411764706) -370%, transparent);
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(235, 53, 255, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
@@ -3901,4 +3950,155 @@ body, html {
   font-size: 30px;
   font-weight: 500;
   color: #ffffff;
+}
+
+.updateWrapper {
+  display: none !important;
+  position: fixed;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  z-index: 9;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  border-radius: 10px;
+  flex-flow: column;
+  gap: 10px;
+  right: 20px;
+  bottom: 20px;
+  left: unset;
+  transition: 1.5s;
+  animation: updateWrapper 5s infinite;
+  transition-timing-function: linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%);
+}
+@keyframes updateWrapper {
+  to {
+    filter: hue-rotate(-360deg);
+  }
+}
+.updateWrapper .updateItem__blur {
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  z-index: 9;
+  backdrop-filter: blur(4px) grayscale(1);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  box-shadow: #000000 0px 2px 6px 0px;
+  user-select: none;
+  border: unset;
+  transition: 300ms;
+  background: linear-gradient(45deg, #01c3fc, #9158ff);
+  padding: 2px 2px;
+  gap: 3px;
+  position: absolute;
+  width: 90%;
+  height: 70%;
+  left: 5%;
+  filter: blur(20px);
+  border-radius: 10px;
+}
+.updateWrapper .updateItem {
+  position: relative;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  z-index: 9;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  box-shadow: rgb(0, 0, 0) 0px 2px 6px 0px;
+  user-select: none;
+  transition: 300ms;
+  background: linear-gradient(45deg, rgb(1, 195, 252), rgb(145, 88, 255));
+  backdrop-filter: blur(4px) grayscale(1);
+  padding: 2px 2px;
+  gap: 3px;
+  border-radius: 10px;
+}
+.updateWrapper .updateItem__container {
+  display: flex;
+  gap: 8px;
+  padding: 13px;
+  background: rgba(0, 0, 0, 0.8588235294);
+  border-radius: 8px;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.updateWrapper .updateItem__container__block {
+  display: flex;
+  gap: 8px;
+}
+.updateWrapper .updateItem__container__block p,
+.updateWrapper .updateItem__container__block i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  font-size: 14px;
+}
+.updateWrapper .updateItem__container__devider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(45deg, rgb(1, 195, 252), rgb(145, 88, 255));
+  border-radius: 80px;
+  filter: grayscale(0.5) opacity(0.5);
+}
+.updateWrapper .updateItem__container__section {
+  display: flex;
+  gap: 8px;
+}
+.updateWrapper .updateItem__container__section p {
+  align-items: center;
+  margin: 0px;
+  width: 180px;
+  font-size: 0.7rem;
+  text-align: center;
+  display: block;
+}
+.updateWrapper .updateItem__container__section p span.updateItem__countdown {
+  display: inline-flex;
+}
+.updateWrapper .updateItem__container__delay {
+  position: relative;
+  width: 50%;
+  background: linear-gradient(45deg, rgb(1, 195, 252), rgb(145, 88, 255));
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  box-shadow: rgb(185, 116, 255) 0px 0px 10px 0px;
+  font-weight: 800;
+  padding: 2px;
+  box-sizing: border-box;
+}
+.updateWrapper .updateItem__container__delay button#delayUpdate {
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  transition: 200ms;
+  outline: 2px solid transparent;
+}
+.updateWrapper .updateItem__container__delay button#delayUpdate:hover {
+  filter: brightness(0.85);
+  transition: 200ms;
+}
+.updateWrapper .updateItem__container__delay button#delayUpdate:focus-visible {
+  filter: brightness(0.85);
+  outline: 2px solid #000;
+  transition: 200ms;
 }/*# sourceMappingURL=styles.css.map */

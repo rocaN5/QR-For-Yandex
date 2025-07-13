@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Удобный генератор QR кодов build-1.16">
-<meta property="og:title" content="QR Генератор от Димана v1.16 ✨">
-<meta property="og:description" content="Удобный генератор QR кодов build-1.16">
+<meta name="description" content="Удобный генератор QR кодов build-1.17">
+<meta property="og:title" content="QR Генератор от Димана v1.17 ✨">
+<meta property="og:description" content="Удобный генератор QR кодов build-1.17">
 <meta property="og:image" content="img/title.png">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/title.png">
 <meta name="twitter:card" content="img/title.png" />
 <meta name="twitter:image" content="img/title.png" />
 
-<title>QR Генератор от Димана v1.16</title>
+<title>QR Генератор от Димана v1.17</title>
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico" type="image/x-icon">
 <!--D-->
-<link rel="stylesheet" href="css/styles.css?v=1.16.2">
+<link rel="stylesheet" href="css/styles.css?v=1.17.0">
 <!--D-->
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,8 +153,8 @@
             <button class="typeSwitch generatorTypeSwitchPolybox" generatorType="disabled">
                 <i class="fa-duotone fa-regular fa-cube" style="font-size: 22px;"></i>
             </button>
-            <button class="typeSwitch generatorTypeSwitchAddUsers" generatorType="disabled" inert>
-                <i class="fa-solid fa-id-card"></i>
+            <button class="typeSwitch generatorCart" generatorType="disabled" style="display: none;">
+                <i class="fa-solid fa-file-invoice"></i>
             </button>
             <i class="menuDevider"></i>
             <a class="goTo__iRDG" href="https://rocan5.github.io/iRDG" target="_blank">
@@ -176,6 +176,9 @@
             <button class="callSettings">
                 <i class="fa-solid fa-gears"></i>
             </button>
+            <button class="callAutorization" style="display: none;">
+                <i class="fa-regular fa-user-tie"></i>
+            </button>
         </nav>
         <div class="shortcut">
             <div class="shortcutContainer">
@@ -191,6 +194,26 @@
                 <kbd keyId="ctrl">Ctrl</kbd>
                 <p>+</p>
                 <kbd keyId="p">P</kbd>
+            </div>
+        </div>
+        <div class="updateWrapper">
+            <div class="updateItem__blur"></div>
+            <div class="updateItem">
+                <div class="updateItem__container">
+                    <div class="updateItem__container__block">
+                        <i class="fa-solid fa-meteor"></i>
+                        <p>Доступно обновление</p>
+                    </div>
+                    <div class="updateItem__container__devider"></div>
+                    <div class="updateItem__container__section">
+                        <p>Страница автоматически перезагрузится через <span class="updateItem__countdown">30</span> сек.</p>
+                    </div>
+                    <div class="updateItem__container__delay">
+                        <button id="delayUpdate">
+                            Отложить
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -686,9 +709,10 @@
                         </li>
                     </ul>
                 </div>
-                <div class="changeLogItem">
+                <div class="changeLogItem" changeType="polybox">
                     <button class="itemTitle">
-                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.15
+                        <i aria-hidden="true" class="fa-duotone fa-regular fa-cube updateIcon"></i>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.1
                         <span class="itemTitle">11.01.2025</span>
                     </button>
                     <ul class="itemDescription">
@@ -724,7 +748,7 @@
                 <div class="changeLogItem" changeType="qr">
                     <button class="itemTitle">
                         <i aria-hidden="true" class="fa-solid fa-qrcode updateIcon"></i>
-                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.16
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.15
                         <span class="itemTitle">11.05.2025</span>
                     </button>
                     <ul class="itemDescription">
@@ -742,8 +766,8 @@
                 <div class="changeLogItem" changeType="qr">
                     <button class="itemTitle">
                         <i aria-hidden="true" class="fa-solid fa-qrcode updateIcon"></i>
-                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.17
-                        <span class="itemTitle">17.05.2025</span>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.16
+                        <span class="itemTitle">19.05.2025</span>
                     </button>
                     <ul class="itemDescription">
                         <li>
@@ -757,6 +781,42 @@
                         </li>
                     </ul>
                 </div>
+                <div class="changeLogItem" changeType="qr">
+                    <button class="itemTitle">
+                        <i aria-hidden="true" class="fa-solid fa-qrcode updateIcon"></i>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.17
+                        <span class="itemTitle">13.07.2025</span>
+                    </button>
+                    <ul class="itemDescription">
+                        <li>
+                            <div class="itemDescriptionTitle">
+                                <i class="fa-solid fa-circle-plus iconUpdate"></i>
+                                <div class="itemDescriptionText">
+                                    <p class="itemDescriptionTextInfo">Локальный режим</p>
+                                    <p class="itemDescriptionTextInfoSub">Добавлена возможность использовать альтернативный метод генерации QR-кодов при нестабильном соединении с Google-серверами. Альтернативный режим позволяет создавать ШК даже без интернета.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div class="changeLogItem" changeType="addUsers">
+                    <button class="itemTitle">
+                        <i aria-hidden="true" class="fa-solid fa-id-card updateIcon"></i>
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>version 1.0
+                        <span class="itemTitle">??.05.2025</span>
+                    </button>
+                    <ul class="itemDescription">
+                        <li>
+                            <div class="itemDescriptionTitle">
+                                <i class="fa-regular fa-circle-plus iconUpdate"></i>
+                                <div class="itemDescriptionText">
+                                    <p class="itemDescriptionTextInfo">Новый генератор</p>
+                                    <p class="itemDescriptionTextInfoSub">В проект добавелн новый генератор, позволяющий создавать изображения для быстрого входа сотрудников в персональный яндекс аккаунт.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
             </div>
         </div>
         
@@ -803,6 +863,17 @@
                                     <input type="text" id="anomaly-description" class="dataInputDescription anomalyDesciption" autocomplete="off" id="description" name="description" placeholder="Описаниие аномалии">
                                     <label html="description" class="dataInputLabel">Описаниие аномалии</label>
                                     <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
+                                </div>
+                            </label>
+                            <label for="toggleAltenrativeQR" class="toggleLabel">
+                                <div class="labelContainer" id="toggleAlternate" isVisible="true">
+                                    <div class="checkboxWrapper">
+                                        <input type="checkbox" id="toggleAltenrativeQR" class="toggleAltenrativeQR">
+                                        <div class="inputBody">
+                                            <div class="inputDot"></div>
+                                        </div>
+                                    </div>
+                                    <p>Локальный режим</p>
                                 </div>
                             </label>
                         </form>
@@ -1117,7 +1188,7 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------------------------------->
-                <div class="container containerAddUsers hidden" qrType="hidden" swtichTypeMode="disabled">
+                <div class="container containerCarts hidden" qrType="hidden" swtichTypeMode="disabled">
                     <button class="clear__input"><i class="fa-solid fa-trash"></i></button>
                     <div class="inputHolder">
                         <form>
@@ -1126,15 +1197,8 @@
                                 <label html="name" class="dataInputLabel">Логин сотрудника</label>
                                 <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
                             </div>
-                            <div class="inputContainer">
-                                <input type="text" id="qr-text" class="dataInput orderNumber" autocomplete="off" id="name" name="name" placeholder="Пароль сотрудника">
-                                <label html="name" class="dataInputLabel">Пароль сотрудника</label>
-                                <div class="deleteInput"><i class="fa-solid fa-trash"></i></div>
-                            </div>
                         </form>
                         <button class="print__code"><p>Печать</p></button>
-                        <button class="print__code"><p>Скачать</p></button>
-                        <button class="print__code"><p>Копировать</p></button>
                     </div>
                     <div class="qrContainer">
                         <div id="qr-code">
@@ -1143,11 +1207,12 @@
                         <div class="qrLoader"></div>
                     </div>
                 </div>
-                ------------------------------------------------------------------------------------------->
+                <!-- ------------------------------------------------------------------------------------------->
             </div>
         </div>
         <div id="image-container"></div> <!-- Контейнер для отображения изображения QR-Кодов-->
         <div id="image-containerPoly"></div> <!-- Контейнер для отображения изображения Полибоксов-->
+        <script src="libs/qrcode.min.js"></script>
         <script src="app.js"></script>
         <script src="app-lot.js"></script>
         <script src="polybox.js"></script>

@@ -1,7 +1,7 @@
 const version = "1.17"
 const versionLots = "1.4"
 const versionPoly = "1.1.2"
-const versionAddUsers = "1.0"
+const versionCarts = "1.0"
 
 let spanHistoryItemCounter = 0;
 
@@ -36,6 +36,7 @@ document.querySelector(".print__code").addEventListener("click", function() {
     if(qrCodeCreated){
       convertToImageAndOpenInNewTab();
     }else{
+      console.log("da")
       return
     }
 });
@@ -56,81 +57,109 @@ function generateAnomalyCodes() {
   var qrCodeDiv = document.getElementById("qr-code");
   qrCodeDiv.innerHTML = "";
 
-    // Добавляем текст "Аномалия"
-    let anomalyTest = document.createElement("h1")
-    anomalyTest.classList.add('anomlyText')
-    anomalyTest.textContent = "Аномалия"
-    qrCodeDiv.appendChild(anomalyTest);
+  // Добавляем текст "Аномалия"
+  let anomalyTest = document.createElement("h1");
+  anomalyTest.classList.add('anomlyText');
+  anomalyTest.textContent = "Аномалия";
+  qrCodeDiv.appendChild(anomalyTest);
 
-    var qrTextElement = document.createElement("p");
-    var mainText = qrText.slice(0, -4); 
-    var lastFourChars = qrText.slice(-4);
-    qrTextElement.appendChild(document.createTextNode(mainText));
+  var qrTextElement = document.createElement("p");
+  var mainText = qrText.slice(0, -4); 
+  var lastFourChars = qrText.slice(-4);
+  qrTextElement.appendChild(document.createTextNode(mainText));
 
-    var anomalySpan = document.createElement("span");
-    anomalySpan.classList.add("anomalyTextLastLetters");
-    anomalySpan.textContent = lastFourChars;
-    qrTextElement.appendChild(anomalySpan);
-    qrCodeDiv.appendChild(qrTextElement);
-    
-    // Создание и добавление h1 "СЦ Воронеж"
-    var companyName = document.createElement("h1");
-    companyName.textContent = "СЦ Воронеж";
-    companyName.classList.add("anomalyCompanyName")
-    qrCodeDiv.appendChild(companyName);
-    
-    // Генерация QR-кода
+  var anomalySpan = document.createElement("span");
+  anomalySpan.classList.add("anomalyTextLastLetters");
+  anomalySpan.textContent = lastFourChars;
+  qrTextElement.appendChild(anomalySpan);
+  qrCodeDiv.appendChild(qrTextElement);
+  
+  // Создание и добавление h1 "СЦ Воронеж"
+  var companyName = document.createElement("h1");
+  companyName.textContent = "СЦ Воронеж";
+  companyName.classList.add("anomalyCompanyName");
+  qrCodeDiv.appendChild(companyName);
+  
+  // Создаем контейнер для QR-кода
+  var qrImgContainer = document.createElement("div");
+  qrImgContainer.classList.add('qrImgContainer');
+  qrCodeDiv.appendChild(qrImgContainer);
+
+  // Генерация QR-кода в зависимости от режима
+  if (alternateQR_mode === true) {
+    // Локальная генерация с помощью QRCode.js
+    try {
+      new QRCode(qrImgContainer, {
+        text: qrText,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } catch (e) {
+      console.error("Ошибка генерации QR-кода:", e);
+      var errorMessage = document.createElement("p");
+      errorMessage.textContent = "Ошибка генерации QR-кода";
+      qrImgContainer.appendChild(errorMessage);
+    }
+  } else {
+    // Генерация через API
     var qrCode = document.createElement("img");
-    qrCode.classList.add("qrCodeCreated")
+    qrCode.classList.add("qrCodeCreated");
     qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
     qrCode.alt = "QR Code";
-    
-    var companyInfoDiv = document.createElement("div");
-    companyInfoDiv.id = "company-info";
-    var dateTime = document.createElement("span");
-    dateTime.id = "datetime";
-    dateTime.innerHTML = getCurrentDateTime();
-    companyInfoDiv.appendChild(dateTime);
-    qrCodeDiv.appendChild(companyInfoDiv);
-
-    var qrImgContainer = document.createElement("div");
-    qrImgContainer.classList.add('qrImgContainer');
-    qrCodeDiv.appendChild(qrImgContainer);
     qrImgContainer.appendChild(qrCode);
+  }
 
-    
-    
-    if (anomaly_description.value !== "") {
-      let anomalyDesccriptionWrapper = document.createElement("div");
-      anomalyDesccriptionWrapper.classList.add("anomalyDesccriptionWrapper");
-    
-      let anomalyDesccriptionWrapper_title = document.createElement("p");
-      anomalyDesccriptionWrapper_title.classList.add("anomalyDesccriptionWrapper-title");
-      anomalyDesccriptionWrapper_title.innerText = "Описание";
-    
-      let anomalyDesccription_item = document.createElement("div");
-      anomalyDesccription_item.classList.add("anomalyDesccription-item"); // ✅ без точки
-    
-      let anomalyDesccription_item_data = document.createElement("h4");
-      anomalyDesccription_item_data.classList.add("anomalyDesccription-item-data"); // ✅ без точки
-    
-      anomalyDesccription_item.appendChild(anomalyDesccription_item_data);
-      anomalyDesccriptionWrapper.appendChild(anomalyDesccriptionWrapper_title);
-      anomalyDesccriptionWrapper.appendChild(anomalyDesccription_item);
-      qrCodeDiv.appendChild(anomalyDesccriptionWrapper);
-    
-      const anomDesriptionLabelText = document.querySelector(".anomalyDesccription-item-data");
-      let anomData = anomaly_description.value;
-      if (anomDesriptionLabelText) {
-        anomDesriptionLabelText.innerText = anomData;
-      }
+  // Добавляем дату и время
+  var companyInfoDiv = document.createElement("div");
+  companyInfoDiv.id = "company-info";
+  var dateTime = document.createElement("span");
+  dateTime.id = "datetime";
+  dateTime.innerHTML = getCurrentDateTime();
+  let alternateInfoBlock = document.createElement("p")
+  alternateInfoBlock.className = "alternateInfo"
+  alternateInfoBlock.innerText = "Alternate"
+  
+  companyInfoDiv.appendChild(dateTime);
+  companyInfoDiv.appendChild(alternateInfoBlock);
+  qrCodeDiv.appendChild(companyInfoDiv);
+
+  // Добавляем описание аномалии (если есть)
+  if (anomaly_description.value !== "") {
+    let anomalyDesccriptionWrapper = document.createElement("div");
+    anomalyDesccriptionWrapper.classList.add("anomalyDesccriptionWrapper");
+  
+    let anomalyDesccriptionWrapper_title = document.createElement("p");
+    anomalyDesccriptionWrapper_title.classList.add("anomalyDesccriptionWrapper-title");
+    anomalyDesccriptionWrapper_title.innerText = "Описание";
+  
+    let anomalyDesccription_item = document.createElement("div");
+    anomalyDesccription_item.classList.add("anomalyDesccription-item");
+  
+    let anomalyDesccription_item_data = document.createElement("h4");
+    anomalyDesccription_item_data.classList.add("anomalyDesccription-item-data");
+  
+    anomalyDesccription_item.appendChild(anomalyDesccription_item_data);
+    anomalyDesccriptionWrapper.appendChild(anomalyDesccriptionWrapper_title);
+    anomalyDesccriptionWrapper.appendChild(anomalyDesccription_item);
+    qrCodeDiv.appendChild(anomalyDesccriptionWrapper);
+  
+    const anomDesriptionLabelText = document.querySelector(".anomalyDesccription-item-data");
+    let anomData = anomaly_description.value;
+    if (anomDesriptionLabelText) {
+      anomDesriptionLabelText.innerText = anomData;
     }
+  }
 }
 
 const damageVisible = document.getElementById("damageVisible")
 const anomalyDesccription = document.getElementById("anomalyDesccription")
+const alternateQR = document.getElementById("toggleAlternate")
 
 function anomalyDescription__active(){
+  alternateQR.setAttribute("isVisible", false)
   damageVisible.setAttribute("isVisible", false)
   damageVisible.setAttribute("inert", true)
   anomalyDesccription.setAttribute("isVisible", true)
@@ -138,6 +167,7 @@ function anomalyDescription__active(){
 }
 
 function anomalyDescription__disabled(){
+  alternateQR.setAttribute("isVisible", true)
   damageVisible.setAttribute("isVisible", true)
   damageVisible.removeAttribute("inert")
   anomalyDesccription.setAttribute("isVisible", false)
@@ -149,124 +179,227 @@ function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
   document.getElementById("qr-code").classList.remove("notAlowedPolybox")
 
-
-  // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
-  if (inputText.startsWith("FA254") && inputText.length == 20 ) {
-      generateAnomalyCodes();
-      anomalyDescription__active()
-  } else if(inputText.startsWith("F3") || inputText.startsWith("F4") || inputText.startsWith("F5")){
+  if(alternateQR_mode === true){
     
-    let qrCodeDiv = document.getElementById("qr-code");
+    if (inputText.startsWith("FA254") && inputText.length === 20) {
+      generateAnomalyCodes();
+      anomalyDescription__active();
+      return;
+    }
+  
+    // Проверка на полибоксы (F3, F4, F5)
+    if (inputText.startsWith("F3") || inputText.startsWith("F4") || inputText.startsWith("F5")) {
+      let qrCodeDiv = document.getElementById("qr-code");
+      qrCodeDiv.innerHTML = "";
+      qrCodeDiv.classList.add("notAlowedPolybox");
+      qrCodeDiv.innerHTML = `<h1 class="notAlowedPolybox-text">Генерация этикеток полибоксов запрещена!</h1>`;
+      return;
+    }
+  
+    // Основной случай
+    const qrText = inputText;
+    const qrCodeDiv = document.getElementById("qr-code");
     qrCodeDiv.innerHTML = "";
-    qrCodeDiv.classList.add("notAlowedPolybox")
-    qrCodeDiv.innerHTML = `
-      <h1 class="notAlowedPolybox-text">Генерация этикеток полибоксов запрещена !</h1>
-    `
-  } else {
-    var qrText = document.getElementById("qr-text").value;
-    var qrCodeDiv = document.getElementById("qr-code");
-    qrCodeDiv.innerHTML = "";
-    anomalyDescription__disabled()
-
-    if (qrText.trim() === "") {
-      var messageElement = document.createElement("p");
+    anomalyDescription__disabled();
+  
+    // Если поле пустое
+    if (!qrText) {
+      const messageElement = document.createElement("p");
       messageElement.classList.add("qrCodeDefaultText");
       messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
       qrCodeDiv.appendChild(messageElement);
-
-      // Генерация случайного числа от 1 до 5
-      var randomNumber = Math.floor(Math.random() * 50) + 1;
-
-      // Добавление стиля через JavaScript
-      var style = document.createElement('style');
-      style.innerHTML = `
-        .qrCodeDefaultText::after {
-          background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
-        }
-      `;
+  
+      const randomNumber = Math.floor(Math.random() * 50) + 1;
+      const style = document.createElement('style');
+      style.innerHTML = `.qrCodeDefaultText::after { background-image: url("./img/goma and peach/catID_${randomNumber}.gif"); }`;
       document.head.appendChild(style);
-
       return;
     }
-
-    // Создание и добавление h1 "СЦ Воронеж" и span с датой и временем в один div
-    var companyInfoDiv = document.createElement("div");
+  
+    // Добавляем блок с названием и датой
+    const companyInfoDiv = document.createElement("div");
     companyInfoDiv.id = "company-info";
-    var companyName = document.createElement("h1");
-    companyName.textContent = "СЦ Воронеж";
-    var dateTime = document.createElement("span");
-    dateTime.id = "datetime";
-    dateTime.innerHTML = getCurrentDateTime();
-    companyInfoDiv.appendChild(companyName);
-    companyInfoDiv.appendChild(dateTime);
+    companyInfoDiv.innerHTML = `
+      <h1>СЦ Воронеж</h1>
+      <span id="datetime">${getCurrentDateTime()}</span>
+      <p class="alternateInfo">Alternate</p>
+    `;
     qrCodeDiv.appendChild(companyInfoDiv);
-
-    // Генерация QR-кода
-    var qrCode = document.createElement("img");
-    qrCode.classList.add("qrCodeCreated")
-    qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
-    qrCode.alt = "QR Code";
-
-    // var qrLoader = document.createElement("div");
-    // qrLoader.classList.add('qrLoader');
-    // qrCodeDiv.appendChild(qrLoader);
-
-    var qrImgContainer = document.createElement("div");
+  
+    // Генерация QR-кода (используем QRCode.js)
+    const qrImgContainer = document.createElement("div");
     qrImgContainer.classList.add('qrImgContainer');
     qrCodeDiv.appendChild(qrImgContainer);
-    qrImgContainer.appendChild(qrCode);
+  
+    // Создаем новый QRCode
+    new QRCode(qrImgContainer, {
+      text: qrText,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
 
-
-    var qrTextElement = document.createElement("p");
+    const checkImg = setInterval(() => {
+      const img = qrImgContainer.querySelector('img');
+      if (img) {
+        img.classList.add('qrCodeCreated');
+        clearInterval(checkImg);
+      }
+    }, 10);
+  
+    // Добавляем текст под QR-кодом
+    const qrTextElement = document.createElement("p");
     qrTextElement.textContent = qrText;
-    qrTextElement.classList.add("mainText")
+    qrTextElement.classList.add("mainText");
     qrCodeDiv.appendChild(qrTextElement);
-
-    var maxLength = 20;
-
-    var qrTextElementExtraLeft = document.createElement("p");
-    qrTextElementExtraLeft.textContent = formatText(`${qrText}`);
-    qrTextElementExtraLeft.classList.add("mainExtraTextLeft");
-    qrCodeDiv.appendChild(qrTextElementExtraLeft);
-    
-    var qrTextElementExtraRight = document.createElement("p");
-    qrTextElementExtraRight.textContent = formatText(`${qrText}`);
-    qrTextElementExtraRight.classList.add("mainExtraTextRight");
-    qrCodeDiv.appendChild(qrTextElementExtraRight);
-
-    var qrTextElementExtraTop = document.createElement("p");
-    qrTextElementExtraTop.textContent = formatText(`${qrText}`);
-    qrTextElementExtraTop.classList.add("mainExtraTextTop");
-    qrCodeDiv.appendChild(qrTextElementExtraTop);
-    
-    var qrTextElementExtraBottom = document.createElement("p");
-    qrTextElementExtraBottom.textContent = formatText(`${qrText}`);
-    qrTextElementExtraBottom.classList.add("mainExtraTextBottom");
-    qrCodeDiv.appendChild(qrTextElementExtraBottom);
-    
-    function formatText(text) {
-        // Обрезаем текст до 14 символов (с учетом "•" по краям)
-        var extraSymbols = 2; // По одному символу "•" слева и справа
-        var adjustedMaxLength = maxLength - extraSymbols;
-    
-        // Если текст длиннее, обрезаем и добавляем многоточие
-        if (text.length > maxLength) {
-            return "..." + text.slice(-adjustedMaxLength);
-        }
-        return text;
-    }
-    
-
-    if(inputDamagedChecked == true){
-      var qrTextDamaged = document.createElement("p");
-      qrTextDamaged.classList.add("orderDamaged")
-
+  
+    // Добавляем дополнительные текстовые блоки (если нужны)
+    const maxLength = 20;
+    const formatText = (text) => text.length > maxLength ? "..." + text.slice(-(maxLength - 3)) : text;
+  
+    ["Left", "Right", "Top", "Bottom"].forEach(pos => {
+      const element = document.createElement("p");
+      element.textContent = formatText(qrText);
+      element.classList.add(`mainExtraText${pos}`);
+      qrCodeDiv.appendChild(element);
+    });
+  
+    // Добавляем пометку "Повреждённый заказ" (если включено)
+    if (inputDamagedChecked) {
+      const qrTextDamaged = document.createElement("p");
+      qrTextDamaged.classList.add("orderDamaged");
       qrTextDamaged.innerHTML = `<i></i>Повреждённый заказ<i></i>`;
       qrCodeDiv.appendChild(qrTextDamaged);
-    }else{
-      const orderDamaged = document.querySelector('.orderDamaged')
-      if(orderDamaged){
-        orderDamaged.remove()
+    } else {
+      const orderDamaged = document.querySelector('.orderDamaged');
+      if (orderDamaged) orderDamaged.remove();
+    }
+  }else{
+    // Проверка на начало текста с "FA254" и минимальную длину в 19 символов
+    if (inputText.startsWith("FA254") && inputText.length == 20 ) {
+        generateAnomalyCodes();
+        anomalyDescription__active()
+    } else if(inputText.startsWith("F3") || inputText.startsWith("F4") || inputText.startsWith("F5")){
+      
+      let qrCodeDiv = document.getElementById("qr-code");
+      qrCodeDiv.innerHTML = "";
+      qrCodeDiv.classList.add("notAlowedPolybox")
+      qrCodeDiv.innerHTML = `
+        <h1 class="notAlowedPolybox-text">Генерация этикеток полибоксов запрещена !</h1>
+      `
+    } else {
+      var qrText = document.getElementById("qr-text").value;
+      var qrCodeDiv = document.getElementById("qr-code");
+      qrCodeDiv.innerHTML = "";
+      anomalyDescription__disabled()
+
+      if (qrText.trim() === "") {
+        var messageElement = document.createElement("p");
+        messageElement.classList.add("qrCodeDefaultText");
+        messageElement.textContent = "Введите текст в поле ввода, чтобы сгенерировать QR-код.";
+        qrCodeDiv.appendChild(messageElement);
+
+        // Генерация случайного числа от 1 до 5
+        var randomNumber = Math.floor(Math.random() * 50) + 1;
+
+        // Добавление стиля через JavaScript
+        var style = document.createElement('style');
+        style.innerHTML = `
+          .qrCodeDefaultText::after {
+            background-image: url("./img/goma and peach/catID_${randomNumber}.gif");
+          }
+        `;
+        document.head.appendChild(style);
+
+        return;
+      }
+
+      // Создание и добавление h1 "СЦ Воронеж" и span с датой и временем в один div
+      var companyInfoDiv = document.createElement("div");
+      companyInfoDiv.id = "company-info";
+      var companyName = document.createElement("h1");
+      companyName.textContent = "СЦ Воронеж";
+      var dateTime = document.createElement("span");
+      dateTime.id = "datetime";
+      dateTime.innerHTML = getCurrentDateTime();
+      let alternateInfoBlock = document.createElement("p")
+      alternateInfoBlock.className = "alternateInfo"
+      alternateInfoBlock.innerText = "Alternate"
+      
+      companyInfoDiv.appendChild(companyName);
+      companyInfoDiv.appendChild(dateTime);
+      companyInfoDiv.appendChild(alternateInfoBlock);
+      qrCodeDiv.appendChild(companyInfoDiv);
+
+      // Генерация QR-кода
+      var qrCode = document.createElement("img");
+      qrCode.classList.add("qrCodeCreated")
+      qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(qrText) + "&size=200x200";
+      qrCode.alt = "QR Code";
+
+      // var qrLoader = document.createElement("div");
+      // qrLoader.classList.add('qrLoader');
+      // qrCodeDiv.appendChild(qrLoader);
+
+      var qrImgContainer = document.createElement("div");
+      qrImgContainer.classList.add('qrImgContainer');
+      qrCodeDiv.appendChild(qrImgContainer);
+      qrImgContainer.appendChild(qrCode);
+
+
+      var qrTextElement = document.createElement("p");
+      qrTextElement.textContent = qrText;
+      qrTextElement.classList.add("mainText")
+      qrCodeDiv.appendChild(qrTextElement);
+
+      var maxLength = 20;
+
+      var qrTextElementExtraLeft = document.createElement("p");
+      qrTextElementExtraLeft.textContent = formatText(`${qrText}`);
+      qrTextElementExtraLeft.classList.add("mainExtraTextLeft");
+      qrCodeDiv.appendChild(qrTextElementExtraLeft);
+      
+      var qrTextElementExtraRight = document.createElement("p");
+      qrTextElementExtraRight.textContent = formatText(`${qrText}`);
+      qrTextElementExtraRight.classList.add("mainExtraTextRight");
+      qrCodeDiv.appendChild(qrTextElementExtraRight);
+
+      var qrTextElementExtraTop = document.createElement("p");
+      qrTextElementExtraTop.textContent = formatText(`${qrText}`);
+      qrTextElementExtraTop.classList.add("mainExtraTextTop");
+      qrCodeDiv.appendChild(qrTextElementExtraTop);
+      
+      var qrTextElementExtraBottom = document.createElement("p");
+      qrTextElementExtraBottom.textContent = formatText(`${qrText}`);
+      qrTextElementExtraBottom.classList.add("mainExtraTextBottom");
+      qrCodeDiv.appendChild(qrTextElementExtraBottom);
+      
+      function formatText(text) {
+          // Обрезаем текст до 14 символов (с учетом "•" по краям)
+          var extraSymbols = 2; // По одному символу "•" слева и справа
+          var adjustedMaxLength = maxLength - extraSymbols;
+      
+          // Если текст длиннее, обрезаем и добавляем многоточие
+          if (text.length > maxLength) {
+              return "..." + text.slice(-adjustedMaxLength);
+          }
+          return text;
+      }
+      
+
+      if(inputDamagedChecked == true){
+        var qrTextDamaged = document.createElement("p");
+        qrTextDamaged.classList.add("orderDamaged")
+
+        qrTextDamaged.innerHTML = `<i></i>Повреждённый заказ<i></i>`;
+        qrCodeDiv.appendChild(qrTextDamaged);
+      }else{
+        const orderDamaged = document.querySelector('.orderDamaged')
+        if(orderDamaged){
+          orderDamaged.remove()
+        }
       }
     }
   }
@@ -529,7 +662,7 @@ function sendImageToTelegram() {
 <b>💬 Описание:</b> <i>${anomaly_description.value == "" ? "❌ Без описания ❌" : anomaly_description.value}</i>
 <b>📅 Дата:</b> <i>${currentDate}</i>
 <b>🕑 Время:</b> <i>${currentTime}</i>
-<b>👨‍💻 Версия:</b> <i>${version}</i>
+<b>👨‍💻 Версия:</b> <i>${version}</i> ${alternateQR_mode == true ? "\n \n<b>⚙ Альтернативная генерация:</b> #alternateTrue" : ""}
 
 <b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
 <b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
@@ -540,7 +673,7 @@ function sendImageToTelegram() {
 <b>🔢 Номер заказа:</b> <code>${captionInputText}</code>
 <b>📅 Дата:</b> <i>${currentDate}</i>
 <b>🕑 Время:</b> <i>${currentTime}</i>
-<b>👨‍💻 Версия:</b> <i>${version}</i>
+<b>👨‍💻 Версия:</b> <i>${version}</i> ${alternateQR_mode == true ? "\n \n<b>⚙ Альтернативная генерация:</b> #alternateTrue" : ""}
 
 <b><a href="https://rocan5.github.io/QR-For-Yandex/">👾 Меня создали тут</a></b>
 <b><a href="${piLink}">🔎 Найди меня в ПИ</a></b>
@@ -1016,6 +1149,25 @@ checkboxesDamaged.forEach(checkbox => {
   checkbox.addEventListener("click", toggleCheckboxesDamaged);
 });
 
+// TODO Кнопка альтернативной генерации ✅
+
+const alternateQRInput = document.querySelectorAll(".toggleAltenrativeQR")
+let alternateQR_mode = false
+
+function toggleAlternateQR(){
+  if(alternateQR_mode === false){
+    alternateQR_mode = true
+  }else{
+    alternateQR_mode = false
+  }
+  generateCodes()
+  console.log("alternateQR_mode === " + alternateQR_mode)
+}
+
+alternateQRInput.forEach(checkbox => {
+  checkbox.addEventListener("click", toggleAlternateQR);
+});
+
 // * qrHistory
 const qrHistory = document.querySelector(".qrHistory")
 const changelogHistory = document.querySelector(".changelogHistory")
@@ -1265,9 +1417,9 @@ function switchGeneratorType(currentItem, allItems) {
   } else if (currentItem.classList.contains("generatorTypeSwitchPolybox")) {
     generatorTypeFirst = 2;
     transitionContainers("Polybox");
-  } else if (currentItem.classList.contains("generatorTypeSwitchAddUsers")) {
+  } else if (currentItem.classList.contains("generatorCart")) {
     generatorTypeFirst = 4;
-    transitionContainers("AddUsers");
+    transitionContainers("Carts");
   } else {
     return
   }
@@ -1404,7 +1556,7 @@ function updateContainers(type) {
         versionName.classList.add("webTitle-extra-Transition")
         authourName.classList.add("webTitle-extra-Transition")
       },200)
-    } else if (type === "AddUsers" && container.classList.contains("containerAddUsers")) {
+    } else if (type === "Carts" && container.classList.contains("containerCarts")) {
       container.style.display = "flex";
       setTimeout(() => {
         container.classList.remove("hidden");
@@ -1416,8 +1568,8 @@ function updateContainers(type) {
         authourName.classList.remove("webTitle-extra-Transition")
         versionName.classList.remove("webTitle-extra-Transition")
         
-        webTitle.innerHTML = `Генератор QR-кодов сотрудников
-                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionAddUsers}</div>
+        webTitle.innerHTML = `Генератор MK и Cart
+                              <div class="versionName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">${versionCarts}</div>
                               <div class="authourName webTitle-extra-Transition" style="color: ${particleColorOnEnter}; text-shadow: 0 0 10px ${particleColorOnEnter};">от Димана</div>`
         particleCanvas.style.background = `linear-gradient(240deg, ${particleColorOnEnter + "1f"}, ${particleColorOnLeave + "1f"})`
         versionName.style.color = `${particleColorOnLeave}`
@@ -1575,7 +1727,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', function(event) {
   const keyElements = document.querySelectorAll('[keyId]');
 
-  if (event.ctrlKey && (event.key === 'z' || event.key === 'я')) {
+  if (event.ctrlKey && (event.key.toLowerCase() === 'z' || event.key.toLowerCase() === 'я')) {
       resetInput();
       const dataInputs = document.querySelectorAll(".dataInput");
       dataInputs.forEach(item => {
@@ -1629,7 +1781,7 @@ window.onload = function() {
 
   // Запретить Ctrl+P
   document.addEventListener('keydown', function(event) {
-      if (event.ctrlKey && event.key === 'p' || event.ctrlKey && event.key === 'з') {
+      if (event.ctrlKey && event.key.toLowerCase() === 'p' || event.ctrlKey && event.key.toLowerCase() === 'з') {
           event.preventDefault();
           const qrCodeCreated = document.querySelector(".qrCodeCreated")
           if(qrCodeCreated){

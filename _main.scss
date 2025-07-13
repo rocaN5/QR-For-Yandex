@@ -31,6 +31,7 @@ div.mainContentContainer{
         align-items: center;
         overflow: hidden;
         h1.webTitleBlur{
+            position: fixed;
             padding: 20px;
             color: #fff;
             font-family: "Roboto", sans-serif;
@@ -45,12 +46,12 @@ div.mainContentContainer{
             align-items: center;
             border-radius: 0px 0px 50% 50%;
             text-shadow: 0px 0px 2px #ffffff;
-            position: absolute;
             background: linear-gradient(0deg, #01c3fc, #9158ff);
             filter: blur(20px);
+            z-index: 2;
         }
         h1.webTitle{
-            position: relative;
+            position: fixed;
             padding: 20px;
             // color: #fff;
             font-family: "Roboto", sans-serif;
@@ -72,6 +73,7 @@ div.mainContentContainer{
             color: transparent;
             text-shadow: 0px 0px 30px transparent, 0px 0px 30px transparent, 0px 0px 30px transparent;
             letter-spacing: -1rem;
+            z-index: 3;
             &.webTitleTransition{
                 color: #fff !important;
                 letter-spacing: 0 !important;
@@ -134,6 +136,7 @@ div.mainContentContainer{
             height: fit-content;
             transition: 500ms;
             gap: 5%;
+            margin-top: 120px;
             &.hidden{
                 filter: blur(200px) brightness(0);
                 opacity: 0;
@@ -159,6 +162,11 @@ div.mainContentContainer{
             &.containerPolybox{
                 flex-wrap: wrap;
             }
+
+            &.containerQR:has(input#toggleAltenrativeQR:checked) .alternateInfo{
+                display: flex !important;
+            }
+
             @media (max-width: 1000px) {
                 &{
                     gap: 2%;
@@ -239,10 +247,16 @@ div.mainContentContainer{
                     gap: 20px;
                     label[for="toggleDamageTitile"]{
                         position: relative;
-                        // *[isVisible="true"]{}
                         *[isVisible="false"]{
                             opacity: 0;
                             visibility: hidden;
+                        }
+                    }
+                    label[for="toggleAltenrativeQR"]{
+                        position: relative;
+                        transition: 100ms;
+                        *[isVisible="false"]{
+                            transform: translateY(20px);
                         }
                     }
                     .labelContainer{
@@ -281,13 +295,20 @@ div.mainContentContainer{
                                 }
                         }
                         &:has(input.toggleDamageTitile:checked){
-                                box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
+                            box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
                                 border: 2px solid #ff3a75;
                                 .inputBody{
                                     background: linear-gradient(225deg, #ff3a75, #ff3737);
                                 }
+                            }
+                        &:has(input.toggleAltenrativeQR:checked){
+                                box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
+                                border: 2px solid #00974e;
+                                .inputBody{
+                                    background: linear-gradient(225deg, #00974e, #009654);
+                                }
                         }
-                        .checkboxWrapper{
+                            .checkboxWrapper{
                             width: 30%;
                             display: flex;
                             justify-content: center;
@@ -1029,6 +1050,8 @@ div.mainContentContainer{
                         margin-bottom: 25px;
                     }
                 }
+
+
                 .qrLoader{
                     width: 50px;
                     height: 50px;
@@ -1283,6 +1306,19 @@ div.mainContentContainer{
                                     background-image: url("../img/calendar.svg");
                                 }
                             }
+                        }
+                        p.alternateInfo{
+                            display: none;
+                            position: absolute;
+                            font-size: .8rem;
+                            bottom: -10px;
+                            right: 0;
+                            width: fit-content;
+                            margin: 0;
+                            padding: 4px;
+                            background: #000;
+                            border-radius: 30px;
+                            color: #fff;
                         }
                     }
                     h1.anomlyText{
