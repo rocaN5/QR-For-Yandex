@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Удобный генератор QR кодов build-1.17">
-<meta property="og:title" content="QR Генератор от Димана v1.17 ✨">
-<meta property="og:description" content="Удобный генератор QR кодов build-1.17">
+<meta name="description" content="Удобный генератор QR кодов build-1.17.1">
+<meta property="og:title" content="QR Генератор от Димана v1.17.1 ✨">
+<meta property="og:description" content="Удобный генератор QR кодов build-1.17.1">
 <meta property="og:image" content="img/title.png">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/title.png">
 <meta name="twitter:card" content="img/title.png" />
 <meta name="twitter:image" content="img/title.png" />
 
-<title>QR Генератор от Димана v1.17</title>
+<title>QR Генератор от Димана v1.17.1</title>
 <link rel="shortcut icon" class="favIcon" href="img/icon.ico" type="image/x-icon">
 <!--D-->
-<link rel="stylesheet" href="css/styles.css?v=1.17.0">
+<link rel="stylesheet" href="css/styles.css?v=1.17.1">
 <!--D-->
 <!-- <link rel="stylesheet" href="media.css"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -790,10 +790,32 @@
                     <ul class="itemDescription">
                         <li>
                             <div class="itemDescriptionTitle">
-                                <i class="fa-solid fa-circle-plus iconUpdate"></i>
+                                <i class="fa-regular fa-circle-plus iconUpdate"></i>
                                 <div class="itemDescriptionText">
                                     <p class="itemDescriptionTextInfo">Локальный режим</p>
                                     <p class="itemDescriptionTextInfoSub">Добавлена возможность использовать альтернативный метод генерации QR-кодов при нестабильном соединении с Google-серверами. Альтернативный режим позволяет создавать ШК даже без интернета.</p>
+                                </div>
+                            </div>
+                            <div class="itemDescriptionDemo">
+                                <label for="toggleAltenrativeQRDemo" class="toggleLabelDemo">
+                                    <div class="labelContainer">
+                                        <div class="checkboxWrapper">
+                                            <input type="checkbox" id="toggleAltenrativeQRDemo" class="toggleAltenrativeQRDemo" checked>
+                                            <div class="inputBody">
+                                                <div class="inputDot"></div>
+                                            </div>
+                                        </div>
+                                        <p>Локальный<br>режим</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="itemDescriptionTitle">
+                                <i class="fa-solid fa-wrench iconFix"></i>
+                                <div class="itemDescriptionText">
+                                    <p class="itemDescriptionTextInfo">Табиндекс чекбоксов</p>
+                                    <p class="itemDescriptionTextInfoSub">Изменена стилизация видимого фокуса на чекбоксах, теперь при использовании кнопок Tab, Shift+Tab подсвечивается чекбокс, который находится в фокусе.</p>
                                 </div>
                             </div>
                         </li>

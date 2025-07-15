@@ -685,6 +685,13 @@
                                             background: linear-gradient(225deg, #ff3a75, #ff3737);
                                         }
                                 }
+                                &:has(input.toggleAltenrativeQRDemo:checked){
+                                        box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
+                                        border: 2px solid #00974e;
+                                        .inputBody{
+                                            background: linear-gradient(225deg, #00974e, #009654);
+                                        }
+                                }
                                 .checkboxWrapper{
                                     width: 30%;
                                     display: flex;

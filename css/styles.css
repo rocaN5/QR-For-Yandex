@@ -1,6 +1,7 @@
 @charset "UTF-8";
 div.mainContentContainer {
   position: relative;
+  height: 100%;
 }
 div.mainContentContainer canvas#particle-canvas {
   width: 100%;
@@ -293,6 +294,21 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
   transition: 200ms;
   color: #fff;
 }
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:focus-visible) {
+  outline: 2px solid var(--checkBoxActiveColor);
+  border: 2px solid transparent !important;
+  transition: 200ms !important;
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkBoxActiveColor) inset, 0px 0px 30px 3px var(--checkBoxActiveColor) !important;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleAutoTrim:focus-visible) {
+  --checkBoxActiveColor: #4f86fb;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleDamageTitile:focus-visible) {
+  --checkBoxActiveColor: #ff3a75;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleAltenrativeQR:focus-visible) {
+  --checkBoxActiveColor: #00974e;
+}
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleDamageTitile:checked) {
   box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
   border: 2px solid #ff3a75;
@@ -343,7 +359,10 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
   transition: 200ms;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form input[type=checkbox] {
-  display: none;
+  display: flex;
+  width: 0px;
+  height: 0px;
+  margin: 0px;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .inputContainer {
   position: relative;
@@ -3480,6 +3499,13 @@ nav.contacts i.menuDevider {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleDamageTitileDemo:checked) .inputBody {
   background: linear-gradient(225deg, #ff3a75, #ff3737);
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleAltenrativeQRDemo:checked) {
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
+  border: 2px solid #00974e;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleAltenrativeQRDemo:checked) .inputBody {
+  background: linear-gradient(225deg, #00974e, #009654);
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer .checkboxWrapper {
   width: 30%;
