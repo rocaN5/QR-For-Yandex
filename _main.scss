@@ -196,7 +196,7 @@ div.mainContentContainer{
                 align-items: center;
                 gap: 40px;
                 position: relative;
-                height: -webkit-fill-available;
+                height: fit-content;
                 margin-top: 10px;
                 @media (max-width: 700px) {
                     &{
