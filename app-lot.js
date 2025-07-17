@@ -127,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput.addEventListener('change', handleFileSelect);
 
     clearFileButton.addEventListener('click', () => {
+        startFromNumberInput.value = ""
+        startFromNumberInput.focus()
         fileInput.value = '';
         fileNameDisplay.textContent = 'Нет файла';
         printButton.disabled = true;

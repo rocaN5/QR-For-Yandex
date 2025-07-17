@@ -1,5 +1,5 @@
 const version = "1.17.1"
-const versionLots = "1.4"
+const versionLots = "1.4.1"
 const versionPoly = "1.1.2"
 const versionCarts = "1.0"
 
