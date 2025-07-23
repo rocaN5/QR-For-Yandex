@@ -7,7 +7,9 @@ nav.menu{
     z-index: 99999;
     &:hover,
     &:has(button:hover),
-    &:has(button:focus){
+    &:has(button:focus),
+    &:has(a:hover),
+    &:has(a:focus){
         button,a{
             &::after,
             &::before{
@@ -494,5 +496,107 @@ nav.menu{
         height: 2px;
         background: #6e6e6eb5;
         box-shadow: 0px 0px 4px 1px #000;
+    }
+}
+
+
+.shortcut{
+    position: fixed;
+    color: #fff;
+    font-size: 12px;
+    z-index: 9;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    text-align: center;
+    justify-content: center;
+    bottom: 10px;
+    left: 10px;
+    @media (max-width: 860px) {
+        display: none;
+    }
+    // &::before{
+    //     content: "New";
+    //     font-family: "Roboto";
+    //     color: #fff;
+    //     background: linear-gradient(90deg, red, #ff9b00);
+    //     font-size: 12px;
+    //     padding: 3px 6px;
+    //     border-radius: 10px;
+    //     border: 2px solid #fff;
+    //     font-weight: 600;
+    //     position: absolute;
+    //     top: 50%;
+    //     pointer-events: none;
+    //     box-shadow: 0px 0px 10px 0px red;
+    //     animation: rainbowFlash 2s linear infinite;
+    //     transform: translate(150%, -50%);
+    //     right: 0;
+    // }
+    // &::after{
+    //     content: "";
+    //     position: absolute;
+    //     top: 50%;
+    //     --size: 4px;
+    //     border: var(--size) solid transparent;
+    //     border-right: var(--size) solid #fff;
+    //     pointer-events: none;
+    //     transform: translateY(-50%);
+    //     right: -20px;
+    // }
+    // @keyframes rainbowFlash{
+    //     from{
+    //         filter: hue-rotate(0deg);
+    //     }
+    //     to{
+    //         filter: hue-rotate(-360deg);
+    //     }
+    // }
+    .shortcutContainer{
+        position: relative;
+        color: #fff;
+        font-size: 12px;
+        z-index: 9;
+        padding: 6px 20px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px) grayscale(1);
+        display: flex;
+        gap: 10px;
+        text-align: center;
+        justify-content: center;
+        border: 2px solid rgba(154, 154, 154, 0.1294117647);
+        box-shadow: 0px 2px 6px 0px #000;
+        user-select: none;
+        i{
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        kbd{
+            min-width: 20px;
+            padding: 6px;
+            background: black;
+            border: 1px solid rgb(154 154 154 / 27%);
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+            transition: 200ms;
+            font-style: italic;
+            &.keyPressed{
+                background: #fff;
+                color: #000;
+                transition: 100ms;
+            }
+        }
     }
 }

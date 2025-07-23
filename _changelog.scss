@@ -98,28 +98,25 @@
             width: 100%;
 
             &[changeType="qr"] i.updateIcon{
-                left: 20%;
-                transform: unset;
-                color: #01c3fc;
-                filter: drop-shadow(0px 0px 10px #01c3fc);
+                --updateColor: #01c3fc;
             }
             &[changeType="polybox"] i.updateIcon{
-                left: 20%;
-                transform: unset;
-                color: #ff5858;
-                filter: drop-shadow(0px 0px 10px #ff5858) drop-shadow(0px 0px 10px #ff58588f);
+                --updateColor: #ff5858;
             }
             &[changeType="lots"] i.updateIcon{
-                left: 20%;
-                transform: unset;
-                color: #c0ff00;
-                filter: drop-shadow(0px 0px 10px #c0ff00);
+                --updateColor: #c0ff00;
             }
             &[changeType="addUsers"] i.updateIcon{
-                left: 20%;
+                --updateColor: #ff00dd;
+            }
+            &[changeType="project"] i.updateIcon{
+                --updateColor: #fff;
+            }
+            i.updateIcon{
+                left: 20% !important;
                 transform: unset;
-                color: #ff00dd;
-                filter: drop-shadow(0px 0px 10px #ff00dd);
+                color: var(--updateColor);
+                filter: drop-shadow(0px 0px 10px var(--updateColor));
             }
 
             button.itemTitle{
@@ -659,11 +656,42 @@
                                 transition: 400ms;
                                 border: 2px solid rgba(154, 154, 154, 0.1294117647);
                                 box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px transparent inset;
+                                &:has(input#toggleMasterCheckbox) .inputBody{
+                                    &::before{
+                                        content: 'ON';
+                                        display: flex;
+                                        position: absolute;
+                                        font-size: .6rem;
+                                        font-weight: 800;
+                                        color: #00000047;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        left: 7px;
+                                        opacity: 0;
+                                        transition: 100ms;
+                                        pointer-events: none;
+                                    }
+                                    &::after{
+                                        content: 'OFF';
+                                        display: flex;
+                                        position: absolute;
+                                        font-size: .6rem;
+                                        font-weight: 800;
+                                        color: #b9b9b9;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        right: 7px;
+                                        text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+                                        opacity: 1;
+                                        transition: 100ms;
+                                        pointer-events: none;
+                                    }
+                                }
                                 &:has(input:checked){
                                     transition: 400ms;
                                     box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #4f86fb inset;
                                     border: 2px solid #4f86fb;
-                                        .inputBody{
+                                    .inputBody{
                                             transition: 200ms;
                                             filter: grayscale(0);
                                             .inputDot{
@@ -672,10 +700,23 @@
                                                 box-shadow: 0px 0px 10px 0px #000;
                                                 background: #fff;
                                             }
-                                        }
-                                        p{
+                                            &::before {
+                                                opacity: 1 !important;
+                                            }
+                                            &::after {
+                                                opacity: 0 !important;
+                                            }
+                                    }
+                                    p{
                                             transition: 200ms;
                                             color: #fff;
+                                    }
+                                }
+                                &:has(input.toggleAutoTrimDemo:checked){
+                                        box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #01c3fc inset;
+                                        border: 2px solid #01c3fc;
+                                        .inputBody{
+                                            background: linear-gradient(225deg, #01c3fc, #9158ff);
                                         }
                                 }
                                 &:has(input.toggleDamageTitileDemo:checked){
@@ -691,6 +732,16 @@
                                         .inputBody{
                                             background: linear-gradient(225deg, #00974e, #009654);
                                         }
+                                    }
+                                input.toggleMasterCheckbox{
+                                    background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
+                                }
+                                &:has(input.toggleMasterCheckbox:checked){
+                                    box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ffffff inset;
+                                    border: 2px solid #dfdfdf;
+                                    .inputBody{
+                                        background: linear-gradient(225deg, #cacaca, #e4e4e4);
+                                    }
                                 }
                                 .checkboxWrapper{
                                     width: 30%;
@@ -703,7 +754,7 @@
                                         border-radius: 20px;
                                         padding: 4px;
                                         transition: 200ms;
-                                        background: linear-gradient(225deg, #01c3fc, #9158ff);
+                                        background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
                                         box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
                                         filter: grayscale(1);
                                         .inputDot{
@@ -730,6 +781,41 @@
                             }
                             input[type="checkbox"] {
                                 display: none;
+                            }
+                        }
+                        label.toggleNewAlternate{
+                            display: flex;
+                            position: relative;
+                            box-sizing: border-box;
+                            width: 50px;
+                            height: 50px;
+                            display: flex;
+                            border-radius: 10px;
+                            transition: 200ms;
+                            justify-content: center;
+                            align-items: center;
+                            background: rgba(0, 0, 0, 0.768627451);
+                            backdrop-filter: blur(2px) grayscale(1);
+                            cursor: pointer;
+                            z-index: 998;
+                            border: 2px solid rgba(154, 154, 154, 0.1294117647);
+                            box-sizing: border-box;
+                            input{
+                                width: 0px;
+                                height: 0px;
+                                background: transparent;
+                                position: absolute;
+                            }
+                            i{
+                                color: #fff;
+                                font-size: 18px;
+                                transition: 200ms;
+                            }
+                            &:hover,
+                            &:focus-visible{
+                                backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+                                transition: 200ms;
+                                border: 2px solid #656565;
                             }
                         }
                         .expandOrCollapseDemo{

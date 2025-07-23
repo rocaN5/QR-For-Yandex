@@ -163,11 +163,6 @@ div.mainContentContainer{
             &.containerPolybox{
                 flex-wrap: wrap;
             }
-
-            &.containerQR:has(input#toggleAltenrativeQR:checked) .alternateInfo{
-                display: flex !important;
-            }
-
             @media (max-width: 1000px) {
                 &{
                     gap: 2%;
@@ -246,7 +241,18 @@ div.mainContentContainer{
                     display: flex;
                     flex-flow: column;
                     gap: 20px;
+                    label[for="toggleAutoTrim"]{
+                        --checkbox-color-1: #01c3fc;
+                        --checkbox-color-2: #9158ff;
+                        position: relative;
+                        *[isVisible="false"]{
+                            opacity: 0;
+                            visibility: hidden;
+                        }
+                    }
                     label[for="toggleDamageTitile"]{
+                        --checkbox-color-1: #ff3a75;
+                        --checkbox-color-2: #ff3737;
                         position: relative;
                         *[isVisible="false"]{
                             opacity: 0;
@@ -254,6 +260,8 @@ div.mainContentContainer{
                         }
                     }
                     label[for="toggleAltenrativeQR"]{
+                        --checkbox-color-1: #00974e;
+                        --checkbox-color-2: #009654;
                         position: relative;
                         transition: 100ms;
                         *[isVisible="false"]{
@@ -283,6 +291,12 @@ div.mainContentContainer{
                                 .inputBody{
                                     transition: 200ms;
                                     filter: grayscale(0);
+                                    &::before {
+                                        opacity: 1 !important;
+                                    }
+                                    &::after {
+                                        opacity: 0 !important;
+                                    }
                                     .inputDot{
                                         transition: 200ms cubic-bezier(0.18, 0.89, 0.41, 1.37);
                                         left: 60%;
@@ -296,37 +310,21 @@ div.mainContentContainer{
                                 }
                         }
                         &:has(input:focus-visible){
-                            outline: 2px solid var(--checkBoxActiveColor);
+                            outline: 2px solid var(--checkbox-color-1);
                             border: 2px solid transparent !important;
                             transition: 200ms !important;
                             box-shadow: 0px 2px 6px 0px #000,
-                                        0px 0px 6px 0px var(--checkBoxActiveColor) inset,
-                                        0px 0px 30px 3px var(--checkBoxActiveColor) !important;
+                                        0px 0px 6px 0px var(--checkbox-color-1) inset,
+                                        0px 0px 30px 3px var(--checkbox-color-1) !important;
                         }
-                        &:has(input#toggleAutoTrim:focus-visible){
-                            --checkBoxActiveColor: #4f86fb;
-                        }
-                        &:has(input#toggleDamageTitile:focus-visible){
-                            --checkBoxActiveColor: #ff3a75;
-                        }
-                        &:has(input#toggleAltenrativeQR:focus-visible){
-                            --checkBoxActiveColor: #00974e;
-                        }
-                        &:has(input.toggleDamageTitile:checked){
-                            box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
-                                border: 2px solid #ff3a75;
-                                .inputBody{
-                                    background: linear-gradient(225deg, #ff3a75, #ff3737);
-                                }
+                        &:has(input:checked){
+                            box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset;
+                            border: 2px solid var(--checkbox-color-1);
+                            .inputBody{
+                                background: linear-gradient(225deg, var(--checkbox-color-1), var(--checkbox-color-2));
                             }
-                        &:has(input.toggleAltenrativeQR:checked){
-                                box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
-                                border: 2px solid #00974e;
-                                .inputBody{
-                                    background: linear-gradient(225deg, #00974e, #009654);
-                                }
                         }
-                            .checkboxWrapper{
+                        .checkboxWrapper{
                             width: 30%;
                             display: flex;
                             justify-content: center;
@@ -337,9 +335,38 @@ div.mainContentContainer{
                                 border-radius: 20px;
                                 padding: 4px;
                                 transition: 200ms;
-                                background: linear-gradient(225deg, #01c3fc, #9158ff);
+                                background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
                                 box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
                                 filter: grayscale(1);
+                                &::before{
+                                    content: 'ON';
+                                    display: flex;
+                                    position: absolute;
+                                    font-size: .6rem;
+                                    font-weight: 800;
+                                    color: #00000047;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    left: 7px;
+                                    opacity: 0;
+                                    transition: 100ms;
+                                    pointer-events: none;
+                                }
+                                &::after{
+                                    content: 'OFF';
+                                    display: flex;
+                                    position: absolute;
+                                    font-size: .6rem;
+                                    font-weight: 800;
+                                    color: #b9b9b9;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    right: 7px;
+                                    text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+                                    opacity: 1;
+                                    transition: 100ms;
+                                    pointer-events: none;
+                                }
                                 .inputDot{
                                     top: calc(50% - (var(--wh)/2));
                                     position: relative;
@@ -765,6 +792,8 @@ div.mainContentContainer{
                         }
                     }
                     label.toggleStartNumber{
+                        --checkbox-color-1: #f4fc01;
+                        --checkbox-color-2: #afff58;
                         width: 224px;
                         .labelContainer{
                             display: flex;
@@ -782,13 +811,22 @@ div.mainContentContainer{
                             border: 2px solid rgba(154, 154, 154, 0.1294117647);
                             box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px transparent inset;
                             user-select: none;
+                            z-index: 1;
+                            &:has(input:focus-visible){
+                                outline: 2px solid var(--checkbox-color-1);
+                                border: 2px solid transparent !important;
+                                transition: 200ms !important;
+                                box-shadow: 0px 2px 6px 0px #000,
+                                            0px 0px 6px 0px var(--checkbox-color-1) inset,
+                                            0px 0px 30px 3px var(--checkbox-color-1) !important;
+                            }
                             &:has(input:checked){
                                 transition: 400ms;
-                                box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #f4fc01 inset;
-                                border: 2px solid #f4fc01;
+                                box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset;
+                                border: 2px solid var(--checkbox-color-1);
                                     .inputBody{
                                         transition: 200ms;
-                                        background: linear-gradient(225deg, #f4fc01, #afff58);
+                                        background: linear-gradient(225deg, var(--checkbox-color-1), var(--checkbox-color-2));
                                         filter: grayscale(0);
                                         .inputDot{
                                             transition: 200ms cubic-bezier(0.18, 0.89, 0.41, 1.37);
@@ -806,6 +844,18 @@ div.mainContentContainer{
                                 width: 30%;
                                 display: flex;
                                 justify-content: center;
+                                &:has(input:checked){
+                                    .inputBody{
+                                        transition: 200ms;
+                                        filter: grayscale(0);
+                                        &::before {
+                                            opacity: 1 !important;
+                                        }
+                                        &::after {
+                                            opacity: 0 !important;
+                                        }
+                                    }
+                                }
                                 .inputBody{
                                     width: 40px;
                                     height: 16px;
@@ -815,7 +865,36 @@ div.mainContentContainer{
                                     transition: 200ms;
                                     background: #8f8f8f;
                                     box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
-                                    filter: grayscale(1);
+                                    filter: grayscale(1);;
+                                    &::before{
+                                        content: 'ON';
+                                        display: flex;
+                                        position: absolute;
+                                        font-size: .6rem;
+                                        font-weight: 800;
+                                        color: #00000047;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        left: 7px;
+                                        opacity: 0;
+                                        transition: 100ms;
+                                        pointer-events: none;
+                                    }
+                                    &::after{
+                                        content: 'OFF';
+                                        display: flex;
+                                        position: absolute;
+                                        font-size: .6rem;
+                                        font-weight: 800;
+                                        color: #b9b9b9;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        right: 7px;
+                                        text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+                                        opacity: 1;
+                                        transition: 100ms;
+                                        pointer-events: none;
+                                    }
                                     .inputDot{
                                         top: calc(50% - (var(--wh)/2));
                                         position: relative;
@@ -881,7 +960,10 @@ div.mainContentContainer{
                         }
                     }
                     input[type="checkbox"] {
-                        display: none;
+                        display: flex;
+                        width: 0px;
+                        height: 0px;
+                        margin: 0px;
                     }
                     .inputContainer{
                         position: relative;
@@ -1329,7 +1411,7 @@ div.mainContentContainer{
                             }
                         }
                         p.alternateInfo{
-                            display: none;
+                            display: flex;
                             position: absolute;
                             font-size: .8rem;
                             bottom: -10px;
@@ -1966,106 +2048,7 @@ div.mainContentContainer{
     }
 }
 
-.shortcut{
-    position: fixed;
-    color: #fff;
-    font-size: 12px;
-    z-index: 9;
-    border-radius: 10px;
-    display: flex;
-    flex-flow: column;
-    gap: 10px;
-    text-align: center;
-    justify-content: center;
-    bottom: 10px;
-    left: 10px;
-    @media (max-width: 860px) {
-        display: none;
-    }
-    // &::before{
-    //     content: "New";
-    //     font-family: "Roboto";
-    //     color: #fff;
-    //     background: linear-gradient(90deg, red, #ff9b00);
-    //     font-size: 12px;
-    //     padding: 3px 6px;
-    //     border-radius: 10px;
-    //     border: 2px solid #fff;
-    //     font-weight: 600;
-    //     position: absolute;
-    //     top: 50%;
-    //     pointer-events: none;
-    //     box-shadow: 0px 0px 10px 0px red;
-    //     animation: rainbowFlash 2s linear infinite;
-    //     transform: translate(150%, -50%);
-    //     right: 0;
-    // }
-    // &::after{
-    //     content: "";
-    //     position: absolute;
-    //     top: 50%;
-    //     --size: 4px;
-    //     border: var(--size) solid transparent;
-    //     border-right: var(--size) solid #fff;
-    //     pointer-events: none;
-    //     transform: translateY(-50%);
-    //     right: -20px;
-    // }
-    // @keyframes rainbowFlash{
-    //     from{
-    //         filter: hue-rotate(0deg);
-    //     }
-    //     to{
-    //         filter: hue-rotate(-360deg);
-    //     }
-    // }
-    .shortcutContainer{
-        position: relative;
-        color: #fff;
-        font-size: 12px;
-        z-index: 9;
-        padding: 6px 20px;
-        border-radius: 10px;
-        backdrop-filter: blur(4px) grayscale(1);
-        display: flex;
-        gap: 10px;
-        text-align: center;
-        justify-content: center;
-        border: 2px solid rgba(154, 154, 154, 0.1294117647);
-        box-shadow: 0px 2px 6px 0px #000;
-        user-select: none;
-        i{
-            font-size: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        p{
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        kbd{
-            min-width: 20px;
-            padding: 6px;
-            background: black;
-            border: 1px solid rgb(154 154 154 / 27%);
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: default;
-            transition: 200ms;
-            font-style: italic;
-            &.keyPressed{
-                background: #fff;
-                color: #000;
-                transition: 100ms;
-            }
-        }
-    }
-}
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 .nado{
     filter: blur(200px) brightness(0);

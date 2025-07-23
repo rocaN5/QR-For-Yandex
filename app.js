@@ -118,12 +118,14 @@ function generateAnomalyCodes() {
   var dateTime = document.createElement("span");
   dateTime.id = "datetime";
   dateTime.innerHTML = getCurrentDateTime();
-  let alternateInfoBlock = document.createElement("p")
-  alternateInfoBlock.className = "alternateInfo"
-  alternateInfoBlock.innerText = "Alternate"
+  if(alternateQR_mode = true){
+    let alternateInfoBlock = document.createElement("p")
+    alternateInfoBlock.className = "alternateInfo"
+    alternateInfoBlock.innerText = "Alternate"
+  companyInfoDiv.appendChild(alternateInfoBlock);
+  }
   
   companyInfoDiv.appendChild(dateTime);
-  companyInfoDiv.appendChild(alternateInfoBlock);
   qrCodeDiv.appendChild(companyInfoDiv);
 
   // Добавляем описание аномалии (если есть)
@@ -222,7 +224,7 @@ function generateCodes() {
     companyInfoDiv.innerHTML = `
       <h1>СЦ Воронеж</h1>
       <span id="datetime">${getCurrentDateTime()}</span>
-      <p class="alternateInfo">Alternate</p>
+      ${alternateQR_mode === true ? '<p class="alternateInfo">Alternate</p>' : ''}
     `;
     qrCodeDiv.appendChild(companyInfoDiv);
   
@@ -324,13 +326,15 @@ function generateCodes() {
       var dateTime = document.createElement("span");
       dateTime.id = "datetime";
       dateTime.innerHTML = getCurrentDateTime();
-      let alternateInfoBlock = document.createElement("p")
-      alternateInfoBlock.className = "alternateInfo"
-      alternateInfoBlock.innerText = "Alternate"
+      if(alternateQR_mode === true){
+        let alternateInfoBlock = document.createElement("p")
+        alternateInfoBlock.className = "alternateInfo"
+        alternateInfoBlock.innerText = "Alternate"
+      companyInfoDiv.appendChild(alternateInfoBlock);
+      }
       
       companyInfoDiv.appendChild(companyName);
       companyInfoDiv.appendChild(dateTime);
-      companyInfoDiv.appendChild(alternateInfoBlock);
       qrCodeDiv.appendChild(companyInfoDiv);
 
       // Генерация QR-кода
@@ -1152,13 +1156,18 @@ checkboxesDamaged.forEach(checkbox => {
 // TODO Кнопка альтернативной генерации ✅
 
 const alternateQRInput = document.querySelectorAll(".toggleAltenrativeQR")
+const alternateQRInputIcon = document.querySelector("label#toggleAlternate i")
 let alternateQR_mode = false
 
 function toggleAlternateQR(){
   if(alternateQR_mode === false){
+    alternateQRInputIcon.classList.remove("fa-wifi-slash")
+    alternateQRInputIcon.classList.add("fa-wifi")
     alternateQR_mode = true
   }else{
     alternateQR_mode = false
+    alternateQRInputIcon.classList.remove("fa-wifi")
+    alternateQRInputIcon.classList.add("fa-wifi-slash")
   }
   generateCodes()
   console.log("alternateQR_mode === " + alternateQR_mode)
@@ -1176,7 +1185,7 @@ const historyToggleClose = document.querySelector(".historyToggleClose")
 const changelogToggleOpen = document.querySelector(".changelogToggleOpen")
 const changelogToggleClose = document.querySelector(".changelogToggleClose")
 const menu = document.querySelector(".menu")
-let menuState = false;
+let changeLog__active = false;
 
 function toggleMenu(){
   if(!menuOpen == true){
@@ -1205,6 +1214,7 @@ function closeQrHistry(){
 function openChangeLog(){
   changelogHistory.style.display = "block"
   toggleMenu()
+   masterChecboxChangeStat()
   setTimeout(()=>{
       changelogHistory.style.transform = "translateX(0)"
   },1)
@@ -1215,6 +1225,7 @@ function closeChangeLog(){
   setTimeout(()=>{
       changelogHistory.style.display = "none"
       toggleMenu()
+       masterChecboxChangeStat()
   },300)
 }
 historyToggleOpen.addEventListener("click", ()=>{
@@ -1232,6 +1243,7 @@ historyToggleClose.addEventListener("click",()=>{
 
 changelogToggleOpen.addEventListener("click",()=>{
   menuOpen = true;
+  changeLog__active = true
   openChangeLog();
   toggleMenu()
   makeSoundClick();
@@ -1239,6 +1251,7 @@ changelogToggleOpen.addEventListener("click",()=>{
 changelogToggleClose.addEventListener("click", ()=>{
   closeChangeLog();
   menuOpen = false;
+  changeLog__active = false;
   makeSoundClick();
   setTimeout(() => {
     document.querySelectorAll('.changeLogItem').forEach(item => {
@@ -2100,5 +2113,25 @@ function makeSoundAttention() {
     audio.play().catch(error => console.error("Error playing audio:", error));
   } else {
     return;
+  }
+}
+
+let masterCheckbox__interval = null; 
+function masterChecboxChangeStat() {
+  const toggleMasterCheckbox = document.querySelector("input#toggleMasterCheckbox");
+  
+  if (masterCheckbox__interval) {
+    clearInterval(masterCheckbox__interval);
+    masterCheckbox__interval = null;
+  }
+
+  if (changeLog__active === true && toggleMasterCheckbox) {
+    masterCheckbox__interval = setInterval(() => {
+      if(toggleMasterCheckbox.checked){
+        toggleMasterCheckbox.checked = false;
+      }else{
+        toggleMasterCheckbox.checked = true
+      }
+    }, 1000);
   }
 }

@@ -97,7 +97,6 @@ document.querySelector(".printCodePoly").addEventListener("click", function() {
 });
 
 function convertToImageAndOpenInNewTabPoly() {
-    console.log("DAAADADADADA")
     const qrCodeDiv = document.querySelector(".qr-codePoly");
     const imageContainer = document.getElementById("image-containerPoly");
     const historyList = document.querySelector(".historyList");
@@ -296,7 +295,6 @@ function changePolyboxDirectionData(){
           const cellIDElement = label.querySelector(".cellID");
           if (cellIDElement) {
               const cellID = cellIDElement.textContent.trim();
-              console.log("Стандартный cellID:", cellID);
               shipDirectionID_data = cellID;
               
               // Определяем содержимое shipDirectionTitle_data
@@ -422,7 +420,6 @@ function changePolyboxDirectionData(){
                   if (cellIDElement) {
                       const cellID = cellIDElement.textContent.trim();
                       shipDirectionID_data = cellID;
-                      console.log("Selected shipDirectionID:", shipDirectionID_data);
 
                       // Определяем содержимое shipDirectionTitle_data
                       if (shipDirectionID_data === "24") {
@@ -542,6 +539,7 @@ function changePolyboxDirectionData(){
 
 // Модифицированная функция для генерации
 function generateCodesPoly(shipDirectionID_data, shipDirectionTitle_data, shipDirectionPath_data, shipDirectionType_data, shipDirectionPathType_data) {
+  console.log(alternateQR_mode)
   const qrText = document.getElementById("qrPoly-text").value;
   const qrCodeDiv = document.querySelector(".qr-codePoly");
   qrCodeDiv.innerHTML = ""; // Очищаем перед вставкой
@@ -586,15 +584,37 @@ function generateCodesPoly(shipDirectionID_data, shipDirectionTitle_data, shipDi
   shipDirectionTitle.innerHTML = shipDirectionTitle_data;
   qrCodeDiv.appendChild(shipDirectionTitle);
 
-  // Генерация QR-кода
-  const qrCode = document.createElement("img");
-  qrCode.classList.add("qrCodeCreatedPoly");
-  qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrText)}&size=200x200`;
-  qrCode.alt = "QR Code";
-
+  // Генерация QR-кода (разные методы в зависимости от alternateQR_mode)
   const qrImgContainer = document.createElement("div");
   qrImgContainer.classList.add("qrImgContainer");
-  qrImgContainer.appendChild(qrCode);
+  
+  if (alternateQR_mode === true) {
+    // Локальная генерация QR-кода через QRCode.js
+    new QRCode(qrImgContainer, {
+      text: qrText,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    const checkImg = setInterval(() => {
+      const img = qrImgContainer.querySelector('img');
+      if (img) {
+        img.classList.add('qrCodeCreatedPoly');
+        clearInterval(checkImg);
+      }
+    }, 10);
+  } else {
+    // Генерация через API (оригинальный метод)
+    const qrCode = document.createElement("img");
+    qrCode.classList.add("qrCodeCreatedPoly");
+    qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrText)}&size=200x200`;
+    qrCode.alt = "QR Code";
+    qrImgContainer.appendChild(qrCode);
+  }
+  
   qrCodeDiv.appendChild(qrImgContainer);
 
   // Отображение текста QR-кода
@@ -611,7 +631,6 @@ function generateCodesPoly(shipDirectionID_data, shipDirectionTitle_data, shipDi
   qrCodeDiv.appendChild(qrTextElement);
 
   // Добавление тип направления
-  
   const shipDirectionType = document.createElement("div");
   shipDirectionType.classList.add("shipDirectionPathTitle");
   shipDirectionType.classList.add("shipDirectionPathType");

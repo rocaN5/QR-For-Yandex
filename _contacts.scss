@@ -7,8 +7,29 @@ nav.contacts{
     z-index: 99999;
     right: 0;
     transition: 200ms;
+    &:hover,
+    &:has(button:hover),
+    &:has(button:focus),
+    &:has(a:hover),
+    &:has(a:focus),
+    &:has(input:hover),
+    &:has(input:focus-visible){
+        button,
+        a,
+        label{
+            &::after,
+            &::before{
+                opacity: .2;
+                transform: unset;
+                transition: opacity 500ms, color 1.5s, transform 500ms;
+                color: #fff;
+            }
+        }
+    }
     &:hover{
-        a,button{
+        a,
+        button,
+        label{
             &::after,
             &::before{
                 opacity: .2;
@@ -34,13 +55,15 @@ nav.contacts{
         z-index: 998;
         border: 2px solid #9a9a9a21;
         text-decoration: none;
+        outline: none;
         &.contactsGithub::after{
             content: 'Github' !important;
         }
         &.contactsAuthor::after{
             content: 'Разработчик' !important;
         }
-        &:hover{
+        &:hover,
+        &:focus-visible{
             backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
             transition: 200ms;
             border: 2px solid #656565;
@@ -52,6 +75,7 @@ nav.contacts{
                 color: #fff;
                 pointer-events: none;
                 user-select: none;
+                outline: none;
             }
         }
         i{
@@ -100,7 +124,9 @@ nav.contacts{
             pointer-events: none;
         }
     }
-    button{
+    button,
+    label#toggleAlternate{
+        outline: none;
         &::before {
             content: '';
             display: flex;
@@ -133,11 +159,13 @@ nav.contacts{
             transform: translateX(10px);
             pointer-events: none;
             color: #8d8d8d;
+            white-space: nowrap;
         }
-        &:hover{
-            backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
-            transition: 200ms;
-            border: 2px solid #656565;
+        &:hover,
+        &:focus-visible{
+            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+            transition: 200ms !important;
+            border: 2px solid #656565 !important;
             &::after,
             &::before{
                 opacity: 1;
@@ -173,6 +201,74 @@ nav.contacts{
     button.callAutorization{
         &::after{
             content: 'Пользователь';
+        }
+    }
+    label#toggleAlternate{
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        border-radius: 10px;
+        transition: 200ms;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.768627451);
+        backdrop-filter: blur(2px) grayscale(1);
+        cursor: pointer;
+        z-index: 998;
+        border: 2px solid rgba(154, 154, 154, 0.1294117647);
+        box-sizing: border-box;
+        &:has(input:focus-visible){
+            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+            transition: 200ms !important;
+            border: 2px solid #656565 !important;
+            &::after,
+            &::before{
+                opacity: 1;
+                transform: translateX(-6px);
+                transition: opacity 500ms, color 1.5s, transform 500ms;
+                color: #fff;
+            }
+        }
+        &:has(input:focus-visible:checked){
+            --activeColor: #9dff00;
+            border-color: var(--activeColor) !important;
+            i{
+                color: var(--activeColor) !important;
+            }
+        }
+        &:has(input[type="checkbox"]:checked){
+            --activeColor: #cf0;
+            border-color: var(--activeColor);
+            i{
+                color: var(--activeColor);
+            }
+            &:hover{
+                --activeColor: #9dff00;
+                border-color: var(--activeColor) !important;
+                i{
+                    color: var(--activeColor) !important;
+                }
+            }
+            &::after{
+                content: 'Локальный ON';
+            }
+        }
+        i{
+            color: #fff;
+            font-size: 18px;
+            transition: 200ms;
+        }
+        input[type="checkbox"]{
+            width: 0px;
+            height: 0px;
+            background: transparent;
+            position: absolute;
+        }
+        &::after{
+            content: 'Локальный OFF';
         }
     }
     i.menuDevider{

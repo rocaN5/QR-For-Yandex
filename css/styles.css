@@ -163,9 +163,6 @@ div.mainContentContainer div.wrapper div.container.qrSecondType {
 div.mainContentContainer div.wrapper div.container.containerPolybox {
   flex-wrap: wrap;
 }
-div.mainContentContainer div.wrapper div.container.containerQR:has(input#toggleAltenrativeQR:checked) .alternateInfo {
-  display: flex !important;
-}
 @media (max-width: 1000px) {
   div.mainContentContainer div.wrapper div.container {
     gap: 2%;
@@ -244,7 +241,18 @@ div.mainContentContainer div.wrapper div.container .inputHolder form {
   flex-flow: column;
   gap: 20px;
 }
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleAutoTrim] {
+  --checkbox-color-1: #01c3fc;
+  --checkbox-color-2: #9158ff;
+  position: relative;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleAutoTrim] *[isVisible=false] {
+  opacity: 0;
+  visibility: hidden;
+}
 div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleDamageTitile] {
+  --checkbox-color-1: #ff3a75;
+  --checkbox-color-2: #ff3737;
   position: relative;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleDamageTitile] *[isVisible=false] {
@@ -252,6 +260,8 @@ div.mainContentContainer div.wrapper div.container .inputHolder form label[for=t
   visibility: hidden;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form label[for=toggleAltenrativeQR] {
+  --checkbox-color-1: #00974e;
+  --checkbox-color-2: #009654;
   position: relative;
   transition: 100ms;
 }
@@ -284,6 +294,12 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
   transition: 200ms;
   filter: grayscale(0);
 }
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:checked) .inputBody::before {
+  opacity: 1 !important;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:checked) .inputBody::after {
+  opacity: 0 !important;
+}
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:checked) .inputBody .inputDot {
   transition: 200ms cubic-bezier(0.18, 0.89, 0.41, 1.37);
   left: 60%;
@@ -295,33 +311,17 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
   color: #fff;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:focus-visible) {
-  outline: 2px solid var(--checkBoxActiveColor);
+  outline: 2px solid var(--checkbox-color-1);
   border: 2px solid transparent !important;
   transition: 200ms !important;
-  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkBoxActiveColor) inset, 0px 0px 30px 3px var(--checkBoxActiveColor) !important;
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset, 0px 0px 30px 3px var(--checkbox-color-1) !important;
 }
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleAutoTrim:focus-visible) {
-  --checkBoxActiveColor: #4f86fb;
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:checked) {
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset;
+  border: 2px solid var(--checkbox-color-1);
 }
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleDamageTitile:focus-visible) {
-  --checkBoxActiveColor: #ff3a75;
-}
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input#toggleAltenrativeQR:focus-visible) {
-  --checkBoxActiveColor: #00974e;
-}
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleDamageTitile:checked) {
-  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
-  border: 2px solid #ff3a75;
-}
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleDamageTitile:checked) .inputBody {
-  background: linear-gradient(225deg, #ff3a75, #ff3737);
-}
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleAltenrativeQR:checked) {
-  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #00974e inset;
-  border: 2px solid #00974e;
-}
-div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input.toggleAltenrativeQR:checked) .inputBody {
-  background: linear-gradient(225deg, #00974e, #009654);
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer:has(input:checked) .inputBody {
+  background: linear-gradient(225deg, var(--checkbox-color-1), var(--checkbox-color-2));
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer .checkboxWrapper {
   width: 30%;
@@ -335,9 +335,38 @@ div.mainContentContainer div.wrapper div.container .inputHolder form .labelConta
   border-radius: 20px;
   padding: 4px;
   transition: 200ms;
-  background: linear-gradient(225deg, #01c3fc, #9158ff);
+  background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
   box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
   filter: grayscale(1);
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer .checkboxWrapper .inputBody::before {
+  content: "ON";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.2784313725);
+  top: 50%;
+  transform: translateY(-50%);
+  left: 7px;
+  opacity: 0;
+  transition: 100ms;
+  pointer-events: none;
+}
+div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer .checkboxWrapper .inputBody::after {
+  content: "OFF";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #b9b9b9;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 7px;
+  text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+  opacity: 1;
+  transition: 100ms;
+  pointer-events: none;
 }
 div.mainContentContainer div.wrapper div.container .inputHolder form .labelContainer .checkboxWrapper .inputBody .inputDot {
   top: calc(50% - var(--wh) / 2);
@@ -745,6 +774,8 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form:has(
   font-size: 16px;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber {
+  --checkbox-color-1: #f4fc01;
+  --checkbox-color-2: #afff58;
   width: 224px;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer {
@@ -763,15 +794,22 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form labe
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
   box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px transparent inset;
   user-select: none;
+  z-index: 1;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer:has(input:focus-visible) {
+  outline: 2px solid var(--checkbox-color-1);
+  border: 2px solid transparent !important;
+  transition: 200ms !important;
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset, 0px 0px 30px 3px var(--checkbox-color-1) !important;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer:has(input:checked) {
   transition: 400ms;
-  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #f4fc01 inset;
-  border: 2px solid #f4fc01;
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px var(--checkbox-color-1) inset;
+  border: 2px solid var(--checkbox-color-1);
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer:has(input:checked) .inputBody {
   transition: 200ms;
-  background: linear-gradient(225deg, #f4fc01, #afff58);
+  background: linear-gradient(225deg, var(--checkbox-color-1), var(--checkbox-color-2));
   filter: grayscale(0);
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer:has(input:checked) .inputBody .inputDot {
@@ -789,6 +827,16 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form labe
   display: flex;
   justify-content: center;
 }
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper:has(input:checked) .inputBody {
+  transition: 200ms;
+  filter: grayscale(0);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper:has(input:checked) .inputBody::before {
+  opacity: 1 !important;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper:has(input:checked) .inputBody::after {
+  opacity: 0 !important;
+}
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper .inputBody {
   width: 40px;
   height: 16px;
@@ -799,6 +847,35 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form labe
   background: #8f8f8f;
   box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
   filter: grayscale(1);
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper .inputBody::before {
+  content: "ON";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.2784313725);
+  top: 50%;
+  transform: translateY(-50%);
+  left: 7px;
+  opacity: 0;
+  transition: 100ms;
+  pointer-events: none;
+}
+div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper .inputBody::after {
+  content: "OFF";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #b9b9b9;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 7px;
+  text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+  opacity: 1;
+  transition: 100ms;
+  pointer-events: none;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form label.toggleStartNumber .labelContainer .checkboxWrapper .inputBody .inputDot {
   top: calc(50% - var(--wh) / 2);
@@ -860,7 +937,10 @@ div.mainContentContainer div.wrapper div.container .fileInputContainer form labe
   outline: none;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form input[type=checkbox] {
-  display: none;
+  display: flex;
+  width: 0px;
+  height: 0px;
+  margin: 0px;
 }
 div.mainContentContainer div.wrapper div.container .fileInputContainer form .inputContainer {
   position: relative;
@@ -1295,7 +1375,7 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code #compan
   background-image: url("../img/calendar.svg");
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code #company-info p.alternateInfo {
-  display: none;
+  display: flex;
   position: absolute;
   font-size: 0.8rem;
   bottom: -10px;
@@ -1895,72 +1975,6 @@ div.mainContentContainer div.wrapper div.container.containerPolybox .qrContainer
   user-select: none;
 }
 
-.shortcut {
-  position: fixed;
-  color: #fff;
-  font-size: 12px;
-  z-index: 9;
-  border-radius: 10px;
-  display: flex;
-  flex-flow: column;
-  gap: 10px;
-  text-align: center;
-  justify-content: center;
-  bottom: 10px;
-  left: 10px;
-}
-@media (max-width: 860px) {
-  .shortcut {
-    display: none;
-  }
-}
-.shortcut .shortcutContainer {
-  position: relative;
-  color: #fff;
-  font-size: 12px;
-  z-index: 9;
-  padding: 6px 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(4px) grayscale(1);
-  display: flex;
-  gap: 10px;
-  text-align: center;
-  justify-content: center;
-  border: 2px solid rgba(154, 154, 154, 0.1294117647);
-  box-shadow: 0px 2px 6px 0px #000;
-  user-select: none;
-}
-.shortcut .shortcutContainer i {
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.shortcut .shortcutContainer p {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.shortcut .shortcutContainer kbd {
-  min-width: 20px;
-  padding: 6px;
-  background: black;
-  border: 1px solid rgba(154, 154, 154, 0.27);
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: default;
-  transition: 200ms;
-  font-style: italic;
-}
-.shortcut .shortcutContainer kbd.keyPressed {
-  background: #fff;
-  color: #000;
-  transition: 100ms;
-}
-
 .nado {
   filter: blur(200px) brightness(0);
   transition: 500ms;
@@ -2019,7 +2033,7 @@ nav.menu {
   gap: 10px;
   z-index: 99999;
 }
-nav.menu:hover button::after, nav.menu:hover button::before, nav.menu:hover a::after, nav.menu:hover a::before, nav.menu:has(button:hover) button::after, nav.menu:has(button:hover) button::before, nav.menu:has(button:hover) a::after, nav.menu:has(button:hover) a::before, nav.menu:has(button:focus) button::after, nav.menu:has(button:focus) button::before, nav.menu:has(button:focus) a::after, nav.menu:has(button:focus) a::before {
+nav.menu:hover button::after, nav.menu:hover button::before, nav.menu:hover a::after, nav.menu:hover a::before, nav.menu:has(button:hover) button::after, nav.menu:has(button:hover) button::before, nav.menu:has(button:hover) a::after, nav.menu:has(button:hover) a::before, nav.menu:has(button:focus) button::after, nav.menu:has(button:focus) button::before, nav.menu:has(button:focus) a::after, nav.menu:has(button:focus) a::before, nav.menu:has(a:hover) button::after, nav.menu:has(a:hover) button::before, nav.menu:has(a:hover) a::after, nav.menu:has(a:hover) a::before, nav.menu:has(a:focus) button::after, nav.menu:has(a:focus) button::before, nav.menu:has(a:focus) a::after, nav.menu:has(a:focus) a::before {
   opacity: 0.2;
   transform: unset;
   transition: opacity 500ms, color 1.5s, transform 500ms;
@@ -2491,6 +2505,72 @@ nav.menu i.menuDevider {
   box-shadow: 0px 0px 4px 1px #000;
 }
 
+.shortcut {
+  position: fixed;
+  color: #fff;
+  font-size: 12px;
+  z-index: 9;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+  bottom: 10px;
+  left: 10px;
+}
+@media (max-width: 860px) {
+  .shortcut {
+    display: none;
+  }
+}
+.shortcut .shortcutContainer {
+  position: relative;
+  color: #fff;
+  font-size: 12px;
+  z-index: 9;
+  padding: 6px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px) grayscale(1);
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-shadow: 0px 2px 6px 0px #000;
+  user-select: none;
+}
+.shortcut .shortcutContainer i {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shortcut .shortcutContainer p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shortcut .shortcutContainer kbd {
+  min-width: 20px;
+  padding: 6px;
+  background: black;
+  border: 1px solid rgba(154, 154, 154, 0.27);
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  transition: 200ms;
+  font-style: italic;
+}
+.shortcut .shortcutContainer kbd.keyPressed {
+  background: #fff;
+  color: #000;
+  transition: 100ms;
+}
+
 nav.contacts {
   position: fixed;
   flex-flow: column;
@@ -2501,7 +2581,45 @@ nav.contacts {
   right: 0;
   transition: 200ms;
 }
-nav.contacts:hover a::after, nav.contacts:hover a::before, nav.contacts:hover button::after, nav.contacts:hover button::before {
+nav.contacts:hover button::after, nav.contacts:hover button::before,
+nav.contacts:hover a::after,
+nav.contacts:hover a::before,
+nav.contacts:hover label::after,
+nav.contacts:hover label::before, nav.contacts:has(button:hover) button::after, nav.contacts:has(button:hover) button::before,
+nav.contacts:has(button:hover) a::after,
+nav.contacts:has(button:hover) a::before,
+nav.contacts:has(button:hover) label::after,
+nav.contacts:has(button:hover) label::before, nav.contacts:has(button:focus) button::after, nav.contacts:has(button:focus) button::before,
+nav.contacts:has(button:focus) a::after,
+nav.contacts:has(button:focus) a::before,
+nav.contacts:has(button:focus) label::after,
+nav.contacts:has(button:focus) label::before, nav.contacts:has(a:hover) button::after, nav.contacts:has(a:hover) button::before,
+nav.contacts:has(a:hover) a::after,
+nav.contacts:has(a:hover) a::before,
+nav.contacts:has(a:hover) label::after,
+nav.contacts:has(a:hover) label::before, nav.contacts:has(a:focus) button::after, nav.contacts:has(a:focus) button::before,
+nav.contacts:has(a:focus) a::after,
+nav.contacts:has(a:focus) a::before,
+nav.contacts:has(a:focus) label::after,
+nav.contacts:has(a:focus) label::before, nav.contacts:has(input:hover) button::after, nav.contacts:has(input:hover) button::before,
+nav.contacts:has(input:hover) a::after,
+nav.contacts:has(input:hover) a::before,
+nav.contacts:has(input:hover) label::after,
+nav.contacts:has(input:hover) label::before, nav.contacts:has(input:focus-visible) button::after, nav.contacts:has(input:focus-visible) button::before,
+nav.contacts:has(input:focus-visible) a::after,
+nav.contacts:has(input:focus-visible) a::before,
+nav.contacts:has(input:focus-visible) label::after,
+nav.contacts:has(input:focus-visible) label::before {
+  opacity: 0.2;
+  transform: unset;
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  color: #fff;
+}
+nav.contacts:hover a::after, nav.contacts:hover a::before,
+nav.contacts:hover button::after,
+nav.contacts:hover button::before,
+nav.contacts:hover label::after,
+nav.contacts:hover label::before {
   opacity: 0.2;
   transform: unset;
   transition: opacity 500ms, color 1.5s, transform 500ms;
@@ -2523,6 +2641,7 @@ nav.contacts a {
   z-index: 998;
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
   text-decoration: none;
+  outline: none;
 }
 nav.contacts a.contactsGithub::after {
   content: "Github" !important;
@@ -2530,18 +2649,19 @@ nav.contacts a.contactsGithub::after {
 nav.contacts a.contactsAuthor::after {
   content: "Разработчик" !important;
 }
-nav.contacts a:hover {
+nav.contacts a:hover, nav.contacts a:focus-visible {
   backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
   transition: 200ms;
   border: 2px solid #656565;
 }
-nav.contacts a:hover::after, nav.contacts a:hover::before {
+nav.contacts a:hover::after, nav.contacts a:hover::before, nav.contacts a:focus-visible::after, nav.contacts a:focus-visible::before {
   opacity: 1;
   transform: translateX(-6px);
   transition: opacity 500ms, color 1.5s, transform 500ms;
   color: #fff;
   pointer-events: none;
   user-select: none;
+  outline: none;
 }
 nav.contacts a i {
   color: #fff;
@@ -2588,7 +2708,12 @@ nav.contacts a::before {
   border-top-right-radius: 4px;
   pointer-events: none;
 }
-nav.contacts button::before {
+nav.contacts button,
+nav.contacts label#toggleAlternate {
+  outline: none;
+}
+nav.contacts button::before,
+nav.contacts label#toggleAlternate::before {
   content: "";
   display: flex;
   position: absolute;
@@ -2601,7 +2726,8 @@ nav.contacts button::before {
   border-top-right-radius: 4px;
   pointer-events: none;
 }
-nav.contacts button::after {
+nav.contacts button::after,
+nav.contacts label#toggleAlternate::after {
   position: absolute;
   content: "...";
   display: flex;
@@ -2620,13 +2746,20 @@ nav.contacts button::after {
   transform: translateX(10px);
   pointer-events: none;
   color: #8d8d8d;
+  white-space: nowrap;
 }
-nav.contacts button:hover {
-  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
-  transition: 200ms;
-  border: 2px solid #656565;
+nav.contacts button:hover, nav.contacts button:focus-visible,
+nav.contacts label#toggleAlternate:hover,
+nav.contacts label#toggleAlternate:focus-visible {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+  transition: 200ms !important;
+  border: 2px solid #656565 !important;
 }
-nav.contacts button:hover::after, nav.contacts button:hover::before {
+nav.contacts button:hover::after, nav.contacts button:hover::before, nav.contacts button:focus-visible::after, nav.contacts button:focus-visible::before,
+nav.contacts label#toggleAlternate:hover::after,
+nav.contacts label#toggleAlternate:hover::before,
+nav.contacts label#toggleAlternate:focus-visible::after,
+nav.contacts label#toggleAlternate:focus-visible::before {
   opacity: 1;
   transform: translateX(-6px);
   transition: opacity 500ms, color 1.5s, transform 500ms;
@@ -2659,6 +2792,73 @@ nav.contacts button.callAutorization::after {
 }
 nav.contacts button.callAutorization::after {
   content: "Пользователь";
+}
+nav.contacts label#toggleAlternate {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-sizing: border-box;
+}
+nav.contacts label#toggleAlternate:has(input:focus-visible) {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+  transition: 200ms !important;
+  border: 2px solid #656565 !important;
+}
+nav.contacts label#toggleAlternate:has(input:focus-visible)::after, nav.contacts label#toggleAlternate:has(input:focus-visible)::before {
+  opacity: 1;
+  transform: translateX(-6px);
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  color: #fff;
+}
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) i {
+  color: var(--activeColor) !important;
+}
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) {
+  --activeColor: #cf0;
+  border-color: var(--activeColor);
+}
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) i {
+  color: var(--activeColor);
+}
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover i {
+  color: var(--activeColor) !important;
+}
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked)::after {
+  content: "Локальный ON";
+}
+nav.contacts label#toggleAlternate i {
+  color: #fff;
+  font-size: 18px;
+  transition: 200ms;
+}
+nav.contacts label#toggleAlternate input[type=checkbox] {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  position: absolute;
+}
+nav.contacts label#toggleAlternate::after {
+  content: "Локальный OFF";
 }
 nav.contacts i.menuDevider {
   width: 100%;
@@ -2928,28 +3128,25 @@ nav.contacts i.menuDevider {
   width: 100%;
 }
 .changelogHistory .changelogsectionList .changeLogItem[changeType=qr] i.updateIcon {
-  left: 20%;
-  transform: unset;
-  color: #01c3fc;
-  filter: drop-shadow(0px 0px 10px #01c3fc);
+  --updateColor: #01c3fc;
 }
 .changelogHistory .changelogsectionList .changeLogItem[changeType=polybox] i.updateIcon {
-  left: 20%;
-  transform: unset;
-  color: #ff5858;
-  filter: drop-shadow(0px 0px 10px #ff5858) drop-shadow(0px 0px 10px rgba(255, 88, 88, 0.5607843137));
+  --updateColor: #ff5858;
 }
 .changelogHistory .changelogsectionList .changeLogItem[changeType=lots] i.updateIcon {
-  left: 20%;
-  transform: unset;
-  color: #c0ff00;
-  filter: drop-shadow(0px 0px 10px #c0ff00);
+  --updateColor: #c0ff00;
 }
 .changelogHistory .changelogsectionList .changeLogItem[changeType=addUsers] i.updateIcon {
-  left: 20%;
+  --updateColor: #ff00dd;
+}
+.changelogHistory .changelogsectionList .changeLogItem[changeType=project] i.updateIcon {
+  --updateColor: #fff;
+}
+.changelogHistory .changelogsectionList .changeLogItem i.updateIcon {
+  left: 20% !important;
   transform: unset;
-  color: #ff00dd;
-  filter: drop-shadow(0px 0px 10px #ff00dd);
+  color: var(--updateColor);
+  filter: drop-shadow(0px 0px 10px var(--updateColor));
 }
 .changelogHistory .changelogsectionList .changeLogItem button.itemTitle {
   position: relative;
@@ -3474,6 +3671,35 @@ nav.contacts i.menuDevider {
   border: 2px solid rgba(154, 154, 154, 0.1294117647);
   box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px transparent inset;
 }
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input#toggleMasterCheckbox) .inputBody::before {
+  content: "ON";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.2784313725);
+  top: 50%;
+  transform: translateY(-50%);
+  left: 7px;
+  opacity: 0;
+  transition: 100ms;
+  pointer-events: none;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input#toggleMasterCheckbox) .inputBody::after {
+  content: "OFF";
+  display: flex;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #b9b9b9;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 7px;
+  text-shadow: 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000, 0px 0px 1px #000;
+  opacity: 1;
+  transition: 100ms;
+  pointer-events: none;
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input:checked) {
   transition: 400ms;
   box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #4f86fb inset;
@@ -3489,9 +3715,22 @@ nav.contacts i.menuDevider {
   box-shadow: 0px 0px 10px 0px #000;
   background: #fff;
 }
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input:checked) .inputBody::before {
+  opacity: 1 !important;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input:checked) .inputBody::after {
+  opacity: 0 !important;
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input:checked) p {
   transition: 200ms;
   color: #fff;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleAutoTrimDemo:checked) {
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #01c3fc inset;
+  border: 2px solid #01c3fc;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleAutoTrimDemo:checked) .inputBody {
+  background: linear-gradient(225deg, #01c3fc, #9158ff);
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleDamageTitileDemo:checked) {
   box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ff3a75 inset;
@@ -3507,6 +3746,16 @@ nav.contacts i.menuDevider {
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleAltenrativeQRDemo:checked) .inputBody {
   background: linear-gradient(225deg, #00974e, #009654);
 }
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer input.toggleMasterCheckbox {
+  background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleMasterCheckbox:checked) {
+  box-shadow: 0px 2px 6px 0px #000, 0px 0px 6px 0px #ffffff inset;
+  border: 2px solid #dfdfdf;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer:has(input.toggleMasterCheckbox:checked) .inputBody {
+  background: linear-gradient(225deg, #cacaca, #e4e4e4);
+}
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo .labelContainer .checkboxWrapper {
   width: 30%;
   display: flex;
@@ -3519,7 +3768,7 @@ nav.contacts i.menuDevider {
   border-radius: 20px;
   padding: 4px;
   transition: 200ms;
-  background: linear-gradient(225deg, #01c3fc, #9158ff);
+  background: linear-gradient(225deg, #6b6b6b, #8f8f8f);
   box-shadow: 0px 0px 10px 0px #000, 0px 0px 5px 0px #000 inset;
   filter: grayscale(1);
 }
@@ -3544,6 +3793,40 @@ nav.contacts i.menuDevider {
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleLabelDemo input[type=checkbox] {
   display: none;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleNewAlternate {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-sizing: border-box;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleNewAlternate input {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  position: absolute;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleNewAlternate i {
+  color: #fff;
+  font-size: 18px;
+  transition: 200ms;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleNewAlternate:hover, .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo label.toggleNewAlternate:focus-visible {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
+  transition: 200ms;
+  border: 2px solid #656565;
 }
 .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionDemo .expandOrCollapseDemo {
   justify-content: center;
