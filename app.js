@@ -53,6 +53,7 @@ anomaly_description_clearData.addEventListener("click", ()=>{
 })
 
 function generateAnomalyCodes() {
+  document.getElementById("qr-code").setAttribute("qr-generate-mode", "anomaly")
   var qrText = document.getElementById("qr-text").value;
   var qrCodeDiv = document.getElementById("qr-code");
   qrCodeDiv.innerHTML = "";
@@ -97,6 +98,14 @@ function generateAnomalyCodes() {
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.M
       });
+      
+      const checkImg = setInterval(() => {
+        const img = qrImgContainer.querySelector('img');
+        if (img) {
+          img.classList.add('qrCodeCreated');
+          clearInterval(checkImg);
+        }
+      }, 10);
     } catch (e) {
       console.error("Ошибка генерации QR-кода:", e);
       var errorMessage = document.createElement("p");
@@ -118,7 +127,7 @@ function generateAnomalyCodes() {
   var dateTime = document.createElement("span");
   dateTime.id = "datetime";
   dateTime.innerHTML = getCurrentDateTime();
-  if(alternateQR_mode = true){
+  if(alternateQR_mode === true){
     let alternateInfoBlock = document.createElement("p")
     alternateInfoBlock.className = "alternateInfo"
     alternateInfoBlock.innerText = "Alternate"
@@ -180,7 +189,8 @@ function anomalyDescription__disabled(){
 function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
   document.getElementById("qr-code").classList.remove("notAlowedPolybox")
-
+  document.getElementById("qr-code").setAttribute("qr-generate-mode", "default")
+  
   if(alternateQR_mode === true){
     
     if (inputText.startsWith("FA254") && inputText.length === 20) {
@@ -1085,6 +1095,7 @@ document.addEventListener('DOMContentLoaded', function() {
           makeSoundClean()
           anomalyDescription__disabled()
           inputField.value = '';
+          document.getElementById("qr-code").setAttribute("qr-generate-mode", "unset")
           deleteFromImage();
       });
   });
@@ -1161,11 +1172,13 @@ let alternateQR_mode = false
 
 function toggleAlternateQR(){
   if(alternateQR_mode === false){
+    document.querySelector(".qrContainer").setAttribute("alterante-mode", "true")
     alternateQRInputIcon.classList.remove("fa-wifi-slash")
     alternateQRInputIcon.classList.add("fa-wifi")
     alternateQR_mode = true
   }else{
     alternateQR_mode = false
+    document.querySelector(".qrContainer").setAttribute("alterante-mode", "false")
     alternateQRInputIcon.classList.remove("fa-wifi")
     alternateQRInputIcon.classList.add("fa-wifi-slash")
   }

@@ -1147,6 +1147,7 @@ div.mainContentContainer{
                 order: 1;
                 display: flex;
                 justify-content: center;
+                position: relative;
                 @media (max-width: 700px) {
                     &{
                         width: 100%;
@@ -1296,6 +1297,8 @@ div.mainContentContainer{
                                 display: inline-flex;
                                 writing-mode: vertical-rl;
                                 transform: rotate(180deg);
+                                white-space: break-spaces;
+                                max-height: 100%;
                             }
                         }
                     }
@@ -1568,6 +1571,47 @@ div.mainContentContainer{
                             font-weight: 400;
                         }
                     }
+
+                    &[qr-generate-mode="anomaly"]{
+                        p.alternateInfo{
+                            top: -600%;
+                            bottom: unset !important;
+                            right: unset !important;
+                            left: 16px;
+                            writing-mode: sideways-lr;
+                            justify-content: center;
+                            border: 2px double;
+                            font-weight: 800;
+                            padding: 20px 2px !important;
+                            box-shadow: 0px 0px 0px 2px #000;
+                            letter-spacing: 4px;
+                        }
+                    }
+                }
+
+                &::after{
+                    content: 'Режим Альтернативной генерации';
+                    position: absolute;
+                    white-space: pre;
+                    background: #000;
+                    color: #fff;
+                    padding: 30px 4px;
+                    z-index: -1;
+                    border-radius: 0px 40px 40px 0px;
+                    box-shadow: 0px 0px 0px 2px #fff, 0px 0px 20px 0px #000;
+                    text-align: center;
+                    top: 50%;
+                    transform: translate(0%, -50%);
+                    right: 10px;
+                    writing-mode: sideways-rl;
+                    transition: transform 300ms ease-in-out, right 300ms ease-in-out, opacity 800ms ease-in-out;
+                    opacity: 0;
+                }
+                &[alterante-mode="true"]::after{
+                    right: 2px;
+                    transform: translate(100%, -50%);
+                    transition: transform 300ms ease-in-out, right 300ms ease-in-out, opacity 800ms ease-in-out;
+                    opacity: 1;
                 }
             }
             button.print__code{

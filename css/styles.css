@@ -1114,6 +1114,7 @@ div.mainContentContainer div.wrapper div.container .qrContainer {
   order: 1;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 @media (max-width: 700px) {
   div.mainContentContainer div.wrapper div.container .qrContainer {
@@ -1261,6 +1262,8 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .anomal
   display: inline-flex;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
+  white-space: break-spaces;
+  max-height: 100%;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code .qrImgContainer {
   position: relative;
@@ -1527,6 +1530,43 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-code
   width: 100%;
   font-size: 0.8rem;
   font-weight: 400;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code[qr-generate-mode=anomaly] p.alternateInfo {
+  top: -600%;
+  bottom: unset !important;
+  right: unset !important;
+  left: 16px;
+  writing-mode: sideways-lr;
+  justify-content: center;
+  border: 2px double;
+  font-weight: 800;
+  padding: 20px 2px !important;
+  box-shadow: 0px 0px 0px 2px #000;
+  letter-spacing: 4px;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer::after {
+  content: "Режим Альтернативной генерации";
+  position: absolute;
+  white-space: pre;
+  background: #000;
+  color: #fff;
+  padding: 30px 4px;
+  z-index: -1;
+  border-radius: 0px 40px 40px 0px;
+  box-shadow: 0px 0px 0px 2px #fff, 0px 0px 20px 0px #000;
+  text-align: center;
+  top: 50%;
+  transform: translate(0%, -50%);
+  right: 10px;
+  writing-mode: sideways-rl;
+  transition: transform 300ms ease-in-out, right 300ms ease-in-out, opacity 800ms ease-in-out;
+  opacity: 0;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer[alterante-mode=true]::after {
+  right: 2px;
+  transform: translate(100%, -50%);
+  transition: transform 300ms ease-in-out, right 300ms ease-in-out, opacity 800ms ease-in-out;
+  opacity: 1;
 }
 div.mainContentContainer div.wrapper div.container button.print__code {
   text-align: center;
@@ -2848,7 +2888,7 @@ nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked)::after {
 }
 nav.contacts label#toggleAlternate i {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   transition: 200ms;
 }
 nav.contacts label#toggleAlternate input[type=checkbox] {
@@ -4410,4 +4450,4 @@ body, html {
   filter: brightness(0.85);
   outline: 2px solid #000;
   transition: 200ms;
-}/*# sourceMappingURL=styles.css.map */
+}
