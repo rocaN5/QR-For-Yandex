@@ -14,7 +14,7 @@ inputRadioDirection.forEach(radioButton => {
 
 document.getElementById("qrPoly-text").addEventListener("input", function (event) {
   const inputElement = event.target;
-  const requiredPrefix = "F30000000000000";
+  const allowedPrefixes = ["F30000000000000", "F40000000000000", "F50000000000000"];
   const originalValue = inputElement.value; // Оригинальное значение, введенное пользователем
 
   makeSoundText()
@@ -49,22 +49,27 @@ document.getElementById("qrPoly-text").addEventListener("input", function (event
       .replace(/[^A-Z0-9]/g, ""); // Оставляем только английские буквы и цифры
 
   // Если поле очищается или удален последний символ префикса, очищаем инпут
-  if (sanitizedValue === "" || sanitizedValue === requiredPrefix.slice(0, sanitizedValue.length)) {
-      inputElement.value = ""; // Полностью очищаем поле
-      resetInputPoly();
-      return;
+  if (sanitizedValue === "" || allowedPrefixes.some(prefix => 
+    sanitizedValue === prefix.slice(0, sanitizedValue.length))) {
+    inputElement.value = ""; // Полностью очищаем поле
+    resetInputPoly();
+    return;
   }
 
-  // Если текст не начинается с обязательного префикса
-  if (!sanitizedValue.startsWith(requiredPrefix)) {
-      // Автоматически добавляем префикс
-      sanitizedValue = requiredPrefix + sanitizedValue.replace(new RegExp(`^${requiredPrefix}`), "");
+  // Проверяем, начинается ли значение с любого из допустимых префиксов
+  const hasValidPrefix = allowedPrefixes.some(prefix => 
+      sanitizedValue.startsWith(prefix));
+
+  // Если текст не начинается ни с одного допустимого префикса
+  if (!hasValidPrefix) {
+      // Находим первый подходящий префикс (или можно выбрать другой алгоритм)
+      const selectedPrefix = allowedPrefixes[0];
+      sanitizedValue = selectedPrefix + sanitizedValue;
   }
 
   // Устанавливаем исправленный текст обратно в инпут
   inputElement.value = sanitizedValue;
 
-  // Оставшаяся логика
   generateCodesPoly();
   changePolyboxDirectionData();
 

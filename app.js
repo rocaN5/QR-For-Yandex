@@ -1,6 +1,6 @@
 const version = "1.17.1"
 const versionLots = "1.4.1"
-const versionPoly = "1.1.2"
+const versionPoly = "1.3"
 const versionCarts = "1.0"
 
 let spanHistoryItemCounter = 0;
@@ -1166,25 +1166,83 @@ checkboxesDamaged.forEach(checkbox => {
 
 // TODO Кнопка альтернативной генерации ✅
 
-const alternateQRInput = document.querySelectorAll(".toggleAltenrativeQR")
-const alternateQRInputIcon = document.querySelector("label#toggleAlternate i")
-let alternateQR_mode = false
+const alternateQRInput = document.querySelectorAll(".toggleAltenrativeQR");
+const alternateQRInputIcon = document.querySelector("label#toggleAlternate i");
+let alternateQR_mode = false;
+
+// Функция для загрузки состояния из localStorage
+function loadAlternateQRState() {
+  const savedState = localStorage.getItem('alternateQR_mode');
+  if (savedState !== null) {
+    alternateQR_mode = savedState === 'true';
+    
+    // Восстанавливаем состояние чекбокса
+    const checkbox = document.querySelector('input.toggleAltenrativeQR');
+    if (checkbox) {
+      checkbox.checked = alternateQR_mode;
+    }
+    
+    // Восстанавливаем визуальное состояние
+    if (alternateQR_mode) {
+      document.querySelector(".qrContainer").setAttribute("alterante-mode", "true");
+      alternateQRInputIcon.classList.remove("fa-wifi-slash");
+      alternateQRInputIcon.classList.add("fa-wifi");
+    } else {
+      document.querySelector(".qrContainer").setAttribute("alterante-mode", "false");
+      alternateQRInputIcon.classList.remove("fa-wifi");
+      alternateQRInputIcon.classList.add("fa-wifi-slash");
+    }
+    
+    // Если нужно сгенерировать коды при загрузке
+    if (typeof generateCodes === 'function') {
+      generateCodes();
+    }
+  }
+}
+
+// Функция для сохранения состояния в localStorage
+function saveAlternateQRState() {
+  localStorage.setItem('alternateQR_mode', alternateQR_mode.toString());
+}
 
 function toggleAlternateQR(){
   if(alternateQR_mode === false){
-    document.querySelector(".qrContainer").setAttribute("alterante-mode", "true")
-    alternateQRInputIcon.classList.remove("fa-wifi-slash")
-    alternateQRInputIcon.classList.add("fa-wifi")
-    alternateQR_mode = true
+    document.querySelector(".qrContainer").setAttribute("alterante-mode", "true");
+    alternateQRInputIcon.classList.remove("fa-wifi-slash");
+    alternateQRInputIcon.classList.add("fa-wifi");
+    alternateQR_mode = true;
+    if(generatorTypeFirst === 2){
+      changePolyboxDirectionData();
+    }
   }else{
-    alternateQR_mode = false
-    document.querySelector(".qrContainer").setAttribute("alterante-mode", "false")
-    alternateQRInputIcon.classList.remove("fa-wifi")
-    alternateQRInputIcon.classList.add("fa-wifi-slash")
+    alternateQR_mode = false;
+    document.querySelector(".qrContainer").setAttribute("alterante-mode", "false");
+    alternateQRInputIcon.classList.remove("fa-wifi");
+    alternateQRInputIcon.classList.add("fa-wifi-slash");
+    if(generatorTypeFirst === 2){
+      changePolyboxDirectionData();
+    }
   }
-  generateCodes()
-  console.log("alternateQR_mode === " + alternateQR_mode)
+  
+  // Сохраняем состояние после изменения
+  saveAlternateQRState();
+  
+  generateCodes();
+  console.log("alternateQR_mode === " + alternateQR_mode);
 }
+
+// Загружаем состояние при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadAlternateQRState);
+
+// Также можно добавить обработчик для изменения чекбокса напрямую
+const alternateCheckboxes = document.querySelectorAll('input.toggleAltenrativeQR');
+alternateCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    if (this.checked !== alternateQR_mode) {
+      toggleAlternateQR();
+    }
+  });
+});
 
 alternateQRInput.forEach(checkbox => {
   checkbox.addEventListener("click", toggleAlternateQR);

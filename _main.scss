@@ -1554,6 +1554,10 @@ div.mainContentContainer{
                             margin-top: 10px;
                             text-transform: uppercase;
                             flex-direction: column !important;
+
+                            span{
+                                white-space: nowrap;
+                            }
                         }
                         div.shipDirectionPathTitle{
                             display: flex;

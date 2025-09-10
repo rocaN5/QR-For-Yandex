@@ -1516,6 +1516,9 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-code
   text-transform: uppercase;
   flex-direction: column !important;
 }
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionTitle span {
+  white-space: nowrap;
+}
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly div.shipDirectionPathTitle {
   display: flex;
   width: 100%;
@@ -4450,4 +4453,4 @@ body, html {
   filter: brightness(0.85);
   outline: 2px solid #000;
   transition: 200ms;
-}
+}/*# sourceMappingURL=styles.css.map */
