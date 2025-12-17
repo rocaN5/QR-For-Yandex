@@ -1504,11 +1504,11 @@ div.mainContentContainer{
                             position: absolute;
                             
                             &.holiday_santa{
-                                right: -10px;
-                                bottom: -10px;
                                 width: 15%;
                                 height: 30%;
-                                background-size: 180%;
+                                right: 2px;
+                                bottom: 2px;
+                                background-position: -20px 32px;
                                 background-image: url("../img/holidays/christmass/santa.svg");
                             }
                             &.holiday_tree{
