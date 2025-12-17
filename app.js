@@ -1,4 +1,4 @@
-const version = "1.17.1"
+const version = "1.17.2"
 const versionLots = "1.4.1"
 const versionPoly = "1.3"
 const versionCarts = "1.0"
@@ -57,6 +57,22 @@ function generateAnomalyCodes() {
   var qrText = document.getElementById("qr-text").value;
   var qrCodeDiv = document.getElementById("qr-code");
   qrCodeDiv.innerHTML = "";
+
+  if (isChristmasPeriod()) {
+    const holdiay_Christmass = document.createElement('div');
+    holdiay_Christmass.classList.add('holidayLayout');
+    holdiay_Christmass.innerHTML = `
+      <i class="holidayItem holiday_santa"></i>      
+      <i class="holidayItem holiday_tree" tree-item="1"></i>
+      <i class="holidayItem holiday_tree" tree-item="2"></i>
+      <i class="holidayItem holiday_tree" tree-item="3"></i>
+      <i class="holidayItem holiday_tree" tree-item="4"></i>
+      <i class="holidayItem holiday_tree" tree-item="5"></i>
+      <i class="holidayItem holiday_tree" tree-item="6"></i>
+      <i class="holidayItem holiday_tree" tree-item="7"></i>
+    `;
+  qrCodeDiv.appendChild(holdiay_Christmass)
+  }
 
   // Добавляем текст "Аномалия"
   let anomalyTest = document.createElement("h1");
@@ -186,6 +202,14 @@ function anomalyDescription__disabled(){
   anomaly_description.value = ""
 }
 
+function isChristmasPeriod() {
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentDate = today.getDate();
+  
+  return currentMonth === 11 && currentDate >= 5 && currentDate <= 31;
+}
+
 function generateCodes() {
   const inputText = document.getElementById('qr-text').value.trim();
   document.getElementById("qr-code").classList.remove("notAlowedPolybox")
@@ -213,6 +237,22 @@ function generateCodes() {
     const qrCodeDiv = document.getElementById("qr-code");
     qrCodeDiv.innerHTML = "";
     anomalyDescription__disabled();
+
+    if (isChristmasPeriod()) {
+      const holdiay_Christmass = document.createElement('div');
+      holdiay_Christmass.classList.add('holidayLayout');
+      holdiay_Christmass.innerHTML = `
+        <i class="holidayItem holiday_santa"></i>      
+        <i class="holidayItem holiday_tree" tree-item="1"></i>
+        <i class="holidayItem holiday_tree" tree-item="2"></i>
+        <i class="holidayItem holiday_tree" tree-item="3"></i>
+        <i class="holidayItem holiday_tree" tree-item="4"></i>
+        <i class="holidayItem holiday_tree" tree-item="5"></i>
+        <i class="holidayItem holiday_tree" tree-item="6"></i>
+        <i class="holidayItem holiday_tree" tree-item="7"></i>
+      `;
+    qrCodeDiv.appendChild(holdiay_Christmass)
+    }
   
     // Если поле пустое
     if (!qrText) {
@@ -342,6 +382,22 @@ function generateCodes() {
         alternateInfoBlock.innerText = "Alternate"
       companyInfoDiv.appendChild(alternateInfoBlock);
       }
+
+      if (isChristmasPeriod()) {
+        const holdiay_Christmass = document.createElement('div');
+        holdiay_Christmass.classList.add('holidayLayout');
+        holdiay_Christmass.innerHTML = `
+          <i class="holidayItem holiday_santa"></i>      
+          <i class="holidayItem holiday_tree" tree-item="1"></i>
+          <i class="holidayItem holiday_tree" tree-item="2"></i>
+          <i class="holidayItem holiday_tree" tree-item="3"></i>
+          <i class="holidayItem holiday_tree" tree-item="4"></i>
+          <i class="holidayItem holiday_tree" tree-item="5"></i>
+          <i class="holidayItem holiday_tree" tree-item="6"></i>
+          <i class="holidayItem holiday_tree" tree-item="7"></i>
+        `;
+      qrCodeDiv.appendChild(holdiay_Christmass)
+      }
       
       companyInfoDiv.appendChild(companyName);
       companyInfoDiv.appendChild(dateTime);
@@ -361,7 +417,6 @@ function generateCodes() {
       qrImgContainer.classList.add('qrImgContainer');
       qrCodeDiv.appendChild(qrImgContainer);
       qrImgContainer.appendChild(qrCode);
-
 
       var qrTextElement = document.createElement("p");
       qrTextElement.textContent = qrText;

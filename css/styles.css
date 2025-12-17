@@ -1187,6 +1187,7 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.notAlow
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) {
   align-items: flex-start !important;
+  white-space: nowrap !important;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code:has(h1.anomlyText) p {
   text-align: left;
@@ -1450,6 +1451,74 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code p.mainE
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: transparent;
+  pointer-events: none;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem {
+  background: transparent;
+  background-position: -30px 20px;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_santa {
+  right: -10px;
+  bottom: -10px;
+  width: 15%;
+  height: 30%;
+  background-size: 180%;
+  background-image: url("../img/holidays/christmass/santa.svg");
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree {
+  width: 35px;
+  height: 35px;
+  transform-origin: center;
+  background-size: 100%;
+  background-position: center;
+  background-image: url("../img/holidays/christmass/tree.svg");
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="1"] {
+  top: 7%;
+  left: 4%;
+  transform: rotate(-15deg);
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="2"] {
+  bottom: 4%;
+  left: 1%;
+  transform: rotate(35deg);
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="3"] {
+  right: 2%;
+  top: 5%;
+  transform: rotate(25deg) scale(0.8);
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="4"] {
+  top: 21%;
+  left: 5%;
+  background-image: url("../img/holidays/christmass/toy.svg");
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="5"] {
+  top: 21%;
+  right: 5%;
+  background-image: url("../img/holidays/christmass/toy.svg");
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="6"] {
+  top: 5%;
+  left: 22%;
+  transform: rotate(-15deg) scale(0.45);
+  background-image: url("../img/holidays/christmass/snowflake.svg");
+}
+div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree[tree-item="7"] {
+  top: 5%;
+  right: 22%;
+  transform: rotate(0deg) scale(0.8);
+  background-image: url("../img/holidays/christmass/snowman.svg");
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code.qr-codePoly {
   justify-content: center !important;
