@@ -1468,11 +1468,12 @@ div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.hol
   position: absolute;
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_santa {
-  right: -10px;
-  bottom: -10px;
   width: 15%;
   height: 30%;
-  background-size: 180%;
+  right: 2px;
+  bottom: 2px;
+  background-size: 185%;
+  background-position: -20px 32px;
   background-image: url("../img/holidays/christmass/santa.svg");
 }
 div.mainContentContainer div.wrapper div.container .qrContainer #qr-code div.holidayLayout i.holidayItem.holiday_tree {
