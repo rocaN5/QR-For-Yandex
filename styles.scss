@@ -56,6 +56,14 @@
 body{
     width: 100dvw;
     height: 100dvh;
+    &.christmas-mode{
+        background-image: url("../img/winter.jpg");
+        background-position: center;
+        background-size: 100%;
+        canvas#particle-canvas{
+            backdrop-filter: blur(0px) brightness(0.18);
+        }
+    }
 }
 
 /* ! */

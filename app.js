@@ -826,8 +826,16 @@ function isWinterSeason() {
   const currentMonth = today.getMonth() + 1; // 1-12 (январь-декабрь)
   const currentDay = today.getDate();
   
-  // Проверяем период с 5 декабря по 31 декабря
-  return (currentMonth === 12 && currentDay >= 5 && currentDay <= 31);
+  const isWinter = (currentMonth === 12 && currentDay >= 5 && currentDay <= 31);
+  
+  // Добавляем или удаляем класс в зависимости от сезона
+  if (isWinter) {
+    document.querySelector('body').classList.add('christmas-mode');
+  } else {
+    document.querySelector('body').classList.remove('christmas-mode');
+  }
+  
+  return isWinter;
 }
 
 function createParticleCanvas(canvasId) {
