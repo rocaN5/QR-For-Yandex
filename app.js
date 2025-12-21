@@ -817,7 +817,20 @@ backToWeb.addEventListener('click', () => {
 let particleColorOnEnter = "#01c3fc";
 let particleColorOnLeave = "#9158ff";
 
-function createParticleCanvas(canvasId, sizeRange) {
+// SVG снежинки в виде строки (белый цвет)
+const snowflakeSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white"><path d="M280.1-8c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 78.1-23-23c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l57 57 0 76.5-66.2-38.2-20.9-77.8c-3.4-12.8-16.6-20.4-29.4-17S95.2 98 98.7 110.8l8.4 31.5-67.6-39C28 96.6 13.3 100.5 6.7 112S4 138.2 15.5 144.8l67.6 39-31.5 8.4c-12.8 3.4-20.4 16.6-17 29.4s16.6 20.4 29.4 17l77.8-20.9 66.2 38.2-66.2 38.2-77.8-20.9c-12.8-3.4-26 4.2-29.4 17s4.2 26 17 29.4l31.5 8.4-67.6 39C4 373.8 .1 388.5 6.7 400s21.3 15.4 32.8 8.8l67.6-39-8.4 31.5c-3.4 12.8 4.2 26 17 29.4s26-4.2 29.4-17l20.9-77.8 66.2-38.2 0 76.5-57 57c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l23-23 0 78.1c0 13.3 10.7 24 24 24s24-10.7 24-24l0-78.1 23 23c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-57-57 0-76.5 66.2 38.2 20.9 77.8c3.4 12.8 16.6 20.4 29.4 17s20.4-16.6 17-29.4l-8.4-31.5 67.6 39c11.5 6.6 26.2 2.7 32.8-8.8s2.7-26.2-8.8-32.8l-67.6-39 31.5-8.4c12.8-3.4 20.4-16.6 17-29.4s-16.6-20.4-29.4-17l-77.8 20.9-66.2-38.2 66.2-38.2 77.8 20.9c12.8 3.4 26-4.2 29.4-17s-4.2-26-17-29.4l-31.5-8.4 67.6-39c11.5-6.6 15.4-21.3 8.8-32.8s-21.3-15.4-32.8-8.8l-67.6 39 8.4-31.5c3.4-12.8-4.2-26-17-29.4s-26 4.2-29.4 17l-20.9 77.8-66.2 38.2 0-76.5 57-57c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-23 23 0-78.1z"/></svg>`;
+
+// Функция проверки даты
+function isWinterSeason() {
+  const today = new Date();
+  const currentMonth = today.getMonth() + 1; // 1-12 (январь-декабрь)
+  const currentDay = today.getDate();
+  
+  // Проверяем период с 5 декабря по 31 декабря
+  return (currentMonth === 12 && currentDay >= 5 && currentDay <= 31);
+}
+
+function createParticleCanvas(canvasId) {
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -827,6 +840,12 @@ function createParticleCanvas(canvasId, sizeRange) {
   let particlesEnabled = true;
   let lastTime = 0;
   let fps = 0;
+  
+  // Определяем режим отображения
+  const isSnowMode = isWinterSeason();
+  
+  // Определяем размеры в зависимости от режима
+  const sizeRange = isSnowMode ? { min: 8, max: 12 } : { min: 2, max: 6 };
 
   document.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
@@ -843,44 +862,42 @@ function createParticleCanvas(canvasId, sizeRange) {
     canvas.height = window.innerHeight;
   });
 
+  const canvasLowButton = document.querySelector('.canvasLow');
+  const canvasHighButton = document.querySelector('.canvasHigh');
+  const canvasFps = document.querySelector('.canvasFps');
+  const canvasParticleCount = document.querySelector('.canvasParticleCount');
+  const particleCountScaleUp = document.querySelector('.particleCountScaleUp');
+  const particleCountScaleDown = document.querySelector('.particleCountScaleDown');
 
-const canvasLowButton = document.querySelector('.canvasLow');
-const canvasHighButton = document.querySelector('.canvasHigh');
-const canvasFps = document.querySelector('.canvasFps');
-const canvasParticleCount = document.querySelector('.canvasParticleCount');
-const particleCountScaleUp = document.querySelector('.particleCountScaleUp');
-const particleCountScaleDown = document.querySelector('.particleCountScaleDown');
+  //TODO Функция для управления кнопками canvas
+  const toggleCanvasButtons = (enableParticles) => {
+    canvasLowButton.disabled = !enableParticles;
+    canvasHighButton.disabled = enableParticles;
+    canvasLowButton.style.display = enableParticles ? 'flex' : 'none';
+    canvasHighButton.style.display = enableParticles ? 'none' : 'flex';
+    particlesEnabled = enableParticles;
+    makeSoundClick();
 
+    if (enableParticles) {
+      resetParticles();
+    } else {
+      particles = [];
+    }
 
-//TODO Функция для управления кнопками canvas
-const toggleCanvasButtons = (enableParticles) => {
-  canvasLowButton.disabled = !enableParticles;
-  canvasHighButton.disabled = enableParticles;
-  canvasLowButton.style.display = enableParticles ? 'flex' : 'none';
-  canvasHighButton.style.display = enableParticles ? 'none' : 'flex';
-  particlesEnabled = enableParticles;
-  makeSoundClick();
+    updateParticleCount();
 
-  if (enableParticles) {
-    resetParticles();
-  } else {
-    particles = [];
-  }
+    const filterValue = enableParticles ? 'grayscale(0) opacity(1)' : 'grayscale(1) opacity(0.6)';
+    particleCountScaleUp.style.filter = filterValue;
+    particleCountScaleDown.style.filter = filterValue;
 
-  updateParticleCount();
+    particleCountScaleUp.disabled = !enableParticles;
+    particleCountScaleDown.disabled = !enableParticles;
+    particleCountScaleUp.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
+    particleCountScaleDown.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
+  };
 
-  const filterValue = enableParticles ? 'grayscale(0) opacity(1)' : 'grayscale(1) opacity(0.6)';
-  particleCountScaleUp.style.filter = filterValue;
-  particleCountScaleDown.style.filter = filterValue;
-
-  particleCountScaleUp.disabled = !enableParticles;
-  particleCountScaleDown.disabled = !enableParticles;
-  particleCountScaleUp.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
-  particleCountScaleDown.style.cursor = enableParticles ? 'pointer' : 'not-allowed';
-};
-
-canvasLowButton.addEventListener('click', () => toggleCanvasButtons(false));
-canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
+  canvasLowButton.addEventListener('click', () => toggleCanvasButtons(false));
+  canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
 
   particleCountScaleUp.addEventListener('click', () => {
     if (particlesEnabled) {
@@ -907,6 +924,18 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
     return Math.random() * (max - min) + min;
   }
 
+  // Создаем изображение снежинки
+  let snowflakeImage = null;
+  if (isSnowMode) {
+    snowflakeImage = new Image();
+    const svgBlob = new Blob([snowflakeSVG], {type: 'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+    snowflakeImage.src = url;
+    snowflakeImage.onload = function() {
+      console.log('Снежинка загружена, размеры:', sizeRange);
+    };
+  }
+
   class Particle {
     constructor(initial = false) {
       this.size = random(sizeRange.min, sizeRange.max);
@@ -915,20 +944,26 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
       this.opacity = random(0.3, 1);
       this.speedY = random(1, 3);
       this.speedX = random(-1, 1);
-      this.color = particleColorOnEnter;
-      this.colorChange = particleColorOnLeave;
-      this.avoidRadius = 100;
+      this.color = isSnowMode ? "#ffffff" : particleColorOnEnter;
+      this.colorChange = isSnowMode ? "#ffffff" : particleColorOnLeave;
+      this.avoidRadius = isSnowMode ? 150 : 100; // Увеличиваем радиус для снежинок
       this.glowRadius = 15;
       this.glowIntensity = 0.5;
       this.lightningRadius = this.avoidRadius / 1.8;
+      this.rotation = 0;
+      this.rotationSpeed = random(-0.02, 0.02);
     }
 
     update() {
-      const progress = Math.min(this.y / canvas.height, 1);
-      this.color = this.interpolateColor(particleColorOnEnter, particleColorOnLeave, progress);
+      // Для снежинок не меняем цвет, для частиц - градиент
+      if (!isSnowMode) {
+        const progress = Math.min(this.y / canvas.height, 1);
+        this.color = this.interpolateColor(particleColorOnEnter, particleColorOnLeave, progress);
+      }
 
       this.y += this.speedY;
       this.x += this.speedX;
+      this.rotation += this.rotationSpeed;
 
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
@@ -947,11 +982,13 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
       if (this.y > canvas.height + this.size) {
         this.y = -this.size;
         this.x = random(0, canvas.width);
+        this.rotation = 0;
       }
     }
 
     draw() {
-      if (this.glowIntensity > 0) {
+      // Для снежинок отключаем свечение
+      if (!isSnowMode && this.glowIntensity > 0) {
         const gradient = ctx.createRadialGradient(
           this.x, this.y, 0,
           this.x, this.y, this.glowRadius
@@ -967,11 +1004,29 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
         ctx.fill();
       }
 
-      ctx.fillStyle = this.color;
       ctx.globalAlpha = this.opacity;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-      ctx.fill();
+      
+      if (isSnowMode && snowflakeImage && snowflakeImage.complete) {
+        // Рисуем снежинку
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.drawImage(
+          snowflakeImage, 
+          -this.size / 2, 
+          -this.size / 2, 
+          this.size, 
+          this.size
+        );
+        ctx.restore();
+      } else {
+        // Рисуем обычную частицу
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      
       ctx.globalAlpha = 1;
     }
 
@@ -997,7 +1052,9 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
 
   function resetParticles() {
     particles = [];
-    for (let i = 0; i < 200; i++) {
+    // Уменьшаем количество снежинок, так как они больше
+    const particleCount = isSnowMode ? 80 : 200;
+    for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle(true));
     }
     updateParticleCount();
@@ -1013,6 +1070,9 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
   }
 
   function drawLightning(x1, y1, x2, y2, color) {
+    // Для снежинок не рисуем молнии
+    if (isSnowMode) return;
+    
     ctx.strokeStyle = color;
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -1050,22 +1110,25 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
         }
       }
 
-      for (let i = 0; i < particles.length; i++) {
-        const particle1 = particles[i];
-        const dx = mouse.x - particle1.x;
-        const dy = mouse.y - particle1.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      // Для снежинок не рисуем соединения
+      if (!isSnowMode) {
+        for (let i = 0; i < particles.length; i++) {
+          const particle1 = particles[i];
+          const dx = mouse.x - particle1.x;
+          const dy = mouse.y - particle1.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < particle1.lightningRadius) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const particle2 = particles[j];
-            const dx2 = particle1.x - particle2.x;
-            const dy2 = particle1.y - particle2.y;
-            const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+          if (distance < particle1.lightningRadius) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const particle2 = particles[j];
+              const dx2 = particle1.x - particle2.x;
+              const dy2 = particle1.y - particle2.y;
+              const distance2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
 
-            if (distance2 < particle1.lightningRadius) {
-              const color = particle1.color;
-              drawLightning(particle1.x, particle1.y, particle2.x, particle2.y, color);
+              if (distance2 < particle1.lightningRadius) {
+                const color = particle1.color;
+                drawLightning(particle1.x, particle1.y, particle2.x, particle2.y, color);
+              }
             }
           }
         }
@@ -1081,7 +1144,7 @@ canvasHighButton.addEventListener('click', () => toggleCanvasButtons(true));
 }
 
 // Инициализация
-createParticleCanvas('particle-canvas', { min: 2, max: 6 });
+createParticleCanvas('particle-canvas');
 
 
 // TODO случайайная гифка котяры :D ✅
