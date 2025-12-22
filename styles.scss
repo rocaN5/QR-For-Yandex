@@ -4,6 +4,14 @@
 @import "history";
 @import "changelog";
 @import "settings";
+@import "christamss";
+
+@font-face {
+    font-family: 'Bakinskay';
+    src: url('../fonts/bakinskay.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #000;

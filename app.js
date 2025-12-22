@@ -1154,7 +1154,6 @@ function createParticleCanvas(canvasId) {
 // Инициализация
 createParticleCanvas('particle-canvas');
 
-
 // TODO случайайная гифка котяры :D ✅
 document.addEventListener("DOMContentLoaded", function() {
   // Генерация случайного числа от 1 до 5
