@@ -966,3 +966,29 @@ $SANTA_CHEEK_COLOR: #f4cfe3;
     opacity: 0;
   }
 }
+
+
+.holidayVenok{
+    --cawda: 20%;
+    position: absolute;
+    width: calc(100% + var(--cawda));
+    height: calc(100% + var(--cawda));
+    top: calc(var(--cawda) / -2);
+    left: calc(var(--cawda) / -2);
+    background: transparent;
+    pointer-events: none;
+    background-image: url("../img/holidays/christmass/venok.png");
+    background-position: center;
+    background-size: 120%;
+    filter: contrast(1.35);
+    border-radius: 12px;
+    opacity: 0.8;
+    &.qrHolidayVenok{
+        --cawda: 45%;
+        opacity: 1;
+        border-radius: 0;
+        z-index: 0;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+}

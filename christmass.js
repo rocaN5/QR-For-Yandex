@@ -139,4 +139,42 @@ if (isChristmasDates === true) {
         </div>
     `;
     bodyElement.appendChild(santaAndDears)
+
+    const navMenuElement = document.querySelector('nav.menu')
+    const navContactsElement = document.querySelector('nav.contacts')
+    const navEvryButton = navMenuElement.querySelectorAll('button')
+    const navEvryLink = navMenuElement.querySelectorAll('a')
+    const navEvryButtonContacts = navContactsElement.querySelectorAll('button')
+    const navEvryLinkContacts = navContactsElement.querySelectorAll('a')
+
+    navEvryButton.forEach(btn => {
+        const holidayVenok = document.createElement('div')
+        holidayVenok.classList.add("holidayVenok")
+        btn.appendChild(holidayVenok)
+    });
+    navEvryLink.forEach(link => {
+        const holidayVenok = document.createElement('div')
+        holidayVenok.classList.add("holidayVenok")
+        link.appendChild(holidayVenok)
+    });
+
+    navEvryButtonContacts.forEach(btn => {
+        const holidayVenok = document.createElement('div')
+        holidayVenok.classList.add("holidayVenok")
+        btn.appendChild(holidayVenok)
+    });
+    navEvryLinkContacts.forEach(link => {
+        const holidayVenok = document.createElement('div')
+        holidayVenok.classList.add("holidayVenok")
+        link.appendChild(holidayVenok)
+    });
+    navContactsElement.querySelectorAll('label').forEach(link => {
+        const holidayVenok = document.createElement('div')
+        holidayVenok.classList.add("holidayVenok")
+        link.appendChild(holidayVenok)
+    });
+    
+    const qrHolidayVenok = document.createElement('div')
+    qrHolidayVenok.classList.add("holidayVenok", "qrHolidayVenok")
+    document.getElementById('qr-code').before(qrHolidayVenok)
 }
