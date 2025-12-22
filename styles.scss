@@ -67,7 +67,7 @@ body{
     &.christmas-mode{
         background-image: url("../img/winter.jpg");
         background-position: center;
-        background-size: 100%;
+        background-size: cover;
         canvas#particle-canvas{
             backdrop-filter: blur(0px) brightness(0.18);
         }
