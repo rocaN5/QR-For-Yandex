@@ -4269,7 +4269,7 @@ section.bodyDOM section.settings .settingItem .soundSettings span {
   font-family: "Bakinskay", sans-serif;
   font-size: 4rem;
   position: absolute;
-  background: #c70000;
+  background-color: #c70000;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -4280,12 +4280,37 @@ section.bodyDOM section.settings .settingItem .soundSettings span {
   height: 60px;
   left: -380px;
   letter-spacing: 1px;
-  border: 2px solid #fff;
+  border: 2px solid #000;
+  --s: 15px;
+  --c1: #ffffff;
+  --c2: #b80000;
+  --c3: #31570e;
+  --_c: #0000, var(--c1) 1deg 79deg, #0000 81deg;
+  --g0: conic-gradient(from 140deg at 50% 87.5%, var(--_c));
+  --g1: conic-gradient(from 140deg at 50% 81.25%, var(--_c));
+  --g2: conic-gradient(from 140deg at 50% 75%, var(--_c));
+  --g3: conic-gradient(at 10% 20%, #0000 75%, var(--c1) 0);
+  background: var(--g0) 0 calc(var(--s) / -4), var(--g0) var(--s) calc(3 * var(--s) / 4), var(--g1), var(--g1) var(--s) var(--s), var(--g2) 0 calc(var(--s) / 4), var(--g2) var(--s) calc(5 * var(--s) / 4), var(--g3) calc(var(--s) / -10) var(--s), var(--g3) calc(9 * var(--s) / 10) calc(2 * var(--s)), repeating-conic-gradient(from 45deg, var(--c2) 0 25%, var(--c3) 0 50%);
+  background-size: calc(2 * var(--s)) calc(2 * var(--s));
 }
 .santaBanner p {
   margin: 0;
   transform: translateY(-17px);
   user-select: none;
+  filter: drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black) drop-shadow(0px 0px 2px black);
+}
+.santaBanner p::before {
+  content: "Ильяшенко - клоун";
+  position: absolute;
+  width: 120%;
+  left: -30px;
+  background: transparent;
+  font-size: 2rem;
+  padding: 15px 4px;
+  transform: translateY(14px);
+  transition: 100ms ease-in-out 0ms;
+  opacity: 0;
+  font-family: "Roboto";
 }
 .santaBanner::before {
   content: "";
@@ -4319,13 +4344,60 @@ section.bodyDOM section.settings .settingItem .soundSettings span {
   overflow: hidden;
   animation: santaMove 30s infinite linear;
 }
+.santaWrapper:hover {
+  animation: santaFlex 1s infinite linear, santaMove 30s infinite linear;
+}
+.santaWrapper:hover .santa__face {
+  animation: santaFace 500ms ease-in-out infinite alternate;
+}
+.santaWrapper:hover .santaBanner p {
+  color: transparent;
+}
+.santaWrapper:hover .santaBanner p::before {
+  opacity: 1;
+  color: #fff;
+  transition: 300ms ease-in-out 100ms;
+  animation: ilyashenko 1s infinite ease-in-out alternate;
+}
+.santaWrapper:hover .reindeer .reindeer__face {
+  animation: reindeer-face 1.6s linear alternate infinite, olenCrazy 500ms ease-in-out infinite alternate !important;
+}
+.santaWrapper:hover .reindeer.reindeerSecond .reindeer__face {
+  animation: reindeer-face 1.6s linear alternate infinite, olenCrazy 500ms ease-in-out infinite alternate 200ms !important;
+}
+.santaWrapper:hover .reindeer.reindeerThird .reindeer__face {
+  animation: reindeer-face 1.6s linear alternate infinite, olenCrazy 500ms ease-in-out infinite alternate 400ms !important;
+}
 
+@keyframes olenCrazy {
+  to {
+    transform: rotate(-3deg) scale(1.5);
+  }
+}
+@keyframes ilyashenko {
+  to {
+    transform: scale(1.05) translateY(14px);
+  }
+}
+@keyframes santaFlex {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
 @keyframes santaMove {
   from {
     left: -750px;
   }
   to {
     left: 1400px;
+  }
+}
+@keyframes santaFace {
+  from {
+    transform: scale(1) rotate(10deg);
+  }
+  to {
+    transform: scale(1.5) rotate(10deg);
   }
 }
 .sleigh-santa {
@@ -4355,7 +4427,12 @@ section.bodyDOM section.settings .settingItem .soundSettings span {
   content: "";
   position: absolute;
   bottom: 0;
-  background-color: #8B0000;
+  --s: 20px;
+  --c1: #8b0000;
+  --c2: #bd0000;
+  --_g: var(--c1) 90deg, #0000 90.5deg;
+  background: conic-gradient(from -45deg, var(--_g)), conic-gradient(from 135deg, var(--_g)) calc(var(--s) / 2) 0, var(--c2);
+  background-size: var(--s) var(--s);
 }
 .santa--sleigh:before {
   left: -10px;
