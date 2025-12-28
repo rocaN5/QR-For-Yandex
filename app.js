@@ -1163,7 +1163,9 @@ function createParticleCanvas(canvasId) {
 }
 
 // Инициализация
-createParticleCanvas('particle-canvas');
+setTimeout(() => {
+  createParticleCanvas('particle-canvas');
+}, 200);
 
 // TODO случайайная гифка котяры :D ✅
 document.addEventListener("DOMContentLoaded", function() {
@@ -1479,6 +1481,7 @@ function createHolidayDecorations() {
     // If decorations are disabled globally, stop further execution
     return;
   }
+  
 
   if (isHolidayGLOBAL && isChristmasDates === true && !document.querySelector('.santaWrapper')) {
     const bodyElement = document.querySelector('body');
@@ -1701,7 +1704,9 @@ function recreateParticleCanvas() {
   
   // Перезапускаем canvas
   try {
-    createParticleCanvas('particle-canvas');
+    setTimeout(() => {
+      createParticleCanvas('particle-canvas');
+    }, 200);
   } catch(e) {
     console.error("Ошибка при перезапуске canvas:", e);
   }
