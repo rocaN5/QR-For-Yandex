@@ -3,6 +3,7 @@ const versionLots = "1.4.1"
 const versionPoly = "1.3"
 const versionCarts = "1.0"
 
+let isHolidayGLOBAL = false;
 let spanHistoryItemCounter = 0;
 
 document.getElementById('qr-text').addEventListener('submit', function(e) {
@@ -203,6 +204,11 @@ function anomalyDescription__disabled(){
 }
 
 function isChristmasPeriod() {
+  // Если декорации выключены глобально, возвращаем false
+  if (typeof isHolidayGLOBAL !== 'undefined' && isHolidayGLOBAL === false) {
+    return false;
+  }
+  
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentDate = today.getDate();
@@ -822,6 +828,12 @@ const snowflakeSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 5
 
 // Функция проверки даты
 function isWinterSeason() {
+  // Если декорации выключены глобально, сразу возвращаем false
+  if (typeof isHolidayGLOBAL !== 'undefined' && isHolidayGLOBAL === false) {
+    document.querySelector('body').classList.remove('christmas-mode');
+    return false;
+  }
+  
   const today = new Date();
   const currentMonth = today.getMonth() + 1; // 1-12 (январь-декабрь)
   const currentDay = today.getDate();
@@ -848,13 +860,13 @@ function createParticleCanvas(canvasId) {
   let particlesEnabled = true;
   let lastTime = 0;
   let fps = 0;
+
+  const isSnowMode = isHolidayGLOBAL !== false && isWinterSeason();
   
-  // Определяем режим отображения
-  const isSnowMode = isWinterSeason();
-  
-  // Определяем размеры в зависимости от режима
+  // Adjust particle size based on holiday season or not
   const sizeRange = isSnowMode ? { min: 8, max: 12 } : { min: 2, max: 6 };
 
+  // Mouse and resize listeners remain unchanged
   document.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -869,6 +881,17 @@ function createParticleCanvas(canvasId) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
+
+  let snowflakeImage = null;
+  if (isSnowMode) {
+    snowflakeImage = new Image();
+    const svgBlob = new Blob([snowflakeSVG], {type: 'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+    snowflakeImage.src = url;
+    snowflakeImage.onload = function() {
+      console.log('Snowflake loaded, size range:', sizeRange);
+    };
+  }
 
   const canvasLowButton = document.querySelector('.canvasLow');
   const canvasHighButton = document.querySelector('.canvasHigh');
@@ -930,18 +953,6 @@ function createParticleCanvas(canvasId) {
 
   function random(min, max) {
     return Math.random() * (max - min) + min;
-  }
-
-  // Создаем изображение снежинки
-  let snowflakeImage = null;
-  if (isSnowMode) {
-    snowflakeImage = new Image();
-    const svgBlob = new Blob([snowflakeSVG], {type: 'image/svg+xml;charset=utf-8'});
-    const url = URL.createObjectURL(svgBlob);
-    snowflakeImage.src = url;
-    snowflakeImage.onload = function() {
-      console.log('Снежинка загружена, размеры:', sizeRange);
-    };
   }
 
   class Particle {
@@ -1371,6 +1382,350 @@ alternateCheckboxes.forEach(checkbox => {
 
 alternateQRInput.forEach(checkbox => {
   checkbox.addEventListener("click", toggleAlternateQR);
+});
+
+// TODO toggle HOLIDAYS
+
+// TODO Кнопка новогодних декораций ✅
+const holidayInput = document.querySelectorAll("#toggleHolidaysDecorations");
+const holidayInputIcon = document.querySelector("label[for='toggleHolidaysDecorations'] i");
+
+// В функции loadHolidayState() добавляем после загрузки состояния
+function loadHolidayState() {
+  const savedState = localStorage.getItem('isHolidayGLOBAL');
+  if (savedState !== null) {
+    isHolidayGLOBAL = savedState === 'true';
+    
+    // Восстанавливаем состояние чекбокса
+    const checkbox = document.querySelector('input#toggleHolidaysDecorations');
+    if (checkbox) {
+      checkbox.checked = isHolidayGLOBAL;
+    }
+    
+    // Восстанавливаем визуальное состояние иконки
+    if (isHolidayGLOBAL) {
+      
+      // Обновляем состояние новогоднего периода
+      if (typeof isChristmas === 'function') {
+        isChristmas();
+      }
+      
+      // Если сейчас новогодний период, создаем декорации
+      if (isChristmasDates === true) {
+        setTimeout(() => {
+          createHolidayDecorations();
+        }, 100);
+      }
+      
+      // Добавляем класс если нужно
+      if (isWinterSeason()) {
+        document.querySelector('body').classList.add('christmas-mode');
+      }
+    } else {
+      document.querySelector('body').classList.remove('christmas-mode');
+    }
+  }
+}
+
+// Функция для сохранения состояния в localStorage
+function saveHolidayState() {
+  localStorage.setItem('isHolidayGLOBAL', isHolidayGLOBAL.toString());
+}
+
+function toggleHolidayDecorations(){
+  if(isHolidayGLOBAL === false){
+    isHolidayGLOBAL = true;
+    
+    // Включаем новогодний режим
+    document.querySelector('body').classList.add('christmas-mode');
+    
+    // Вызываем функцию isChristmas() из christmass.js
+    if (typeof isChristmas === 'function') {
+      isChristmas(); // Эта функция обновит isChristmasDates
+    }
+    
+    // Вручную запускаем создание декораций
+    if (isChristmasDates === true) {
+      createHolidayDecorations();
+    }
+  } else {
+    isHolidayGLOBAL = false;
+    
+    // Убираем новогодний режим
+    document.querySelector('body').classList.remove('christmas-mode');
+    
+    // Удаляем все новогодние декорации
+    removeHolidayDecorations();
+  }
+  
+  // Сохраняем состояние после изменения
+  saveHolidayState();
+  
+  console.log("isHolidayGLOBAL === " + isHolidayGLOBAL);
+  
+  // Обновляем canvas частиц - полная перезагрузка
+  recreateParticleCanvas();
+  
+  // Перегенерируем QR-коды чтобы убрать/добавить ёлки
+  if (typeof generateCodes === 'function') {
+    generateCodes();
+  }
+}
+
+// Новая функция для создания декораций
+function createHolidayDecorations() {
+  // Check if holiday decorations are enabled globally
+  if (isHolidayGLOBAL === false) {
+    // If decorations are disabled globally, stop further execution
+    return;
+  }
+
+  if (isHolidayGLOBAL && isChristmasDates === true && !document.querySelector('.santaWrapper')) {
+    const bodyElement = document.querySelector('body');
+    const santaAndDears = document.createElement('div');
+    santaAndDears.classList.add('santaWrapper');
+    santaAndDears.innerHTML = `
+      <div class="sleigh-santa">
+          <div class="santaBanner">
+              <p>С новым годом !</p>
+          </div>
+          <div class="santa santa--sleigh">
+              <div class="santa__hat">
+              <div class="santa__hat-part"></div>
+              <div class="santa__hat-part"></div>
+              </div>
+              <div class="santa__face">
+              <div class="santa__eyebrows santa__eyebrows--right"></div>
+              <div class="santa__eyebrows santa__eyebrows--left"></div>
+              <div class="santa__eye santa__eye--right"></div>
+              <div class="santa__eye santa__eye--left"></div>
+              <div class="santa__nose"></div>
+              <div class="santa__cheek santa__cheek--right"></div>
+              <div class="santa__cheek santa__cheek--left"></div>
+              <div class="santa__beard">
+                  <div class="santa__beard-part"></div>
+                  <div class="santa__beard-part"></div>
+                  <div class="santa__beard-part"></div>
+              </div>
+              <div class="santa__mouth"></div>
+              </div>
+              <div class="santa__body">
+              <div class="santa__body-top"></div>
+              <div class="santa__hand santa__hand--left">
+                  <div class="santa__hand-inner"></div>
+              </div>
+              <div class="santa__hand santa__hand--right"></div>
+              </div>
+          </div>
+          <div class="sleigh-feet"></div>
+          <div class="lead">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="lead lead--back">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="reindeer">
+              <div class="reindeer__face">
+              <div class="reindeer__ear"></div>
+              <div class="reindeer__horn reindeer__horn--right"></div>
+              <div class="reindeer__horn reindeer__horn--left"></div>
+              </div>
+              <div class="reindeer__body">
+              <div class="reindeer__foot reindeer__foot--front">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--front reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__tail"></div>
+              <div class="reindeer__spots"></div>
+              </div>
+          </div>
+          <div class="reindeer reindeerSecond">
+              <div class="reindeer__face">
+              <div class="reindeer__ear"></div>
+              <div class="reindeer__horn reindeer__horn--right"></div>
+              <div class="reindeer__horn reindeer__horn--left"></div>
+              </div>
+              <div class="reindeer__body">
+              <div class="reindeer__foot reindeer__foot--front">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--front reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__tail"></div>
+              <div class="reindeer__spots"></div>
+              </div>
+          </div>
+          <div class="lead reindeerSecond">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="lead lead--back reindeerSecond">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="reindeer reindeerThird">
+              <div class="reindeer__face">
+              <div class="reindeer__ear"></div>
+              <div class="reindeer__horn reindeer__horn--right"></div>
+              <div class="reindeer__horn reindeer__horn--left"></div>
+              </div>
+              <div class="reindeer__body">
+              <div class="reindeer__foot reindeer__foot--front">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--front reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__foot reindeer__foot--back reindeer__foot--inside">
+                  <div class="reindeer__foot-inner"></div>
+              </div>
+              <div class="reindeer__tail"></div>
+              <div class="reindeer__spots"></div>
+              </div>
+          </div>
+          <div class="lead reindeerThird">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="lead lead--back reindeerThird">
+              <div class="lead-inner"></div>
+          </div>
+          <div class="particles"></div>
+      </div>
+  `;
+  bodyElement.appendChild(santaAndDears);
+
+    // Create wreaths for buttons if they don't already exist
+    if (!document.querySelector('.holidayVenok')) {
+      const navMenuElement = document.querySelector('nav.menu');
+      const navContactsElement = document.querySelector('nav.contacts');
+      const navEvryButton = navMenuElement.querySelectorAll('button');
+      const navEvryLink = navMenuElement.querySelectorAll('a');
+      const navEvryButtonContacts = navContactsElement.querySelectorAll('button');
+      const navEvryLinkContacts = navContactsElement.querySelectorAll('a');
+      const navEvryLinkContactsLabel = navContactsElement.querySelectorAll('label');
+
+      navEvryButton.forEach(btn => {
+          const holidayVenok = document.createElement('div');
+          holidayVenok.classList.add("holidayVenok");
+          btn.appendChild(holidayVenok);
+      });
+      navEvryLink.forEach(link => {
+          const holidayVenok = document.createElement('div');
+          holidayVenok.classList.add("holidayVenok");
+          link.appendChild(holidayVenok);
+      });
+
+      navEvryButtonContacts.forEach(btn => {
+          const holidayVenok = document.createElement('div');
+          holidayVenok.classList.add("holidayVenok");
+          btn.appendChild(holidayVenok);
+      });
+      navEvryLinkContacts.forEach(link => {
+          const holidayVenok = document.createElement('div');
+          holidayVenok.classList.add("holidayVenok");
+          link.appendChild(holidayVenok);
+      });
+      navEvryLinkContactsLabel.forEach(label => {
+          const holidayVenok = document.createElement('div');
+          holidayVenok.classList.add("holidayVenok");
+          label.appendChild(holidayVenok);
+      });
+      if (!document.querySelector('.qrHolidayVenok')) {
+          const qrHolidayVenok = document.createElement('div');
+          qrHolidayVenok.classList.add("holidayVenok", "qrHolidayVenok");
+          const qrCodeElement = document.getElementById('qr-code');
+          if (qrCodeElement) {
+              qrCodeElement.before(qrHolidayVenok);
+          }
+      }
+    }
+  }
+}
+
+// Новая функция для удаления декораций
+function removeHolidayDecorations() {
+  const santaWrapper = document.querySelector('.santaWrapper');
+  if (santaWrapper) {
+    santaWrapper.remove();
+  }
+  
+  // Удаляем все венки
+  const allVenoks = document.querySelectorAll('.holidayVenok');
+  allVenoks.forEach(venok => {
+    venok.remove();
+  });
+  
+  // Удаляем украшение с QR-кода
+  const qrHolidayVenok = document.querySelector('.qrHolidayVenok');
+  if (qrHolidayVenok) {
+    qrHolidayVenok.remove();
+  }
+}
+
+// Функция пересоздания canvas
+function recreateParticleCanvas() {
+  // Удаляем старый canvas
+  const oldCanvas = document.getElementById('particle-canvas');
+  if (oldCanvas) {
+    oldCanvas.remove();
+  }
+  
+  // Создаем новый canvas
+  const newCanvas = document.createElement('canvas');
+  newCanvas.id = 'particle-canvas';
+  // Добавляем canvas в правильное место - в .mainContentContainer
+  const mainContentContainer = document.querySelector('.mainContentContainer');
+  if (mainContentContainer) {
+    // Добавляем в начало контейнера, чтобы был под всем контентом
+    mainContentContainer.insertBefore(newCanvas, mainContentContainer.firstChild);
+  } else {
+    // Если не нашли контейнер, добавляем в body
+    document.body.appendChild(newCanvas);
+  }
+  
+  // Перезапускаем canvas
+  try {
+    createParticleCanvas('particle-canvas');
+  } catch(e) {
+    console.error("Ошибка при перезапуске canvas:", e);
+  }
+}
+
+// Загружаем состояние при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadHolidayState);
+
+// Обработчик для чекбокса
+const holidayCheckboxes = document.querySelectorAll('input#toggleHolidaysDecorations');
+holidayCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    if (this.checked !== isHolidayGLOBAL) {
+      toggleHolidayDecorations();
+      makeSoundClick();
+    }
+  });
+});
+
+// Также добавляем обработчик клика на label
+holidayInput.forEach(checkbox => {
+  checkbox.addEventListener("click", function() {
+    // Изменение обрабатывается через change событие
+  });
 });
 
 // * qrHistory

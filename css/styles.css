@@ -2694,45 +2694,27 @@ nav.contacts {
   right: 0;
   transition: 200ms;
 }
+nav.contacts:has(label:hover) label::after, nav.contacts:has(label:hover) label::before, nav.contacts:has(label:focus-visible) label::after, nav.contacts:has(label:focus-visible) label::before, nav.contacts:hover label::after, nav.contacts:hover label::before {
+  opacity: 0.2 !important;
+  transform: translateX(0px) !important;
+  transition: opacity 500ms, color 1.5s, transform 500ms !important;
+  color: #fff !important;
+}
 nav.contacts:hover button::after, nav.contacts:hover button::before,
 nav.contacts:hover a::after,
-nav.contacts:hover a::before,
-nav.contacts:hover label::after,
-nav.contacts:hover label::before, nav.contacts:has(button:hover) button::after, nav.contacts:has(button:hover) button::before,
+nav.contacts:hover a::before, nav.contacts:has(button:hover) button::after, nav.contacts:has(button:hover) button::before,
 nav.contacts:has(button:hover) a::after,
-nav.contacts:has(button:hover) a::before,
-nav.contacts:has(button:hover) label::after,
-nav.contacts:has(button:hover) label::before, nav.contacts:has(button:focus) button::after, nav.contacts:has(button:focus) button::before,
+nav.contacts:has(button:hover) a::before, nav.contacts:has(button:focus) button::after, nav.contacts:has(button:focus) button::before,
 nav.contacts:has(button:focus) a::after,
-nav.contacts:has(button:focus) a::before,
-nav.contacts:has(button:focus) label::after,
-nav.contacts:has(button:focus) label::before, nav.contacts:has(a:hover) button::after, nav.contacts:has(a:hover) button::before,
+nav.contacts:has(button:focus) a::before, nav.contacts:has(a:hover) button::after, nav.contacts:has(a:hover) button::before,
 nav.contacts:has(a:hover) a::after,
-nav.contacts:has(a:hover) a::before,
-nav.contacts:has(a:hover) label::after,
-nav.contacts:has(a:hover) label::before, nav.contacts:has(a:focus) button::after, nav.contacts:has(a:focus) button::before,
+nav.contacts:has(a:hover) a::before, nav.contacts:has(a:focus) button::after, nav.contacts:has(a:focus) button::before,
 nav.contacts:has(a:focus) a::after,
-nav.contacts:has(a:focus) a::before,
-nav.contacts:has(a:focus) label::after,
-nav.contacts:has(a:focus) label::before, nav.contacts:has(input:hover) button::after, nav.contacts:has(input:hover) button::before,
+nav.contacts:has(a:focus) a::before, nav.contacts:has(input:hover) button::after, nav.contacts:has(input:hover) button::before,
 nav.contacts:has(input:hover) a::after,
-nav.contacts:has(input:hover) a::before,
-nav.contacts:has(input:hover) label::after,
-nav.contacts:has(input:hover) label::before, nav.contacts:has(input:focus-visible) button::after, nav.contacts:has(input:focus-visible) button::before,
+nav.contacts:has(input:hover) a::before, nav.contacts:has(input:focus-visible) button::after, nav.contacts:has(input:focus-visible) button::before,
 nav.contacts:has(input:focus-visible) a::after,
-nav.contacts:has(input:focus-visible) a::before,
-nav.contacts:has(input:focus-visible) label::after,
-nav.contacts:has(input:focus-visible) label::before {
-  opacity: 0.2;
-  transform: unset;
-  transition: opacity 500ms, color 1.5s, transform 500ms;
-  color: #fff;
-}
-nav.contacts:hover a::after, nav.contacts:hover a::before,
-nav.contacts:hover button::after,
-nav.contacts:hover button::before,
-nav.contacts:hover label::after,
-nav.contacts:hover label::before {
+nav.contacts:has(input:focus-visible) a::before {
   opacity: 0.2;
   transform: unset;
   transition: opacity 500ms, color 1.5s, transform 500ms;
@@ -2768,10 +2750,10 @@ nav.contacts a:hover, nav.contacts a:focus-visible {
   border: 2px solid #656565;
 }
 nav.contacts a:hover::after, nav.contacts a:hover::before, nav.contacts a:focus-visible::after, nav.contacts a:focus-visible::before {
-  opacity: 1;
-  transform: translateX(-6px);
-  transition: opacity 500ms, color 1.5s, transform 500ms;
-  color: #fff;
+  opacity: 1 !important;
+  transform: translateX(-6px) !important;
+  transition: opacity 500ms, color 1.5s, transform 500ms !important;
+  color: #fff !important;
   pointer-events: none;
   user-select: none;
   outline: none;
@@ -2823,7 +2805,22 @@ nav.contacts a::before {
 }
 nav.contacts button,
 nav.contacts label#toggleAlternate {
-  outline: none;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-sizing: border-box;
 }
 nav.contacts button::before,
 nav.contacts label#toggleAlternate::before {
@@ -2841,6 +2838,7 @@ nav.contacts label#toggleAlternate::before {
 }
 nav.contacts button::after,
 nav.contacts label#toggleAlternate::after {
+  content: "Локальный OFF" !important;
   position: absolute;
   content: "...";
   display: flex;
@@ -2861,6 +2859,64 @@ nav.contacts label#toggleAlternate::after {
   color: #8d8d8d;
   white-space: nowrap;
 }
+nav.contacts button:has(input:focus-visible),
+nav.contacts label#toggleAlternate:has(input:focus-visible) {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+  transition: 200ms !important;
+  border: 2px solid #656565 !important;
+}
+nav.contacts button:has(input:focus-visible)::after, nav.contacts button:has(input:focus-visible)::before,
+nav.contacts label#toggleAlternate:has(input:focus-visible)::after,
+nav.contacts label#toggleAlternate:has(input:focus-visible)::before {
+  opacity: 1;
+  transform: translateX(-6px);
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  color: #fff;
+}
+nav.contacts button:has(input:focus-visible:checked),
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts button:has(input:focus-visible:checked) i,
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) i {
+  color: var(--activeColor) !important;
+}
+nav.contacts button:has(input[type=checkbox]:checked),
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) {
+  --activeColor: #cf0;
+  border-color: var(--activeColor);
+}
+nav.contacts button:has(input[type=checkbox]:checked) i,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) i {
+  color: var(--activeColor);
+}
+nav.contacts button:has(input[type=checkbox]:checked):hover,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts button:has(input[type=checkbox]:checked):hover i,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover i {
+  color: var(--activeColor) !important;
+}
+nav.contacts button:has(input[type=checkbox]:checked)::after,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked)::after {
+  content: "Локальный ON" !important;
+}
+nav.contacts button i,
+nav.contacts label#toggleAlternate i {
+  color: #fff;
+  font-size: 16px;
+  transition: 200ms;
+}
+nav.contacts button input[type=checkbox],
+nav.contacts label#toggleAlternate input[type=checkbox] {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  position: absolute;
+}
 nav.contacts button:hover, nav.contacts button:focus-visible,
 nav.contacts label#toggleAlternate:hover,
 nav.contacts label#toggleAlternate:focus-visible {
@@ -2873,9 +2929,127 @@ nav.contacts label#toggleAlternate:hover::after,
 nav.contacts label#toggleAlternate:hover::before,
 nav.contacts label#toggleAlternate:focus-visible::after,
 nav.contacts label#toggleAlternate:focus-visible::before {
+  opacity: 1 !important;
+  transform: translateX(-6px) !important;
+  transition: opacity 500ms, color 1.5s, transform 500ms !important;
+  color: #fff;
+}
+nav.contacts label#toggleHolidays {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  transition: 200ms;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.768627451);
+  backdrop-filter: blur(2px) grayscale(1);
+  cursor: pointer;
+  z-index: 998;
+  border: 2px solid rgba(154, 154, 154, 0.1294117647);
+  box-sizing: border-box;
+}
+nav.contacts label#toggleHolidays input[type=checkbox] {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  position: absolute;
+}
+nav.contacts label#toggleHolidays::after {
+  content: "Праздники OFF" !important;
+}
+nav.contacts label#toggleHolidays:has(input:focus-visible) {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+  transition: 200ms !important;
+  border: 2px solid #656565 !important;
+}
+nav.contacts label#toggleHolidays:has(input:focus-visible)::after, nav.contacts label#toggleHolidays:has(input:focus-visible)::before {
   opacity: 1;
   transform: translateX(-6px);
   transition: opacity 500ms, color 1.5s, transform 500ms;
+  color: #fff;
+}
+nav.contacts label#toggleHolidays:has(input:focus-visible:checked) {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts label#toggleHolidays:has(input:focus-visible:checked) i {
+  color: var(--activeColor) !important;
+}
+nav.contacts label#toggleHolidays:has(input[type=checkbox]:checked) {
+  --activeColor: #cf0;
+  border-color: var(--activeColor);
+}
+nav.contacts label#toggleHolidays:has(input[type=checkbox]:checked) i {
+  color: var(--activeColor);
+}
+nav.contacts label#toggleHolidays:has(input[type=checkbox]:checked):hover {
+  --activeColor: #9dff00;
+  border-color: var(--activeColor) !important;
+}
+nav.contacts label#toggleHolidays:has(input[type=checkbox]:checked):hover i {
+  color: var(--activeColor) !important;
+}
+nav.contacts label#toggleHolidays:has(input[type=checkbox]:checked)::after {
+  content: "Праздники ON" !important;
+}
+nav.contacts label#toggleHolidays i {
+  --iconSize: 20px;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  color: #fff;
+  transition: 200ms;
+}
+nav.contacts label#toggleHolidays i svg {
+  width: 100%;
+  height: 100%;
+}
+nav.contacts label#toggleHolidays::before {
+  content: "";
+  display: flex;
+  position: absolute;
+  border: 4px solid transparent;
+  border-left: 4px solid #656565;
+  right: calc(100% + 6px);
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  opacity: 0;
+  transform: translateX(10px);
+  border-top-right-radius: 4px;
+  pointer-events: none;
+}
+nav.contacts label#toggleHolidays::after {
+  position: absolute;
+  content: "...";
+  display: flex;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.3803921569);
+  border: 2px solid #fff;
+  right: calc(100% + 14px);
+  z-index: -1;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  backdrop-filter: grayscale(1) blur(2px);
+  border: 2px solid #656565;
+  transition: opacity 500ms, color 1.5s, transform 500ms;
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  color: #8d8d8d;
+  white-space: nowrap;
+}
+nav.contacts label#toggleHolidays:hover, nav.contacts label#toggleHolidays:focus-visible {
+  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+  transition: 200ms !important;
+  border: 2px solid #656565 !important;
+}
+nav.contacts label#toggleHolidays:hover::after, nav.contacts label#toggleHolidays:hover::before, nav.contacts label#toggleHolidays:focus-visible::after, nav.contacts label#toggleHolidays:focus-visible::before {
+  opacity: 1 !important;
+  transform: translateX(-6px) !important;
+  transition: opacity 500ms, color 1.5s, transform 500ms !important;
   color: #fff;
 }
 nav.contacts button.callSettings,
@@ -2901,77 +3075,10 @@ nav.contacts button.callAutorization i {
 }
 nav.contacts button.callSettings::after,
 nav.contacts button.callAutorization::after {
-  content: "Настройки";
+  content: "Настройки" !important;
 }
 nav.contacts button.callAutorization::after {
   content: "Пользователь";
-}
-nav.contacts label#toggleAlternate {
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  border-radius: 10px;
-  transition: 200ms;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.768627451);
-  backdrop-filter: blur(2px) grayscale(1);
-  cursor: pointer;
-  z-index: 998;
-  border: 2px solid rgba(154, 154, 154, 0.1294117647);
-  box-sizing: border-box;
-}
-nav.contacts label#toggleAlternate:has(input:focus-visible) {
-  backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
-  transition: 200ms !important;
-  border: 2px solid #656565 !important;
-}
-nav.contacts label#toggleAlternate:has(input:focus-visible)::after, nav.contacts label#toggleAlternate:has(input:focus-visible)::before {
-  opacity: 1;
-  transform: translateX(-6px);
-  transition: opacity 500ms, color 1.5s, transform 500ms;
-  color: #fff;
-}
-nav.contacts label#toggleAlternate:has(input:focus-visible:checked) {
-  --activeColor: #9dff00;
-  border-color: var(--activeColor) !important;
-}
-nav.contacts label#toggleAlternate:has(input:focus-visible:checked) i {
-  color: var(--activeColor) !important;
-}
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) {
-  --activeColor: #cf0;
-  border-color: var(--activeColor);
-}
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) i {
-  color: var(--activeColor);
-}
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover {
-  --activeColor: #9dff00;
-  border-color: var(--activeColor) !important;
-}
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover i {
-  color: var(--activeColor) !important;
-}
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked)::after {
-  content: "Локальный ON";
-}
-nav.contacts label#toggleAlternate i {
-  color: #fff;
-  font-size: 16px;
-  transition: 200ms;
-}
-nav.contacts label#toggleAlternate input[type=checkbox] {
-  width: 0px;
-  height: 0px;
-  background: transparent;
-  position: absolute;
-}
-nav.contacts label#toggleAlternate::after {
-  content: "Локальный OFF";
 }
 nav.contacts i.menuDevider {
   width: 100%;
@@ -4072,6 +4179,7 @@ section.bodyDOM section.settings .settingItemTitle {
   background: #161616;
   border-radius: 10px 10px 0px 0px;
   padding: 10px 0;
+  font-size: 1rem;
 }
 section.bodyDOM section.settings .settingItem .canvasSettings {
   position: relative;

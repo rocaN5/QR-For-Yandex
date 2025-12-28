@@ -7,6 +7,22 @@ nav.contacts{
     z-index: 99999;
     right: 0;
     transition: 200ms;
+    
+    // ДОБАВИТЬ ЭТОТ СЕЛЕКТОР для label
+    &:has(label:hover),
+    &:has(label:focus-visible),
+    &:hover {
+        label {
+            &::after,
+            &::before {
+                opacity: .2 !important;
+                transform: translateX(0px) !important;
+                transition: opacity 500ms, color 1.5s, transform 500ms !important;
+                color: #fff !important;
+            }
+        }
+    }
+    
     &:hover,
     &:has(button:hover),
     &:has(button:focus),
@@ -15,21 +31,7 @@ nav.contacts{
     &:has(input:hover),
     &:has(input:focus-visible){
         button,
-        a,
-        label{
-            &::after,
-            &::before{
-                opacity: .2;
-                transform: unset;
-                transition: opacity 500ms, color 1.5s, transform 500ms;
-                color: #fff;
-            }
-        }
-    }
-    &:hover{
-        a,
-        button,
-        label{
+        a {
             &::after,
             &::before{
                 opacity: .2;
@@ -69,10 +71,10 @@ nav.contacts{
             border: 2px solid #656565;
             &::after,
             &::before{
-                opacity: 1;
-                transform: translateX(-6px);
-                transition: opacity 500ms, color 1.5s, transform 500ms;
-                color: #fff;
+                opacity: 1 !important;
+                transform: translateX(-6px) !important;
+                transition: opacity 500ms, color 1.5s, transform 500ms !important;
+                color: #fff !important;
                 pointer-events: none;
                 user-select: none;
                 outline: none;
@@ -126,7 +128,191 @@ nav.contacts{
     }
     button,
     label#toggleAlternate{
-        outline: none;
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        border-radius: 10px;
+        transition: 200ms;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.768627451);
+        backdrop-filter: blur(2px) grayscale(1);
+        cursor: pointer;
+        z-index: 998;
+        border: 2px solid rgba(154, 154, 154, 0.1294117647);
+        box-sizing: border-box;
+        &::before {
+            content: '';
+            display: flex;
+            position: absolute;
+            border: 4px solid transparent;
+            border-left: 4px solid #656565;
+            right: calc(100% + 6px);
+            transition: opacity 500ms, color 1.5s, transform 500ms;
+            opacity: 0;
+            transform: translateX(10px);
+            border-top-right-radius: 4px;
+            pointer-events: none;
+        }
+        &::after{
+            content: 'Локальный OFF' !important;
+            position: absolute;
+            content: '...';
+            display: flex;
+            padding: 4px 10px;
+            background: #00000061;
+            border: 2px solid #fff;
+            right: calc(100% + 14px);
+            z-index: -1;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #fff;
+            backdrop-filter: grayscale(1) blur(2px);
+            border: 2px solid #656565;
+            transition: opacity 500ms, color 1.5s, transform 500ms;
+            opacity: 0;
+            transform: translateX(10px);
+            pointer-events: none;
+            color: #8d8d8d;
+            white-space: nowrap;
+        }
+        &:has(input:focus-visible){
+            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+            transition: 200ms !important;
+            border: 2px solid #656565 !important;
+            &::after,
+            &::before{
+                opacity: 1;
+                transform: translateX(-6px);
+                transition: opacity 500ms, color 1.5s, transform 500ms;
+                color: #fff;
+            }
+        }
+        &:has(input:focus-visible:checked){
+            --activeColor: #9dff00;
+            border-color: var(--activeColor) !important;
+            i{
+                color: var(--activeColor) !important;
+            }
+        }
+        &:has(input[type="checkbox"]:checked){
+            --activeColor: #cf0;
+            border-color: var(--activeColor);
+            i{
+                color: var(--activeColor);
+            }
+            &:hover{
+                --activeColor: #9dff00;
+                border-color: var(--activeColor) !important;
+                i{
+                    color: var(--activeColor) !important;
+                }
+            }
+            &::after{
+                content: 'Локальный ON' !important;
+            }
+        }
+        i{
+            color: #fff;
+            font-size: 16px;
+            transition: 200ms;
+        }
+        input[type="checkbox"]{
+            width: 0px;
+            height: 0px;
+            background: transparent;
+            position: absolute;
+        }
+        &:hover,
+        &:focus-visible{
+            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+            transition: 200ms !important;
+            border: 2px solid #656565 !important;
+            &::after,
+            &::before{
+                opacity: 1 !important;
+                transform: translateX(-6px) !important;
+                transition: opacity 500ms, color 1.5s, transform 500ms !important;
+                color: #fff;
+            }
+        }
+    }
+    label#toggleHolidays{
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        border-radius: 10px;
+        transition: 200ms;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.768627451);
+        backdrop-filter: blur(2px) grayscale(1);
+        cursor: pointer;
+        z-index: 998;
+        border: 2px solid rgba(154, 154, 154, 0.1294117647);
+        box-sizing: border-box;
+        input[type="checkbox"]{
+            width: 0px;
+            height: 0px;
+            background: transparent;
+            position: absolute;
+        }
+        &::after{
+            content: 'Праздники OFF' !important;
+        }
+        &:has(input:focus-visible){
+            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
+            transition: 200ms !important;
+            border: 2px solid #656565 !important;
+            &::after,
+            &::before{
+                opacity: 1;
+                transform: translateX(-6px);
+                transition: opacity 500ms, color 1.5s, transform 500ms;
+                color: #fff;
+            }
+        }
+        &:has(input:focus-visible:checked){
+            --activeColor: #9dff00;
+            border-color: var(--activeColor) !important;
+            i{
+                color: var(--activeColor) !important;
+            }
+        }
+        &:has(input[type="checkbox"]:checked){
+            --activeColor: #cf0;
+            border-color: var(--activeColor);
+            i{
+                color: var(--activeColor);
+            }
+            &:hover{
+                --activeColor: #9dff00;
+                border-color: var(--activeColor) !important;
+                i{
+                    color: var(--activeColor) !important;
+                }
+            }
+            &::after{
+                content: 'Праздники ON' !important;
+            }
+        }
+        i{
+            --iconSize: 20px;
+            width: var(--iconSize);
+            height: var(--iconSize);
+            color: #fff;
+            transition: 200ms;
+            svg{
+                width: 100%;
+                height: 100%;
+            }
+        }
         &::before {
             content: '';
             display: flex;
@@ -168,9 +354,9 @@ nav.contacts{
             border: 2px solid #656565 !important;
             &::after,
             &::before{
-                opacity: 1;
-                transform: translateX(-6px);
-                transition: opacity 500ms, color 1.5s, transform 500ms;
+                opacity: 1 !important;
+                transform: translateX(-6px) !important;
+                transition: opacity 500ms, color 1.5s, transform 500ms !important;
                 color: #fff;
             }
         }
@@ -195,7 +381,7 @@ nav.contacts{
             color: #fff;
         }
         &::after{
-            content: 'Настройки';
+            content: 'Настройки' !important;
         }
     }
     button.callAutorization{
@@ -203,74 +389,12 @@ nav.contacts{
             content: 'Пользователь';
         }
     }
-    label#toggleAlternate{
-        display: flex;
-        position: relative;
-        box-sizing: border-box;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        border-radius: 10px;
-        transition: 200ms;
-        justify-content: center;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.768627451);
-        backdrop-filter: blur(2px) grayscale(1);
-        cursor: pointer;
-        z-index: 998;
-        border: 2px solid rgba(154, 154, 154, 0.1294117647);
-        box-sizing: border-box;
-        &:has(input:focus-visible){
-            backdrop-filter: blur(2px) grayscale(1) brightness(0.2) !important;
-            transition: 200ms !important;
-            border: 2px solid #656565 !important;
-            &::after,
-            &::before{
-                opacity: 1;
-                transform: translateX(-6px);
-                transition: opacity 500ms, color 1.5s, transform 500ms;
-                color: #fff;
-            }
-        }
-        &:has(input:focus-visible:checked){
-            --activeColor: #9dff00;
-            border-color: var(--activeColor) !important;
-            i{
-                color: var(--activeColor) !important;
-            }
-        }
-        &:has(input[type="checkbox"]:checked){
-            --activeColor: #cf0;
-            border-color: var(--activeColor);
-            i{
-                color: var(--activeColor);
-            }
-            &:hover{
-                --activeColor: #9dff00;
-                border-color: var(--activeColor) !important;
-                i{
-                    color: var(--activeColor) !important;
-                }
-            }
-            &::after{
-                content: 'Локальный ON';
-            }
-        }
-        i{
-            color: #fff;
-            font-size: 16px;
-            transition: 200ms;
-        }
-        input[type="checkbox"]{
-            width: 0px;
-            height: 0px;
-            background: transparent;
-            position: absolute;
-        }
-        &::after{
-            content: 'Локальный OFF';
-        }
-    }
+    // label#toggleAlternate{
+        
+    // }
+    // label#toggleHolidays{
+        
+    // }
     i.menuDevider{
         width: 100%;
         height: 2px;
