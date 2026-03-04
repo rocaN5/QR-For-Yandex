@@ -1,6 +1,6 @@
 const version = "1.17.3"
 const versionLots = "1.4.1"
-const versionPoly = "1.3"
+const versionPoly = "1.3.1"
 const versionCarts = "1.0"
 
 let isHolidayGLOBAL = false;

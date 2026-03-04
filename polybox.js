@@ -283,262 +283,164 @@ function convertToImageAndOpenInNewTabPoly() {
       });
 }
 
-function changePolyboxDirectionData(){
-  let shipDirectionID_data = null;
-  let shipDirectionTitle_data = null;
-  let shipDirectionPath_data = null;
-  let shipDirectionType_data = null;
-  let shipDirectionPathType_data = null
-
+function changePolyboxDirectionData() {
   const directionInputs = document.querySelectorAll('input[name="direction"]');
 
-  // Ищем уже выбранный input при загрузке страницы
-  const initialCheckedInput = Array.from(directionInputs).find(input => input.checked);
-  if (initialCheckedInput) {
-      const label = document.querySelector(`label[for="${initialCheckedInput.id}"]`);
-      if (label) {
-          const cellIDElement = label.querySelector(".cellID");
-          if (cellIDElement) {
-              const cellID = cellIDElement.textContent.trim();
-              shipDirectionID_data = cellID;
-              
-              // Определяем содержимое shipDirectionTitle_data
-              if (shipDirectionID_data === "24") {
-                shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">День</span>`;
-                shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (День)`
-                shipDirectionType_data = "Последняя миля"
-                shipDirectionPathType_data = "20px"
-              } else if (shipDirectionID_data === "25") {
-                  shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">Ночь</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (Ночь)`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "20px"
-              } else if (shipDirectionID_data === "17") {
-                shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
-                shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
-                shipDirectionType_data = "Последняя миля"
-                shipDirectionPathType_data = "20px"
-              } else if (shipDirectionID_data === "11") {
-                  shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">Ночь</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (Ночь)`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "20px"
-              } else if (shipDirectionID_data === "16") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Ростов</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Ростов`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "3px"
-              } else if (shipDirectionID_data === "–") {
-                  shipDirectionTitle_data = `<span style="font-size: 3rem; margin-top: 10px; margin-bottom: 10px;">den noch drop</span>`;
-                  shipDirectionPath_data = `Яндекс.Маркет (Москва, Царицыно) Дропофф`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "38px"
-              } else if (shipDirectionID_data === "1") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Белгород</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Белгород`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "3px"
-              } else if (shipDirectionID_data === "2") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Курск</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Курск`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "3") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Липецк</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Липецк`
-                  shipDirectionType_data = "Последняя миля"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "7") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Самара</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Самара`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "8") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Мамыри</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Мамыри`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "3px"
-              } else if (shipDirectionID_data === "9") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Троицкий</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Троицкий`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "3px"
-              } else if (shipDirectionID_data === "10") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Казань</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Казань`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "12") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Запад</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Запад`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "13") {
-                  shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Север</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Север`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "9px"
-              } else if (shipDirectionID_data === "14") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ СПБ Бугры</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ СПБ Бугры`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "3px"
-              } else if (shipDirectionID_data === "15") {
-                  shipDirectionTitle_data = `<span style="font-size: 3rem; margin-top: 20px; margin-bottom: 20px;">СЦ Екатеринбург</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Екатеринбург`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "18px"
-              } else if (shipDirectionID_data === "21") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.5rem; margin-top: 20px; margin-bottom: 20px;">СЦ Краснодар</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Краснодар`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "8px"
-              } else if (shipDirectionID_data === "22") {
-                  shipDirectionTitle_data = `<span style="font-size: 3rem;">СЦ Нижний</span><span style="font-size: 3.0rem;">Новгород</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Нижний Новгород`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "1px"
-              } else if (shipDirectionID_data === "23") {
-                  shipDirectionTitle_data = `<span style="font-size: 3.6rem; margin-top: 20px; margin-bottom: 20px;">СЦ Кубинская</span>`;
-                  shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Кубинская`
-                  shipDirectionType_data = "Кросс-док"
-                  shipDirectionPathType_data = "7px"
-              }else {
-                  shipDirectionTitle_data = `<span>Ошибка</span>`;
-              }
+  // Функция, возвращающая данные для указанного ID направления
+  function getDirectionData(id) {
+    // Общие данные по умолчанию
+    let title = '<span>Ошибка</span>';
+    let path = '';
+    let type = '';
+    let pathType = '';
 
-              // Генерируем данные после загрузки страницы
-              generateCodesPoly(shipDirectionID_data, shipDirectionTitle_data, shipDirectionPath_data, shipDirectionType_data, shipDirectionPathType_data);
-          }
-      }
+    if (id === "24") {
+      title = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">День</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Грибки (День)`;
+      type = "Последняя миля";
+      pathType = "20px";
+    } else if (id === "25") {
+      title = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">Ночь</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Грибки (Ночь)`;
+      type = "Последняя миля";
+      pathType = "20px";
+    } else if (id === "17") {
+      title = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`;
+      type = "Последняя миля";
+      pathType = "20px";
+    } else if (id === "11") {
+      title = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">Ночь</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный (Ночь)`;
+      type = "Последняя миля";
+      pathType = "20px";
+    } else if (id === "16") {
+      title = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Ростов</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Ростов`;
+      type = "Последняя миля";
+      pathType = "3px";
+    } else if (id === "-1") {
+      title = `<span style="font-size: 3.0rem; margin-top: 20px; margin-bottom: 20px;">ФФЦ Ростов КГТ</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Ростов ➜ Яндекс.Маркет (Ростов–на–Дону КГТ)`;
+      type = "Последняя миля";
+      pathType = "18px";
+    } else if (id === "-2") {
+      title = `<span style="font-size: 3.2rem; margin-top: 20px; margin-bottom: 20px;">Софьино ФФЦ</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Ростов ➜ Яндекс.Маркет (Софьино)`;
+      type = "Последняя миля";
+      pathType = "14px";
+    } else if (id === "–") {
+      title = `<span style="font-size: 3rem; margin-top: 10px; margin-bottom: 10px;">den noch drop</span>`;
+      path = `Яндекс.Маркет (Москва, Царицыно) Дропофф`;
+      type = "Последняя миля";
+      pathType = "38px";
+    } else if (id === "1") {
+      title = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Белгород</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Белгород`;
+      type = "Последняя миля";
+      pathType = "3px";
+    } else if (id === "2") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Курск</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Курск`;
+      type = "Последняя миля";
+      pathType = "9px";
+    } else if (id === "3") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Липецк</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ Липецк`;
+      type = "Последняя миля";
+      pathType = "9px";
+    } else if (id === "7") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Самара</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Самара`;
+      type = "Кросс-док";
+      pathType = "9px";
+    } else if (id === "8") {
+      title = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Мамыри</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Мамыри`;
+      type = "Кросс-док";
+      pathType = "3px";
+    } else if (id === "9") {
+      title = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Троицкий</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Троицкий`;
+      type = "Кросс-док";
+      pathType = "3px";
+    } else if (id === "10") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Казань</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Казань`;
+      type = "Кросс-док";
+      pathType = "9px";
+    } else if (id === "12") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Запад</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Запад`;
+      type = "Кросс-док";
+      pathType = "9px";
+    } else if (id === "13") {
+      title = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Север</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Север`;
+      type = "Кросс-док";
+      pathType = "9px";
+    } else if (id === "14") {
+      title = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ СПБ Бугры</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ СПБ Бугры`;
+      type = "Кросс-док";
+      pathType = "3px";
+    } else if (id === "15") {
+      title = `<span style="font-size: 3rem; margin-top: 20px; margin-bottom: 20px;">СЦ Екатеринбург</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Екатеринбург`;
+      type = "Кросс-док";
+      pathType = "18px";
+    } else if (id === "21") {
+      title = `<span style="font-size: 3.5rem; margin-top: 20px; margin-bottom: 20px;">СЦ Краснодар</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Краснодар`;
+      type = "Кросс-док";
+      pathType = "8px";
+    } else if (id === "22") {
+      title = `<span style="font-size: 3rem;">СЦ Нижний</span><span style="font-size: 3.0rem;">Новгород</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Нижний Новгород`;
+      type = "Кросс-док";
+      pathType = "1px";
+    } else if (id === "23") {
+      title = `<span style="font-size: 3.6rem; margin-top: 20px; margin-bottom: 20px;">СЦ Кубинская</span>`;
+      path = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Кубинская`;
+      type = "Кросс-док";
+      pathType = "7px";
+    }
+
+    return { title, path, type, pathType };
   }
 
-  // Добавляем обработчик на изменение для каждого input
+  // Обработчик изменения выбора
+  function handleDirectionChange(input) {
+    const label = document.querySelector(`label[for="${input.id}"]`);
+    if (!label) {
+      console.error(`Label не найден для input с id: ${input.id}`);
+      return;
+    }
+
+    const cellIDElement = label.querySelector(".cellID");
+    if (!cellIDElement) {
+      console.error(`div.cellID не найден для input: ${input.id}`);
+      return;
+    }
+
+    const id = cellIDElement.textContent.trim();
+    const { title, path, type, pathType } = getDirectionData(id);
+    generateCodesPoly(id, title, path, type, pathType);
+  }
+
+  // Инициализация при загрузке — проверим, есть ли уже выбранный вариант
+  const checkedInput = Array.from(directionInputs).find(input => input.checked);
+  if (checkedInput) {
+    handleDirectionChange(checkedInput);
+  }
+
+  // Подписка на изменения
   directionInputs.forEach(input => {
-      input.addEventListener("change", () => {
-          if (input.checked) {
-              const label = document.querySelector(`label[for="${input.id}"]`);
-
-              if (label) {
-                  const cellIDElement = label.querySelector(".cellID");
-
-                  if (cellIDElement) {
-                      const cellID = cellIDElement.textContent.trim();
-                      shipDirectionID_data = cellID;
-
-                      // Определяем содержимое shipDirectionTitle_data
-                      if (shipDirectionID_data === "24") {
-                        shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">День</span>`;
-                        shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (День)`
-                        shipDirectionType_data = "Последняя миля"
-                        shipDirectionPathType_data = "20px"
-                      } else if (shipDirectionID_data === "25") {
-                          shipDirectionTitle_data = `<span style="font-size: 2rem;">СЦ Грибки</span><span style="text-decoration: underline;">Ночь</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Грибки (Ночь)`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "20px"
-                      } else if (shipDirectionID_data === "17") {
-                        shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">День</span>`;
-                        shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (День)`
-                        shipDirectionType_data = "Последняя миля"
-                        shipDirectionPathType_data = "20px"
-                      } else if (shipDirectionID_data === "11") {
-                          shipDirectionTitle_data = `<span style="font-size: 2rem;">МК Тарный</span><span style="text-decoration: underline;">Ночь</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный (Ночь)`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "20px"
-                      } else if (shipDirectionID_data === "16") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Ростов</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Ростов`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "3px"
-                      } else if (shipDirectionID_data === "–") {
-                          shipDirectionTitle_data = `<span style="font-size: 3rem; margin-top: 10px; margin-bottom: 10px;">den noch drop</span>`;
-                          shipDirectionPath_data = `Яндекс.Маркет (Москва, Царицыно) Дропофф`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "38px"
-                      } else if (shipDirectionID_data === "1") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Белгород</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Белгород`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "3px"
-                      } else if (shipDirectionID_data === "2") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Курск</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Курск`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "3") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Липецк</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ Липецк`
-                          shipDirectionType_data = "Последняя миля"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "7") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Самара</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Самара`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "8") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Мамыри</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Мамыри`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "3px"
-                      } else if (shipDirectionID_data === "9") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ Троицкий</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Троицкий`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "3px"
-                      } else if (shipDirectionID_data === "10") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Казань</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Казань`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "12") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Запад</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Запад`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "13") {
-                          shipDirectionTitle_data = `<span style="font-size: 4.5rem; margin-top: 10px; margin-bottom: 10px;">СЦ Север</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Север`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "9px"
-                      } else if (shipDirectionID_data === "14") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.8rem; margin-top: 20px; margin-bottom: 20px;">СЦ СПБ Бугры</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ СПБ Бугры`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "3px"
-                      } else if (shipDirectionID_data === "15") {
-                          shipDirectionTitle_data = `<span style="font-size: 3rem; margin-top: 20px; margin-bottom: 20px;">СЦ Екатеринбург</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Екатеринбург`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "18px"
-                      } else if (shipDirectionID_data === "21") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.5rem; margin-top: 20px; margin-bottom: 20px;">СЦ Краснодар</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Краснодар`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "8px"
-                      } else if (shipDirectionID_data === "22") {
-                          shipDirectionTitle_data = `<span style="font-size: 3rem;">СЦ Нижний</span><span style="font-size: 3.0rem;">Новгород</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Нижний Новгород`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "1px"
-                      } else if (shipDirectionID_data === "23") {
-                          shipDirectionTitle_data = `<span style="font-size: 3.6rem; margin-top: 20px; margin-bottom: 20px;">СЦ Кубинская</span>`;
-                          shipDirectionPath_data = `СЦ МК Воронеж ➜ СЦ МК Тарный ➜ СЦ Кубинская`
-                          shipDirectionType_data = "Кросс-док"
-                          shipDirectionPathType_data = "7px"
-                      }else {
-                          shipDirectionTitle_data = `<span>Ошибка</span>`;
-                      }
-                      generateCodesPoly(shipDirectionID_data, shipDirectionTitle_data, shipDirectionPath_data, shipDirectionType_data, shipDirectionPathType_data);
-                  } else {
-                      console.error(`div.cellID не нашёл: ${input.id}`);
-                  }
-              } else {
-                  console.error(`Label не найден для input с id: ${input.id}`);
-              }
-          }
-      });
+    input.addEventListener("change", () => {
+      if (input.checked) {
+        handleDirectionChange(input);
+      }
+    });
   });
 }
 
