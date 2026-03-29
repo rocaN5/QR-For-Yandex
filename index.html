@@ -28,11 +28,11 @@
 
 <!--! PreLoad -->
 <!-- Audio -->
-<link rel="preload" href="audio/cannceled.wav" as="audio">
-<link rel="preload" href="audio/lotsGenerated.wav" as="audio">
-<link rel="preload" href="audio/input.mp3" as="audio">
-<link rel="preload" href="audio/clear.mp3" as="audio">
-<link rel="preload" href="audio/click.mp3" as="audio">
+<link rel="preload" href="audio/cannceled.wav" as="fetch" crossorigin>
+<link rel="preload" href="audio/lotsGenerated.wav" as="fetch" crossorigin>
+<link rel="preload" href="audio/input.mp3" as="fetch" crossorigin>
+<link rel="preload" href="audio/clear.mp3" as="fetch" crossorigin>
+<link rel="preload" href="audio/click.mp3" as="fetch" crossorigin>
 <!--! PreLoad -->
 
 <style class="mainStyle">
@@ -1136,7 +1136,7 @@
                     <div class="directionChoosContainer">
                         <div class="chooseFlowTitle">Выбор направления:</div>
                         <ul>
-                            <li>
+                            <!-- <li>
                                 <input type="radio" id="gribkiDay" name="direction" checked/>
                                 <label for="gribkiDay">
                                     <p>СЦ Грибки</p>
@@ -1155,8 +1155,8 @@
                                     <i class="fa-solid fa-location-dot cellLocation"></i>
                                     <i class="fa-solid fa-thumbtack cellPinned"></i>
                                 </label>
-                            </li>
-                            <!-- <li>
+                            </li> -->
+                            <li>
                                 <input type="radio" id="tarnDay" name="direction"/>
                                 <label for="tarnDay">
                                     <p>МК Тарный</p>
@@ -1175,7 +1175,7 @@
                                     <i class="fa-solid fa-location-dot cellLocation"></i>
                                     <i class="fa-solid fa-thumbtack cellPinned"></i>
                                 </label>
-                            </li> -->
+                            </li>
                             <li>
                                 <input type="radio" id="rostov" name="direction"/>
                                 <label for="rostov">
