@@ -326,7 +326,7 @@ function changePolyboxDirectionData() {
       pathType = "18px";
     } else if (id === "-2") {
       title = `<span style="font-size: 3.2rem; margin-top: 20px; margin-bottom: 20px;">Софьино ФФЦ</span>`;
-      path = `СЦ МК Воронеж ➜ СЦ Ростов ➜ Яндекс.Маркет (Софьино)`;
+      path = `СЦ МК Воронеж ➜ МК Тарный ➜ Яндекс.Маркет (Софьино)`;
       type = "Последняя миля";
       pathType = "14px";
     } else if (id === "–") {
