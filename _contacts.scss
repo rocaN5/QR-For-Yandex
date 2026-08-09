@@ -194,20 +194,23 @@ nav.contacts{
         &:has(input:focus-visible:checked){
             --activeColor: #9dff00;
             border-color: var(--activeColor) !important;
-            i{
+            i,
+            icon{
                 color: var(--activeColor) !important;
             }
         }
         &:has(input[type="checkbox"]:checked){
             --activeColor: #cf0;
             border-color: var(--activeColor);
-            i{
-                color: var(--activeColor);
+            i,
+            icon{
+                color: var(--activeColor) !important;
             }
             &:hover{
                 --activeColor: #9dff00;
                 border-color: var(--activeColor) !important;
-                i{
+                i,
+                icon{
                     color: var(--activeColor) !important;
                 }
             }
@@ -219,6 +222,21 @@ nav.contacts{
             color: #fff;
             font-size: 16px;
             transition: 200ms;
+        }
+        icon{
+            --iconSize: 26px;
+            width: var(--iconSize);
+            height: var(--iconSize);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg{
+                width: 100%;
+                height: 100%;
+                color: currentColor;
+            }
         }
         input[type="checkbox"]{
             width: 0px;

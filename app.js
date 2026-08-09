@@ -1,7 +1,7 @@
 const version = "1.17.3"
 const versionLots = "1.4.1"
 const versionPoly = "1.3.1"
-const versionCarts = "1.0"
+
 
 let isHolidayGLOBAL = false;
 let spanHistoryItemCounter = 0;
@@ -1305,7 +1305,7 @@ checkboxesDamaged.forEach(checkbox => {
 // TODO Кнопка альтернативной генерации ✅
 
 const alternateQRInput = document.querySelectorAll(".toggleAltenrativeQR");
-const alternateQRInputIcon = document.querySelector("label#toggleAlternate i");
+const alternateQRInputIcon = document.querySelector("label#toggleAlternate icon");
 let alternateQR_mode = false;
 
 // Функция для загрузки состояния из localStorage
@@ -1323,12 +1323,18 @@ function loadAlternateQRState() {
     // Восстанавливаем визуальное состояние
     if (alternateQR_mode) {
       document.querySelector(".qrContainer").setAttribute("alterante-mode", "true");
-      alternateQRInputIcon.classList.remove("fa-wifi-slash");
-      alternateQRInputIcon.classList.add("fa-wifi");
+      alternateQRInputIcon.innerHTML = `
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <path d="M144,204a16,16,0,1,1-16-16A16,16,0,0,1,144,204ZM239.61,83.91a176,176,0,0,0-223.22,0,12,12,0,1,0,15.23,18.55,152,152,0,0,1,192.76,0,12,12,0,1,0,15.23-18.55Zm-32.16,35.73a128,128,0,0,0-158.9,0,12,12,0,0,0,14.9,18.81,104,104,0,0,1,129.1,0,12,12,0,0,0,14.9-18.81ZM175.07,155.3a80.05,80.05,0,0,0-94.14,0,12,12,0,0,0,14.14,19.4,56,56,0,0,1,65.86,0,12,12,0,1,0,14.14-19.4Z"></path>
+        </svg>
+      `
     } else {
       document.querySelector(".qrContainer").setAttribute("alterante-mode", "false");
-      alternateQRInputIcon.classList.remove("fa-wifi");
-      alternateQRInputIcon.classList.add("fa-wifi-slash");
+      alternateQRInputIcon.innerHTML = `
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <path d="M216.88,207.93a12,12,0,1,1-17.76,16.14L147.78,167.6a56.06,56.06,0,0,0-52.71,7.1,12,12,0,0,1-14.14-19.4,79.35,79.35,0,0,1,41.92-15.12L103.51,118.9a104.18,104.18,0,0,0-40.06,19.55,12,12,0,0,1-14.9-18.81A128.46,128.46,0,0,1,85.61,99.21l-17.31-19a151.14,151.14,0,0,0-36.68,22.28A12,12,0,1,1,16.39,83.91a175.52,175.52,0,0,1,35-22.38L39.12,48.07A12,12,0,1,1,56.88,31.93ZM128,188a16,16,0,1,0,16,16A16,16,0,0,0,128,188Zm64.55-49.55a12,12,0,0,0,14.9-18.81A127.27,127.27,0,0,0,170,99.05a12,12,0,0,0-7.87,22.67A103.62,103.62,0,0,1,192.55,138.45Zm47.06-54.54A176.33,176.33,0,0,0,128,44c-3.94,0-7.93.13-11.86.39a12,12,0,1,0,1.59,24c3.4-.23,6.86-.34,10.27-.34a152.24,152.24,0,0,1,96.38,34.46,12,12,0,1,0,15.23-18.55Z"></path>
+        </svg>
+      `
     }
     
     // Если нужно сгенерировать коды при загрузке
@@ -1346,8 +1352,11 @@ function saveAlternateQRState() {
 function toggleAlternateQR(){
   if(alternateQR_mode === false){
     document.querySelector(".qrContainer").setAttribute("alterante-mode", "true");
-    alternateQRInputIcon.classList.remove("fa-wifi-slash");
-    alternateQRInputIcon.classList.add("fa-wifi");
+    alternateQRInputIcon.innerHTML = `
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+        <path d="M144,204a16,16,0,1,1-16-16A16,16,0,0,1,144,204ZM239.61,83.91a176,176,0,0,0-223.22,0,12,12,0,1,0,15.23,18.55,152,152,0,0,1,192.76,0,12,12,0,1,0,15.23-18.55Zm-32.16,35.73a128,128,0,0,0-158.9,0,12,12,0,0,0,14.9,18.81,104,104,0,0,1,129.1,0,12,12,0,0,0,14.9-18.81ZM175.07,155.3a80.05,80.05,0,0,0-94.14,0,12,12,0,0,0,14.14,19.4,56,56,0,0,1,65.86,0,12,12,0,1,0,14.14-19.4Z"></path>
+    </svg>
+  `
     alternateQR_mode = true;
     if(generatorTypeFirst === 2){
       changePolyboxDirectionData();
@@ -1355,8 +1364,11 @@ function toggleAlternateQR(){
   }else{
     alternateQR_mode = false;
     document.querySelector(".qrContainer").setAttribute("alterante-mode", "false");
-    alternateQRInputIcon.classList.remove("fa-wifi");
-    alternateQRInputIcon.classList.add("fa-wifi-slash");
+    alternateQRInputIcon.innerHTML = `
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <path d="M216.88,207.93a12,12,0,1,1-17.76,16.14L147.78,167.6a56.06,56.06,0,0,0-52.71,7.1,12,12,0,0,1-14.14-19.4,79.35,79.35,0,0,1,41.92-15.12L103.51,118.9a104.18,104.18,0,0,0-40.06,19.55,12,12,0,0,1-14.9-18.81A128.46,128.46,0,0,1,85.61,99.21l-17.31-19a151.14,151.14,0,0,0-36.68,22.28A12,12,0,1,1,16.39,83.91a175.52,175.52,0,0,1,35-22.38L39.12,48.07A12,12,0,1,1,56.88,31.93ZM128,188a16,16,0,1,0,16,16A16,16,0,0,0,128,188Zm64.55-49.55a12,12,0,0,0,14.9-18.81A127.27,127.27,0,0,0,170,99.05a12,12,0,0,0-7.87,22.67A103.62,103.62,0,0,1,192.55,138.45Zm47.06-54.54A176.33,176.33,0,0,0,128,44c-3.94,0-7.93.13-11.86.39a12,12,0,1,0,1.59,24c3.4-.23,6.86-.34,10.27-.34a152.24,152.24,0,0,1,96.38,34.46,12,12,0,1,0,15.23-18.55Z"></path>
+      </svg>
+    `
     if(generatorTypeFirst === 2){
       changePolyboxDirectionData();
     }

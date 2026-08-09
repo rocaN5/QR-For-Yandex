@@ -2354,6 +2354,20 @@ nav.menu button.generatorTypeSwitchLots i, nav.menu a.generatorTypeSwitchLots i 
   font-size: 20px;
   color: #fff;
 }
+nav.menu button.generatorTypeSwitchLots icon, nav.menu a.generatorTypeSwitchLots icon {
+  --iconSize:
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav.menu button.generatorTypeSwitchLots icon svg, nav.menu a.generatorTypeSwitchLots icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
+}
 nav.menu button.generatorTypeSwitchLots:hover, nav.menu a.generatorTypeSwitchLots:hover {
   backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
   transition: 200ms;
@@ -2393,6 +2407,19 @@ nav.menu button.generatorTypeSwitchPolybox::after, nav.menu a.generatorTypeSwitc
 nav.menu button.generatorTypeSwitchPolybox i, nav.menu a.generatorTypeSwitchPolybox i {
   font-size: 20px;
   color: #fff;
+}
+nav.menu button.generatorTypeSwitchPolybox icon, nav.menu a.generatorTypeSwitchPolybox icon {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav.menu button.generatorTypeSwitchPolybox icon svg, nav.menu a.generatorTypeSwitchPolybox icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
 }
 nav.menu button.generatorTypeSwitchPolybox:hover, nav.menu a.generatorTypeSwitchPolybox:hover {
   backdrop-filter: blur(2px) grayscale(1) brightness(0.2);
@@ -2889,7 +2916,9 @@ nav.contacts label#toggleAlternate:has(input:focus-visible:checked) {
   border-color: var(--activeColor) !important;
 }
 nav.contacts button:has(input:focus-visible:checked) i,
-nav.contacts label#toggleAlternate:has(input:focus-visible:checked) i {
+nav.contacts button:has(input:focus-visible:checked) icon,
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) i,
+nav.contacts label#toggleAlternate:has(input:focus-visible:checked) icon {
   color: var(--activeColor) !important;
 }
 nav.contacts button:has(input[type=checkbox]:checked),
@@ -2898,8 +2927,10 @@ nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) {
   border-color: var(--activeColor);
 }
 nav.contacts button:has(input[type=checkbox]:checked) i,
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) i {
-  color: var(--activeColor);
+nav.contacts button:has(input[type=checkbox]:checked) icon,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) i,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked) icon {
+  color: var(--activeColor) !important;
 }
 nav.contacts button:has(input[type=checkbox]:checked):hover,
 nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover {
@@ -2907,7 +2938,9 @@ nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover {
   border-color: var(--activeColor) !important;
 }
 nav.contacts button:has(input[type=checkbox]:checked):hover i,
-nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover i {
+nav.contacts button:has(input[type=checkbox]:checked):hover icon,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover i,
+nav.contacts label#toggleAlternate:has(input[type=checkbox]:checked):hover icon {
   color: var(--activeColor) !important;
 }
 nav.contacts button:has(input[type=checkbox]:checked)::after,
@@ -2919,6 +2952,22 @@ nav.contacts label#toggleAlternate i {
   color: #fff;
   font-size: 16px;
   transition: 200ms;
+}
+nav.contacts button icon,
+nav.contacts label#toggleAlternate icon {
+  --iconSize: 26px;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav.contacts button icon svg,
+nav.contacts label#toggleAlternate icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
 }
 nav.contacts button input[type=checkbox],
 nav.contacts label#toggleAlternate input[type=checkbox] {
@@ -3160,6 +3209,20 @@ nav.contacts i.menuDevider {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.qrHistory .sectionDescription .historyToggleClose icon {
+  --iconSize: 30px;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: currentColor;
+}
+.qrHistory .sectionDescription .historyToggleClose icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
 }
 .qrHistory .historyList {
   display: flex;
@@ -3445,33 +3508,33 @@ nav.contacts i.menuDevider {
   font-size: 30px;
   cursor: help;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete) {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete), .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconDelete) {
   background: linear-gradient(90deg, #ff0000 -300%, transparent);
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete) .itemDescriptionDemo {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconDelete) .itemDescriptionDemo, .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconDelete) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(255, 96, 96, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
   border: 2px solid #ff6060;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate) {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate), .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconUpdate) {
   background: linear-gradient(90deg, rgba(0, 255, 0, 0.5019607843) -370%, transparent);
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate) .itemDescriptionDemo {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconUpdate) .itemDescriptionDemo, .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconUpdate) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(140, 255, 140, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
   border: 2px solid #8cff8c;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix) {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix), .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconFix) {
   background: #272727;
   background: linear-gradient(90deg, rgba(255, 214, 0, 0.7803921569) -370%, transparent);
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix) .itemDescriptionDemo {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconFix) .itemDescriptionDemo, .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconFix) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(255, 238, 96, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
   border: 2px solid #ffee60;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange) {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange), .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconChange) {
   background: #272727;
   background: linear-gradient(90deg, rgba(235, 53, 255, 0.7411764706) -370%, transparent);
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange) .itemDescriptionDemo {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(i.iconChange) .itemDescriptionDemo, .changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li:has(icon.iconChange) .itemDescriptionDemo {
   background: linear-gradient(180deg, rgba(235, 53, 255, 0.7411764706), rgba(219, 219, 219, 0.7411764706));
   border: 2px solid #eb35ff;
 }
@@ -3482,13 +3545,29 @@ nav.contacts i.menuDevider {
   align-items: center;
   position: relative;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon {
+  --iconSize: 1.25rem;
+  width: var(--iconSize);
+  min-width: var(--iconSize);
+  height: var(--iconSize);
+  min-height: var(--iconSize);
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon {
   position: relative;
   transition: 150ms;
   cursor: help;
   filter: drop-shadow(0px 2px 6px black);
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i svg,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon svg {
+  color: currentColor;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+}
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon::after {
   content: "...";
   position: absolute;
   color: #fff;
@@ -3509,35 +3588,45 @@ nav.contacts i.menuDevider {
   transform: translateX(-20%);
   pointer-events: none;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconUpdate {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconUpdate,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconUpdate {
   color: #8cff8c;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconUpdate::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconUpdate::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconUpdate::after {
   content: "Обновление";
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconFix {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconFix,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconFix {
   color: #ffee60;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconFix::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconFix::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconFix::after {
   content: "Исправление / Изменение";
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconChange {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconChange,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconChange {
   color: #eb35ff;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconChange::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconChange::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconChange::after {
   content: "Полная переработка";
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconDelete {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconDelete,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconDelete {
   color: #ff6060;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconDelete::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i.iconDelete::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon.iconDelete::after {
   content: "Удаление";
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i:hover {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i:hover,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon:hover {
   color: #fff;
   transition: 200ms;
 }
-.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i:hover::after {
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle i:hover::after,
+.changelogHistory .changelogsectionList .changeLogItem ul.itemDescription li .itemDescriptionTitle icon:hover::after {
   transition: 200ms;
   opacity: 1;
   transform: translateX(0);
@@ -4156,7 +4245,7 @@ section.bodyDOM section.settings h1.settingsMenuTitle button.backToWeb {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 26px;
 }
 section.bodyDOM section.settings h1.settingsMenuTitle button.backToWeb:hover {
   backdrop-filter: brightness(0.5) blur(4px);
@@ -4366,10 +4455,38 @@ section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-
   background: rgba(16, 255, 0, 0.3019607843);
   box-shadow: 0px 0px 4px 0px #10ff00 inset, 0px 0px 4px 0px #10ff00;
 }
+section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-ON icon, section.bodyDOM section.settings .settingItem .soundSettings p button.textSound-ON icon, section.bodyDOM section.settings .settingItem .soundSettings p button.attentionSound-ON icon, section.bodyDOM section.settings .settingItem .soundSettings p button.keyboardSound-ON icon, section.bodyDOM section.settings .settingItem .soundSettings p button.cleanSound-ON icon {
+  --iconSize: 16px;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-ON icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.textSound-ON icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.attentionSound-ON icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.keyboardSound-ON icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.cleanSound-ON icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
+}
 section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-OFF, section.bodyDOM section.settings .settingItem .soundSettings p button.textSound-OFF, section.bodyDOM section.settings .settingItem .soundSettings p button.attentionSound-OFF, section.bodyDOM section.settings .settingItem .soundSettings p button.keyboardSound-OFF, section.bodyDOM section.settings .settingItem .soundSettings p button.cleanSound-OFF {
   display: none;
   background: rgba(255, 0, 0, 0.3019607843);
   box-shadow: 0px 0px 4px 0px #ff0000 inset, 0px 0px 4px 0px #ff0000;
+}
+section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-OFF icon, section.bodyDOM section.settings .settingItem .soundSettings p button.textSound-OFF icon, section.bodyDOM section.settings .settingItem .soundSettings p button.attentionSound-OFF icon, section.bodyDOM section.settings .settingItem .soundSettings p button.keyboardSound-OFF icon, section.bodyDOM section.settings .settingItem .soundSettings p button.cleanSound-OFF icon {
+  --iconSize: 16px;
+  width: var(--iconSize);
+  height: var(--iconSize);
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.bodyDOM section.settings .settingItem .soundSettings p button.soundMain-OFF icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.textSound-OFF icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.attentionSound-OFF icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.keyboardSound-OFF icon svg, section.bodyDOM section.settings .settingItem .soundSettings p button.cleanSound-OFF icon svg {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
 }
 section.bodyDOM section.settings .settingItem .soundSettings span {
   padding: 6px;
@@ -5672,4 +5789,4 @@ body, html {
   filter: brightness(0.85);
   outline: 2px solid #000;
   transition: 200ms;
-}
+}/*# sourceMappingURL=styles.css.map */
