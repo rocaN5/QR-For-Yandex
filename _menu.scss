@@ -185,11 +185,13 @@ nav.menu{
                 box-shadow: 0px 0px 10px 0px #fff;
                 border: 2px solid #7d7d7d;
                 transition: 200ms;
+                color: #000;
                 &:hover{
                     transition: 200ms;
                     border: 2px solid #000;
                 }
-                i{
+                i,
+                icon{
                     color: #000;
                 }
             }
@@ -239,11 +241,13 @@ nav.menu{
                 box-shadow: 0px 0px 10px 0px #fff;
                 border: 2px solid #7d7d7d;
                 transition: 200ms;
+                color: #000;
                 &:hover{
                     transition: 200ms;
                     border: 2px solid #000;
                 }
-                i{
+                i,
+                icon{
                     color: #000;
                 }
             }
@@ -292,11 +296,13 @@ nav.menu{
                 box-shadow: 0px 0px 10px 0px #fff;
                 border: 2px solid #7d7d7d;
                 transition: 200ms;
+                color: #000;
                 &:hover{
                     transition: 200ms;
                     border: 2px solid #000;
                 }
-                i{
+                i,
+                icon{
                     color: #000;
                 }
             }

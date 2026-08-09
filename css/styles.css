@@ -2324,12 +2324,15 @@ nav.menu button.generatorTypeSwitchQR[generatorType=active], nav.menu a.generato
   box-shadow: 0px 0px 10px 0px #fff;
   border: 2px solid #7d7d7d;
   transition: 200ms;
+  color: #000;
 }
 nav.menu button.generatorTypeSwitchQR[generatorType=active]:hover, nav.menu a.generatorTypeSwitchQR[generatorType=active]:hover {
   transition: 200ms;
   border: 2px solid #000;
 }
-nav.menu button.generatorTypeSwitchQR[generatorType=active] i, nav.menu a.generatorTypeSwitchQR[generatorType=active] i {
+nav.menu button.generatorTypeSwitchQR[generatorType=active] i,
+nav.menu button.generatorTypeSwitchQR[generatorType=active] icon, nav.menu a.generatorTypeSwitchQR[generatorType=active] i,
+nav.menu a.generatorTypeSwitchQR[generatorType=active] icon {
   color: #000;
 }
 nav.menu button.generatorTypeSwitchLots, nav.menu a.generatorTypeSwitchLots {
@@ -2378,12 +2381,15 @@ nav.menu button.generatorTypeSwitchLots[generatorType=active], nav.menu a.genera
   box-shadow: 0px 0px 10px 0px #fff;
   border: 2px solid #7d7d7d;
   transition: 200ms;
+  color: #000;
 }
 nav.menu button.generatorTypeSwitchLots[generatorType=active]:hover, nav.menu a.generatorTypeSwitchLots[generatorType=active]:hover {
   transition: 200ms;
   border: 2px solid #000;
 }
-nav.menu button.generatorTypeSwitchLots[generatorType=active] i, nav.menu a.generatorTypeSwitchLots[generatorType=active] i {
+nav.menu button.generatorTypeSwitchLots[generatorType=active] i,
+nav.menu button.generatorTypeSwitchLots[generatorType=active] icon, nav.menu a.generatorTypeSwitchLots[generatorType=active] i,
+nav.menu a.generatorTypeSwitchLots[generatorType=active] icon {
   color: #000;
 }
 nav.menu button.generatorTypeSwitchPolybox, nav.menu a.generatorTypeSwitchPolybox {
@@ -2431,12 +2437,15 @@ nav.menu button.generatorTypeSwitchPolybox[generatorType=active], nav.menu a.gen
   box-shadow: 0px 0px 10px 0px #fff;
   border: 2px solid #7d7d7d;
   transition: 200ms;
+  color: #000;
 }
 nav.menu button.generatorTypeSwitchPolybox[generatorType=active]:hover, nav.menu a.generatorTypeSwitchPolybox[generatorType=active]:hover {
   transition: 200ms;
   border: 2px solid #000;
 }
-nav.menu button.generatorTypeSwitchPolybox[generatorType=active] i, nav.menu a.generatorTypeSwitchPolybox[generatorType=active] i {
+nav.menu button.generatorTypeSwitchPolybox[generatorType=active] i,
+nav.menu button.generatorTypeSwitchPolybox[generatorType=active] icon, nav.menu a.generatorTypeSwitchPolybox[generatorType=active] i,
+nav.menu a.generatorTypeSwitchPolybox[generatorType=active] icon {
   color: #000;
 }
 nav.menu button.generatorCart, nav.menu a.generatorCart {
