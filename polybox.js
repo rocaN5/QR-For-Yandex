@@ -617,7 +617,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function sendImageToTelegramPoly() {
-  const token = '7982110225:AAFDbut0kNIPmPbyLghuXFfhkYQ3u7N-PXk';
   const chatId = '-1002405934260';
   const imgElement = document.querySelector('img.test-imgPoly');
   const captionInputText = document.getElementById('qrPoly-text')?.value || ''; // Получаем значение из инпута
@@ -676,7 +675,7 @@ function sendImageToTelegramPoly() {
       formData.append('caption', captionHTML); // Добавляем подпись в HTML формате
       formData.append('parse_mode', 'HTML'); // Указываем, что подпись содержит HTML разметку
 
-      fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+      fetch(`https://api.telegram.org/bot${tkn}/sendPhoto`, {
         method: 'POST',
         body: formData
       })
